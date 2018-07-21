@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "150941857425",
+    "firebase_url": "https://nutritionclub-d0a43.firebaseio.com",
+    "project_id": "nutritionclub-d0a43",
+    "storage_bucket": "nutritionclub-d0a43.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150941857425:android:fe18b9403ed3b414",
+        "android_client_info": {
+          "package_name": "com.example.nutritionclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150941857425-lpav32a5ovbofs5pdu204ph8llvq4gah.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nutritionclub",
+            "certificate_hash": "09aa93081764671a0cb7f694f109161c87fe7d3a"
+          }
+        },
+        {
+          "client_id": "150941857425-gm2p5vvdurhq909ou0jg6p1f6u8se9fa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDXeSnGYhXoxe8LQzdWddh55e87LKWf30"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150941857425-gm2p5vvdurhq909ou0jg6p1f6u8se9fa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
