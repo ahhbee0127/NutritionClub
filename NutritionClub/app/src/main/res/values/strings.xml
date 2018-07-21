@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Herbalife Nutrition Club</string>
     <string name="action_sign_in_short">Register</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
     <string name="email">Email</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>

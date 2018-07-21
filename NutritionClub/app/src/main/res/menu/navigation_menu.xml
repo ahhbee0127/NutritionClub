@@ -2,9 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/nav_account"
-        android:title="My Account"></item>
+        android:title="My Account"
+        android:icon="@mipmap/baseline_account_circle_black_18dp"></item>
 
     <item android:id="@+id/nav_calFat"
-        android:title="Calculate Fat"></item>
+        android:title="Calculate Fat"
+        android:icon="@mipmap/baseline_exposure_black_18dp"></item>
 
 </menu>

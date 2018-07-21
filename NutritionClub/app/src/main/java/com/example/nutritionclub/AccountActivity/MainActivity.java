@@ -3,8 +3,12 @@ package com.example.nutritionclub.AccountActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,9 +24,15 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private Toolbar mToolbar;
+
+
     private Button btnChangePassword, btnRemoveUser,
             changePassword, remove, signOut;
     private TextView email;
+    private TextView navEmail;
 
     private EditText oldEmail, password, newPassword;
     private ProgressBar progressBar;
@@ -32,9 +42,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
+//        mToolbar = (Toolbar) findViewById(R.id.nav_account);
+//
+//        setSupportActionBar(mToolbar);
+
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
         email = (TextView) findViewById(R.id.useremail);
+        navEmail = (TextView) findViewById(R.id.navEmailT);
 
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -167,9 +190,13 @@ public class MainActivity extends AppCompatActivity {
     private void setDataToView(FirebaseUser user) {
 
         email.setText("User Email: " + user.getEmail());
-
-
     }
+
+//    @SuppressLint("SetTextI18n")
+//    private void setNavDataToView(FirebaseUser user) {
+//
+//        navEmail.setText(user.getEmail());
+//    }
 
     // this listener will be called when there is change in firebase user session
     FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
@@ -230,4 +257,20 @@ public class MainActivity extends AppCompatActivity {
             auth.removeAuthStateListener(authListener);
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+//    @SuppressLint("SetTextI18n")
+//    private void setNavDataToView(FirebaseUser user) {
+//
+//        navEmail.setText(user.getEmail());
+//    }
 }
