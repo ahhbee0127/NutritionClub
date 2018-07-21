@@ -3,6 +3,8 @@ package com.example.nutritionclub.AccountActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +24,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+//    DrawerLayout drawer;
+//    Toolbar toolbar = null;
+
+    //Navigation part I
+    NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
@@ -43,21 +50,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Navigation Part II
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
-//        mToolbar = (Toolbar) findViewById(R.id.nav_account);
-//
-//        setSupportActionBar(mToolbar);
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
+        //mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(mToolbar);
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        navEmail = (TextView) findViewById(R.id.navEmailT);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
         email = (TextView) findViewById(R.id.useremail);
-        navEmail = (TextView) findViewById(R.id.navEmailT);
 
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -190,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDataToView(FirebaseUser user) {
 
         email.setText("User Email: " + user.getEmail());
+        //navEmail.setText(user.getEmail());
     }
 
 //    @SuppressLint("SetTextI18n")
@@ -211,7 +225,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             } else {
                 setDataToView(user);
-
             }
         }
 
@@ -268,9 +281,22 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    @SuppressLint("SetTextI18n")
-//    private void setNavDataToView(FirebaseUser user) {
-//
-//        navEmail.setText(user.getEmail());
-//    }
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item){
+        int id = item.getItemId();
+        switch (id)
+        {
+            case R.id.nav_account:
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
+                break;
+
+            case R.id.nav_calFat:
+                startActivity(new Intent(MainActivity.this, CalculateFatActivity.class));
+                break;
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }
