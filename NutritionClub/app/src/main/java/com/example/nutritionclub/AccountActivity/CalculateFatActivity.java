@@ -3,6 +3,7 @@ package com.example.nutritionclub.AccountActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IntegerRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -15,8 +16,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nutritionclub.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class CalculateFatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -24,6 +30,7 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,8 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
 
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -85,6 +94,20 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
         double percent = Double.parseDouble(txtInPercent.getText().toString());
 
         double result = ( percent / 100 ) * weight;
+
+        String hihi = txtInPercent.getText().toString().trim();
+        mDatabase.child("number").setValue(hihi).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(CalculateFatActivity.this,"Stored..",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(CalculateFatActivity.this,"Error..",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
         viewResult.setText(Double.toString(result) + " KG");
         viewResult.setVisibility(View.VISIBLE);
         viewOpps.setVisibility(View.VISIBLE);

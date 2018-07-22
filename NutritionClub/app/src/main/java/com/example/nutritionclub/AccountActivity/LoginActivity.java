@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (auth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            //startActivity(new Intent(LoginActivity.this, CalculateFatActivity.class));
+            //startActivity(new Intent(LoginActivity.this, BodyCompositionActivity.class));
             finish();
         }
 
@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                                 } else {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
-                                    //startActivity(new Intent(LoginActivity.this, CalculateFatActivity.class));
+                                    //startActivity(new Intent(LoginActivity.this, BodyCompositionActivity.class));
                                     finish();
                                 }
                             }

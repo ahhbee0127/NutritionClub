@@ -24,7 +24,8 @@
         <activity
             android:name=".AccountActivity.CalculateFatActivity"
             android:label="@string/title_activity_calculate_fat"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AccountActivity.BodyCompositionActivity"></activity>
     </application>
 
 </manifest>
