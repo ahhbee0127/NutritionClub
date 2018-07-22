@@ -27,7 +27,7 @@ public class SignupActivity extends AppCompatActivity {
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseUser;
 
 
 
@@ -38,7 +38,7 @@ public class SignupActivity extends AppCompatActivity {
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
 
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
@@ -96,11 +96,26 @@ public class SignupActivity extends AppCompatActivity {
                                 // signed in user can be handled in the listener.
 
 
-                                //Store Email into database
-                                HashMap<String,String> dataMap = new HashMap<String,String>();
-                                dataMap.put("Email",email);
+//                                //Store Email into database
+//                                HashMap<String,String> dataMap = new HashMap<String,String>();
+//                                dataMap.put("Email",email);
+//
+//                                mDatabaseUser.push().setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        if(task.isSuccessful()){
+//                                            Toast.makeText(SignupActivity.this,"Stored..",Toast.LENGTH_LONG).show();
+//                                        }else{
+//                                            Toast.makeText(SignupActivity.this,"Error..",Toast.LENGTH_LONG).show();
+//                                        }
+//                                    }
+//                                });
 
-                                mDatabase.push().setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                                String id = mDatabaseUser.push().getKey();
+                                User user = new User(id,email);
+
+                                mDatabaseUser.child(id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if(task.isSuccessful()){
@@ -110,7 +125,6 @@ public class SignupActivity extends AppCompatActivity {
                                         }
                                     }
                                 });
-
 
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
