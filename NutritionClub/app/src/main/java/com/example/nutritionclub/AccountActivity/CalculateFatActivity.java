@@ -36,8 +36,8 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
-        //mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(mToolbar);
+        mToolbar = (Toolbar) findViewById(R.id.nav_action);
+        setSupportActionBar(mToolbar);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

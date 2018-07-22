@@ -15,10 +15,10 @@
         android:layout_height="match_parent"
         tools:context="com.example.nutritionclub.com.example.AccountActivity.MainActivity">
 
-        <!--<include layout="@layout/navigation_action"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
-        <!--</include>-->
+        <include layout="@layout/navigation_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </include>
 
         <EditText
             android:id="@+id/old_email"
