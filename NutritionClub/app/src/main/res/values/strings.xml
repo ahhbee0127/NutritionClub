@@ -33,4 +33,10 @@
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
     <string name="email_id">Email ID</string>
     <string name="title_activity_calculate_fat">CalculateFatActivity</string>
+
+    <array name="ncBranch">
+        <item>Herbalife - Mahkota Cheras</item>
+        <item>Herbalife - Subang</item>
+    </array>
+
 </resources>

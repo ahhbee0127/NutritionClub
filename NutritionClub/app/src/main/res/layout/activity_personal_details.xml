@@ -10,51 +10,52 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText"
-        android:layout_alignBottom="@+id/editText"
+        android:layout_alignBaseline="@+id/NameF"
+        android:layout_alignBottom="@+id/NameF"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="22dp"
         android:layout_marginStart="22dp"
-        android:text="Name" />
+        android:text="Name :" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/NameF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="15dp"
-        android:layout_toEndOf="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/textView7"
+        android:layout_toRightOf="@+id/textView7"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        android:text="Name"
         android:textAlignment="center" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/ageF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
-        android:layout_below="@+id/editText"
+        android:layout_alignLeft="@+id/NameF"
+        android:layout_alignStart="@+id/NameF"
+        android:layout_below="@+id/NameF"
         android:layout_marginTop="21dp"
         android:ems="10"
+        android:hint="Age"
         android:inputType="number"
         android:textAlignment="center" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/heightF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText3"
-        android:layout_alignStart="@+id/editText3"
-        android:layout_below="@+id/editText3"
+        android:layout_alignLeft="@+id/ageF"
+        android:layout_alignStart="@+id/ageF"
+        android:layout_below="@+id/ageF"
         android:layout_marginTop="22dp"
         android:ems="10"
+        android:hint="Height"
         android:inputType="numberDecimal"
         android:textAlignment="center" />
 
@@ -64,9 +65,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2"
-        android:layout_alignTop="@+id/editText3"
+        android:layout_alignTop="@+id/ageF"
         android:layout_marginTop="10dp"
-        android:text="Age" />
+        android:text="Age :" />
 
     <TextView
         android:id="@+id/textView4"
@@ -74,8 +75,86 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView3"
         android:layout_alignStart="@+id/textView3"
-        android:layout_alignTop="@+id/editText4"
+        android:layout_alignTop="@+id/heightF"
         android:layout_marginTop="10dp"
-        android:text="Height" />
+        android:text="Height :" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/heightF"
+        android:layout_marginTop="36dp"
+        android:text="Contact Number :" />
+
+    <EditText
+        android:id="@+id/contactF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView7"
+        android:layout_alignBottom="@+id/textView7"
+        android:layout_alignLeft="@+id/heightF"
+        android:layout_alignStart="@+id/heightF"
+        android:ems="10"
+        android:hint="HP Number"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/inviterF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/contactF"
+        android:layout_alignRight="@+id/contactF"
+        android:layout_below="@+id/contactF"
+        android:layout_marginTop="27dp"
+        android:ems="10"
+        android:hint="Inviter's Name"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/inviterF"
+        android:layout_alignBottom="@+id/inviterF"
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_alignStart="@+id/textView7"
+        android:text="Inviter :" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="63dp"
+        android:layout_toEndOf="@+id/textView7"
+        android:layout_toRightOf="@+id/textView7"
+        android:text="Save Details" />
+
+    <Spinner
+        android:id="@+id/ncSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/ncBranch"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/inviterF"
+        android:layout_toRightOf="@+id/textView10"
+        android:layout_toEndOf="@+id/textView10"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="35dp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nurtrition Club Branch :"
+        android:layout_alignTop="@+id/ncSpinner"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignStart="@+id/textView8" />
 
 </RelativeLayout>

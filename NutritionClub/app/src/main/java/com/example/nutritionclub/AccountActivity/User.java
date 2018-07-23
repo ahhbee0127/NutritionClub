@@ -18,6 +18,8 @@ public class User {
     int age;
     double height;
     String nutritionClub;
+    String contact;
+    String inviter;
 
     public User(){
 
@@ -62,5 +64,13 @@ public class User {
 
     public User getClient() {
         return client;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public String getInviter() {
+        return inviter;
     }
 }

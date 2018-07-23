@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.nutritionclub.AccountActivity.ShowPersonalActivity">
+
+    <TextView
+        android:id="@+id/nameV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Name"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="61dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/heightV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ageV"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:text="Height"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="61dp" />
+
+    <TextView
+        android:id="@+id/ageV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:text="Age"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="61dp"
+        android:layout_below="@+id/nameV"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/contactV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:text="Contact"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="61dp"
+        android:layout_below="@+id/heightV"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/inviterV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inviter"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="61dp"
+        android:layout_below="@+id/contactV"
+        android:layout_alignRight="@+id/heightV"
+        android:layout_alignEnd="@+id/heightV"
+        android:layout_marginTop="21dp" />
+
+    <TextView
+        android:id="@+id/ncBranchV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nutrition Club"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="61dp"
+        android:layout_below="@+id/inviterV"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp" />
+</RelativeLayout>
