@@ -289,10 +289,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             case R.id.nav_account:
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
+                finish();
                 break;
 
             case R.id.nav_calFat:
                 startActivity(new Intent(MainActivity.this, CalculateFatActivity.class));
+                finish();
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);

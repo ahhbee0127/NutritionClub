@@ -95,23 +95,6 @@ public class SignupActivity extends AppCompatActivity {
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
 
-
-//                                //Store Email into database
-//                                HashMap<String,String> dataMap = new HashMap<String,String>();
-//                                dataMap.put("Email",email);
-//
-//                                mDatabaseUser.push().setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        if(task.isSuccessful()){
-//                                            Toast.makeText(SignupActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-//                                        }else{
-//                                            Toast.makeText(SignupActivity.this,"Error..",Toast.LENGTH_LONG).show();
-//                                        }
-//                                    }
-//                                });
-
-
                                 String id = mDatabaseUser.push().getKey();
                                 User user = new User(id,email);
 

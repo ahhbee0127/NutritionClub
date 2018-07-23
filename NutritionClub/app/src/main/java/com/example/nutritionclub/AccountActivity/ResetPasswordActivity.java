@@ -113,10 +113,12 @@ public class ResetPasswordActivity extends AppCompatActivity implements Navigati
         {
             case R.id.nav_account:
                 startActivity(new Intent(ResetPasswordActivity.this, MainActivity.class));
+                finish();
                 break;
 
             case R.id.nav_calFat:
                 startActivity(new Intent(ResetPasswordActivity.this, CalculateFatActivity.class));
+                finish();
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
