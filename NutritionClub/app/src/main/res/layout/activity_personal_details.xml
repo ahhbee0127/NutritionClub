@@ -10,8 +10,8 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/NameF"
-        android:layout_alignBottom="@+id/NameF"
+        android:layout_alignBaseline="@+id/nameF"
+        android:layout_alignBottom="@+id/nameF"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="22dp"
@@ -19,7 +19,7 @@
         android:text="Name :" />
 
     <EditText
-        android:id="@+id/NameF"
+        android:id="@+id/nameF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -37,9 +37,9 @@
         android:id="@+id/ageF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/NameF"
-        android:layout_alignStart="@+id/NameF"
-        android:layout_below="@+id/NameF"
+        android:layout_alignLeft="@+id/nameF"
+        android:layout_alignStart="@+id/nameF"
+        android:layout_below="@+id/nameF"
         android:layout_marginTop="21dp"
         android:ems="10"
         android:hint="Age"
