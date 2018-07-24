@@ -30,6 +30,15 @@ public class User {
         this.email = email;
     }
 
+    public  User(String name, int age, double height, String contact,String inviter, String nutritionClub){
+        this.name = name;
+        this.age = age;
+        this.height = height;
+        this.contact = contact;
+        this.inviter = inviter;
+        this.nutritionClub = nutritionClub;
+    }
+
     public String getEmail() {
         return email;
     }

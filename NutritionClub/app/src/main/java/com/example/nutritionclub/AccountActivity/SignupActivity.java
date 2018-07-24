@@ -30,9 +30,9 @@ public class SignupActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     private DatabaseReference mDatabaseUser;
-//
+
 //    private ListView user;
-//    private List<User> users;
+    private UserList userList;
 
 
 
@@ -107,7 +107,7 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                                    startActivity(new Intent(SignupActivity.this, PersonalDetailsActivity.class));
                                     finish();
                                 }
                             }
@@ -123,7 +123,7 @@ public class SignupActivity extends AppCompatActivity {
 
         String email = inputEmail.getText().toString().trim();
         String userId = user.getUid();
-        User userInfo = new User(userId,email);
+        final User userInfo = new User(userId,email);
 
         mDatabaseUser.child(user.getUid()).setValue(userInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

@@ -14,78 +14,42 @@ import android.widget.TextView;
 
 import com.example.nutritionclub.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by AhhBee on 23/7/2018.
  */
 
-public class UserList extends ArrayAdapter<User>{
 
-    private Activity context;
-    private List<User> userList;
+public class UserList{
+    private ArrayList<User> userList;
 
-    public UserList(Activity context, List<User> userList){
-
-        super(context, R.layout.activity_show_personal,userList);
-        this.context = context;
-        this.userList = userList;
+    public UserList(){
     }
 
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+//    public List<User> getUserList() {
+//        return userList;
+//    }
 
-        LayoutInflater inflater = context.getLayoutInflater();
+    public void add (User user){
+        userList.add(user);
+    }
 
-        View listViewItem = inflater.inflate(R.layout.user_list_layout,null,true);
+    public User findId (String userId){
+        boolean found = false;
+        int i = 0;
+        User theUser = null;
 
-        TextView textViewEmail = (TextView) listViewItem.findViewById(R.id.emailV);
-//        TextView textViewName = (TextView) listViewItem.findViewById(R.id.nameV);
-//        TextView textViewHeight = (TextView) listViewItem.findViewById(R.id.heightV);
-//        TextView textViewAge = (TextView) listViewItem.findViewById(R.id.ageV);
-//        TextView textViewContact = (TextView) listViewItem.findViewById(R.id.contactV);
-//        TextView textViewInviter = (TextView) listViewItem.findViewById(R.id.inviterV);
-//        TextView textViewNcBranch = (TextView) listViewItem.findViewById(R.id.ncBranchV);
+        while(i < this.userList.size() && !found) {
+            theUser = (User)this.userList.get(i);
+            if (theUser.getUserId().equals(userId)) {
+                found = true;
+            } else {
+                ++i;
+            }
+        }
 
-        User user = userList.get(position);
-
-        textViewEmail.setText(user.getEmail());
-
-//        textViewName.setText(user.getName());
-//        textViewHeight.setText(String.valueOf(user.getHeight()));
-//        textViewAge.setText(String.valueOf(user.getAge()));
-//        textViewContact.setText(user.getContact());
-//        textViewInviter.setText(user.getInviter());
-//        textViewNcBranch.setText(user.getNutritionClub());
-
-        return listViewItem;
+        return found ? theUser : null;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
