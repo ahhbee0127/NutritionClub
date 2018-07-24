@@ -296,6 +296,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, CalculateFatActivity.class));
                 finish();
                 break;
+
+            case R.id.nav_showAllUser:
+                startActivity(new Intent(MainActivity.this, ShowAllUserActivity.class));
+                finish();
+                break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);

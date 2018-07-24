@@ -9,4 +9,8 @@
         android:title="Calculate Fat"
         android:icon="@mipmap/baseline_exposure_black_18dp"></item>
 
+    <item android:id="@+id/nav_showAllUser"
+        android:title="Show All User"
+        android:icon="@mipmap/baseline_exposure_black_18dp"></item>
+
 </menu>

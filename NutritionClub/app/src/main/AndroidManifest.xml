@@ -27,7 +27,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AccountActivity.BodyCompositionActivity" />
         <activity android:name=".AccountActivity.PersonalDetailsActivity" />
-        <activity android:name=".AccountActivity.ShowPersonalActivity"></activity>
+        <activity android:name=".AccountActivity.ShowPersonalActivity" />
+        <activity android:name=".AccountActivity.ShowAllUserActivity"></activity>
     </application>
 
 </manifest>
