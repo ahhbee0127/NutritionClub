@@ -4,10 +4,17 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/nameV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+    <TextView
         android:id="@+id/emailV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+        android:text="Email" />
+
 
 </LinearLayout>

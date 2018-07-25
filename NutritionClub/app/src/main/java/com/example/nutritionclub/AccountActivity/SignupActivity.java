@@ -33,7 +33,7 @@ public class SignupActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseUser;
 
 //    private ListView user;
-    private AppController appController = new AppController();
+
 //=======
 //    //private ListView user;
 //    //private UserList userList;

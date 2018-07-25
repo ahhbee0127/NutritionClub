@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.nutritionclub.R;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,7 +47,7 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
 
-        nameV = (TextView) findViewById(R.id.nameV);
+        nameV = (TextView) findViewById(R.id.emailV);
         contactV = (TextView) findViewById(R.id.contactV);
         ageV = (TextView) findViewById(R.id.ageV);
         inviterV = (TextView) findViewById(R.id.inviterV);

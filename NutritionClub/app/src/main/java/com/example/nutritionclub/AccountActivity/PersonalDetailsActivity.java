@@ -34,8 +34,6 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     private EditText inviterF;
     private EditText contactF;
     private Spinner ncBranchF;
-    private AppController appController = new AppController();
-
     private Button saveButton;
 
     private FirebaseAuth auth;
