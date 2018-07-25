@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ShowAllUserActivity extends AppCompatActivity {
 
-    DatabaseReference mDatabaseUsers;
+    private DatabaseReference mDatabaseUsers;
 
     ListView listViewUser;
     List<User> userList;

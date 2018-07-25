@@ -72,17 +72,10 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         double height = Double.parseDouble(heightS);
         String inviter = inviterF.getText().toString().trim();
         String contact = contactF.getText().toString().trim();
-        String branch = ncBranchF.toString().trim();
+        String branch = ncBranchF.getSelectedItem().toString().trim();
 
         FirebaseUser authUser = auth.getCurrentUser();
         User theUser = new User(name,age,height,contact,inviter,branch);
-
-//        theUser.setName(name);
-//        theUser.setAge(age);
-//        theUser.setHeight(height);
-//        theUser.setInviter((inviter));
-//        theUser.setNutritionClub(branch);
-//        theUser.setContact(contact);
 
         mDatabaseUser.child(authUser.getUid()).setValue(theUser).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
