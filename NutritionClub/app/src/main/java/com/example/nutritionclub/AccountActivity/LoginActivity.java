@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,12 +17,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
+
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
+    private DatabaseReference mDatabaseUser;
+    public static final String TAG = "TAG";
+    //private String role;
 
 
     @Override
@@ -30,11 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
 
         if (auth.getCurrentUser() != null) {
-            //startActivity(new Intent(LoginActivity.this, ShowPersonalActivity.class));
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
+              readRoleAction();
         }
 
         setContentView(R.layout.activity_login);
@@ -99,14 +109,47 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    //Intent intent = new Intent(LoginActivity.this, ShowPersonalActivity.class);
-                                    //startActivity(intent);
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    finish();
+                                    readRoleAction();
                                 }
                             }
                         });
             }
         });
     }
+
+    public void readRoleAction(){
+
+        FirebaseUser authUser = auth.getCurrentUser();
+        String userId = authUser.getUid();
+
+        mDatabaseUser.child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String role = dataSnapshot.child("role").getValue(String.class);
+                        //setRole(role);
+
+                        if(role.equals("coach")){
+                            startActivity(new Intent(LoginActivity.this, CoachMainActivity.class));
+                            finish();
+                        }else if(role.equals("client")){
+                            startActivity(new Intent(LoginActivity.this, ShowPersonalActivity.class));
+                            finish();
+                        }
+                        else {
+                            startActivity(new Intent(LoginActivity.this, ShowPersonalActivity.class));
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                    }
+                });
+    }
+
+//    public void setRole(String role){
+//        this.role = role;
+//    }
 }
