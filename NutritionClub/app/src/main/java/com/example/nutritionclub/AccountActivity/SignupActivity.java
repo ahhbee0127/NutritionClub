@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -33,6 +34,7 @@ public class SignupActivity extends AppCompatActivity {
 
 //    private ListView user;
     private UserList userList;
+
 
 
 
@@ -118,7 +120,7 @@ public class SignupActivity extends AppCompatActivity {
 
     protected void saveCurrentUserToDB(){
 
-        FirebaseUser user = auth.getCurrentUser();
+        final FirebaseUser user = auth.getCurrentUser();
 
         String email = inputEmail.getText().toString().trim();
         String userId = user.getUid();
@@ -129,6 +131,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(SignupActivity.this,"Stored..",Toast.LENGTH_LONG).show();
+                    userList.add(userInfo);
                 }else{
                     Toast.makeText(SignupActivity.this,"Error..",Toast.LENGTH_LONG).show();
                 }

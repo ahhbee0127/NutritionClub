@@ -45,7 +45,7 @@ public class ShowAllUserActivity extends AppCompatActivity {
 
                     userList.add(user);
                 }
-//
+
 //                UserList adapter = new UserList(ShowAllUserActivity.this,userList);
 //                listViewUser.setAdapter(adapter);
             }

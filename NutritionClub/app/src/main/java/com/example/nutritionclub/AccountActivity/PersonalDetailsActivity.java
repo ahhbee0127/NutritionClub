@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
 import android.widget.Button;
+
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,7 +33,9 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     private EditText contactF;
     private Spinner ncBranchF;
     private UserList userList;
+
     private Button saveButton;
+
     private FirebaseAuth auth;
 
     //private List<User> userList;
@@ -44,6 +48,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_personal_details);
 
         mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
+
         auth = FirebaseAuth.getInstance();
 
         nameF = (EditText) findViewById(R.id.nameF);
@@ -52,6 +57,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         inviterF = (EditText) findViewById(R.id.inviterF);
         contactF = (EditText) findViewById(R.id.contactF);
         ncBranchF = (Spinner) findViewById(R.id.ncSpinner);
+
         saveButton = (Button) findViewById(R.id.saveButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +70,12 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         });
     }
 
+    public void onButtonClick(View v) {
+        saveUserInfo();
+        startActivity(new Intent(PersonalDetailsActivity.this, ShowPersonalActivity.class));
+        finish();
+    }
+
     protected void saveUserInfo() {
         String name = nameF.getText().toString().trim();
         String ageS = ageF.getText().toString().trim();
@@ -72,6 +84,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         double height = Double.parseDouble(heightS);
         String inviter = inviterF.getText().toString().trim();
         String contact = contactF.getText().toString().trim();
+
         String branch = ncBranchF.getSelectedItem().toString().trim();
 
         FirebaseUser authUser = auth.getCurrentUser();
