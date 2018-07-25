@@ -68,6 +68,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
     public void onButtonClick(View v) {
@@ -84,6 +85,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         double height = Double.parseDouble(heightS);
         String inviter = inviterF.getText().toString().trim();
         String contact = contactF.getText().toString().trim();
+//<<<<<<< HEAD
 
         String branch = ncBranchF.getSelectedItem().toString().trim();
 
@@ -91,6 +93,22 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         User theUser = new User(name,age,height,contact,inviter,branch);
 
         mDatabaseUser.child(authUser.getUid()).setValue(theUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+//=======
+//        String branch = ncBranchF.toString().trim();
+//
+//        final FirebaseUser authUser = auth.getCurrentUser();
+//        String userId = authUser.getUid();
+//        User theUser = userList.findId(userId);
+//
+//        theUser.setName(name);
+//        theUser.setAge(age);
+//        theUser.setHeight(height);
+//        theUser.setInviter((inviter));
+//        theUser.setNutritionClub(branch);
+//        theUser.setContact(contact);
+//
+//        mDatabaseUser.child(authUser.getUid()).setValue(authUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+//>>>>>>> master
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

@@ -35,6 +35,11 @@ public class SignupActivity extends AppCompatActivity {
 //    private ListView user;
     private UserList userList;
 
+//=======
+//    //private ListView user;
+//    //private UserList userList;
+//    private List<User> userList;
+//>>>>>>> master
 
 
 

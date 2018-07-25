@@ -22,27 +22,28 @@ import java.util.List;
  */
 
 
-public class UserList {
+public class UserList{
     private ArrayList<User> userList;
 
-    public UserList() {
+    public UserList(){
     }
 
 //    public List<User> getUserList() {
 //        return userList;
 //    }
 
-    public void add(User user) {
+    public void add (User user){
         userList.add(user);
     }
 
-    public User findId(String userId) {
+    public User findId (String userId){
         boolean found = false;
         int i = 0;
         User theUser = null;
 
-        while (i < this.userList.size() && !found) {
-            theUser = (User) this.userList.get(i);
+        while(i < this.userList.size() && !found) {
+            theUser = (User)this.userList.get(i);
+
             if (theUser.getUserId().equals(userId)) {
                 found = true;
             } else {
@@ -98,4 +99,3 @@ public class UserList {
 //
 //        return listViewItem;
 //    }
-//}
