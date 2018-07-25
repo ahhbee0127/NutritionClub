@@ -23,7 +23,7 @@ import java.util.List;
 
 
 public class UserList{
-    private ArrayList<User> userList;
+    private ArrayList<User> userList = new ArrayList<>();
 
     public UserList(){
     }

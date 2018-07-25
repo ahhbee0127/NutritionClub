@@ -33,8 +33,7 @@ public class SignupActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseUser;
 
 //    private ListView user;
-    private UserList userList;
-
+    private AppController appController = new AppController();
 //=======
 //    //private ListView user;
 //    //private UserList userList;
@@ -128,7 +127,7 @@ public class SignupActivity extends AppCompatActivity {
         final FirebaseUser user = auth.getCurrentUser();
 
         String email = inputEmail.getText().toString().trim();
-        String userId = user.getUid();
+        final String userId = user.getUid();
         final User userInfo = new User(userId,email);
 
         mDatabaseUser.child(user.getUid()).setValue(userInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -136,7 +135,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(SignupActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-                    //userList.add(userInfo);
+//                    appController.addUser(userInfo);;
                 }else{
                     Toast.makeText(SignupActivity.this,"Error..",Toast.LENGTH_LONG).show();
                 }
