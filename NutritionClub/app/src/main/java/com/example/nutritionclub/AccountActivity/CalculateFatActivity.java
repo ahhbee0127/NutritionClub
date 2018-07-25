@@ -76,8 +76,18 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
                 finish();
                 break;
 
+            case R.id.nav_me:
+                startActivity(new Intent(CalculateFatActivity.this, ShowPersonalActivity.class));
+                finish();
+                break;
+
             case R.id.nav_calFat:
                 startActivity(new Intent(CalculateFatActivity.this, CalculateFatActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_showAllUser:
+                startActivity(new Intent(CalculateFatActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
         }

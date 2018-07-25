@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        navEmail = (TextView) findViewById(R.id.navEmailT);
+        //navEmail = (TextView) findViewById(R.id.navEmailT);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -289,6 +289,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             case R.id.nav_account:
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_me:
+                startActivity(new Intent(MainActivity.this, ShowPersonalActivity.class));
                 finish();
                 break;
 

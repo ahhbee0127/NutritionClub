@@ -116,29 +116,3 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         });
     }
 }
-        //User theUser = appController.findUser(userId);
-
-//        theUser.setName(name);
-//        theUser.setHeight(height);
-//        theUser.setAge(age);
-//        theUser.setContact(contact);
-//        theUser.setInviter(inviter);
-//        theUser.setNutritionClub(branch);
-
-//                new User(name, age, height, contact, inviter, branch);
-
-       // mDatabaseUser.child(authUser.getUid()).setValue(theUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-//        mDatabaseUser.child(authUser.getUid()).child("name").setValue(name);
-//        mDatabaseUser.child(authUser.getUid()).child("age").setValue(age);
-
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if (task.isSuccessful()) {
-//                    Toast.makeText(PersonalDetailsActivity.this, "Stored..", Toast.LENGTH_LONG).show();
-//                } else {
-//                    Toast.makeText(PersonalDetailsActivity.this, "Error..", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
-//    }
-//}
