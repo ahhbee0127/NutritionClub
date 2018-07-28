@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -96,6 +97,7 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
                         Log.w(TAG, "getUser:onCancelled", databaseError.toException());
                     }
                 });
+        hideItem();
     }
 
 
@@ -138,5 +140,33 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void hideItem()
+    {
+
+        FirebaseUser authUser = auth.getCurrentUser();
+        String userId = authUser.getUid();
+
+        mDatabase.child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String role = dataSnapshot.child("role").getValue(String.class);
+                        navigationView = (NavigationView) findViewById(R.id.nav_view);
+                        Menu nav_Menu = navigationView.getMenu();
+
+                        if(role.equals("coach")){
+                            nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
+                        }else if(role.equals("client")){
+                            nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("getUser:onCancelled", databaseError.toException());
+                    }
+                });
     }
 }

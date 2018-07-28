@@ -44,7 +44,8 @@ public class LoginActivity extends AppCompatActivity {
         mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
 
         if (auth.getCurrentUser() != null) {
-              readRoleAction();
+            startActivity(new Intent(LoginActivity.this, ShowPersonalActivity.class));
+            finish();
         }
 
         setContentView(R.layout.activity_login);
@@ -109,47 +110,13 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    readRoleAction();
+                                    Intent intent = new Intent(LoginActivity.this, ShowPersonalActivity.class);
+                                    startActivity(intent);
+                                    finish();
                                 }
                             }
                         });
             }
         });
     }
-
-    public void readRoleAction(){
-
-        FirebaseUser authUser = auth.getCurrentUser();
-        String userId = authUser.getUid();
-
-        mDatabaseUser.child(userId).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String role = dataSnapshot.child("role").getValue(String.class);
-                        //setRole(role);
-
-                        if(role.equals("coach")){
-                            startActivity(new Intent(LoginActivity.this, CoachMainActivity.class));
-                            finish();
-                        }else if(role.equals("client")){
-                            startActivity(new Intent(LoginActivity.this, ShowPersonalActivity.class));
-                            finish();
-                        }
-                        else {
-                            startActivity(new Intent(LoginActivity.this, ShowPersonalActivity.class));
-                            finish();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
-                    }
-                });
-    }
-
-//    public void setRole(String role){
-//        this.role = role;
-//    }
 }

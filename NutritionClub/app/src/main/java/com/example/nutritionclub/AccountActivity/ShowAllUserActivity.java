@@ -1,6 +1,7 @@
 package com.example.nutritionclub.AccountActivity;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -9,12 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.nutritionclub.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +36,7 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
+    private FirebaseAuth auth;
 
     ListView listViewUser;
     List<User> userList;
@@ -45,6 +51,8 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
 
         user = new User();
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");
+
+        auth = FirebaseAuth.getInstance();
 
         listViewUser = (ListView) findViewById(R.id.userListView);
 
@@ -63,68 +71,8 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         userList = new ArrayList<>();
+        hideItem();
     }
-//
-//        userList = new ArrayList<>();
-//        userAdapter = new ArrayAdapter<User>(this, R.layout.user_list_layout, R.id.nameV, userList);
-////
-//        mDatabaseUsers.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-//                    user = userSnapshot.getValue(User.class);
-//                    userList.add(user);
-//                }
-//
-//                listViewUser.setAdapter(userAdapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
-
-//        mDatabaseUsers.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                userList.clear();
-//
-//                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-//                    User user = userSnapshot.getValue(User.class);
-//
-//                    userList.add(user);
-//                }
-//                //UserList adapter = new UserList(ShowAllUserActivity.this,userList);
-//                listViewUser.setAdapter(userAdapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     protected void onStart() {
@@ -193,4 +141,33 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void hideItem()
+    {
+
+        FirebaseUser authUser = auth.getCurrentUser();
+        String userId = authUser.getUid();
+
+        mDatabaseUsers.child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String role = dataSnapshot.child("role").getValue(String.class);
+                        navigationView = (NavigationView) findViewById(R.id.nav_view);
+                        Menu nav_Menu = navigationView.getMenu();
+
+                        if(role.equals("coach")){
+                            nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
+                        }else if(role.equals("client")){
+                            nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("getUser:onCancelled", databaseError.toException());
+                    }
+                });
+    }
+
 }

@@ -27,7 +27,6 @@
         android:layout_marginEnd="57dp"
         android:layout_marginRight="57dp"
         android:hint="HERBALIFE"
-        android:textAlignment="textStart"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold" />

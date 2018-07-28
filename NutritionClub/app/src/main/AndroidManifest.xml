@@ -29,7 +29,6 @@
         <activity android:name=".AccountActivity.PersonalDetailsActivity" />
         <activity android:name=".AccountActivity.ShowPersonalActivity" />
         <activity android:name=".AccountActivity.ShowAllUserActivity" />
-        <activity android:name=".AccountActivity.CoachMainActivity"></activity>
     </application>
 
 </manifest>

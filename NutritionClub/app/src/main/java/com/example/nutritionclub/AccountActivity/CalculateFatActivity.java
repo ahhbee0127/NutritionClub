@@ -12,6 +12,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -21,8 +23,13 @@ import android.widget.Toast;
 import com.example.nutritionclub.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class CalculateFatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -31,6 +38,8 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
     private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseUser;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +56,15 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
         setSupportActionBar(mToolbar);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
+        auth = FirebaseAuth.getInstance();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //navEmail = (TextView) findViewById(R.id.navEmailT);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        hideItem();
     }
 
     @Override
@@ -123,5 +135,33 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
         viewResult.setText(Double.toString(result) + " KG");
         viewResult.setVisibility(View.VISIBLE);
         viewOpps.setVisibility(View.VISIBLE);
+    }
+
+    private void hideItem()
+    {
+
+        FirebaseUser authUser = auth.getCurrentUser();
+        String userId = authUser.getUid();
+
+        mDatabaseUser.child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String role = dataSnapshot.child("role").getValue(String.class);
+                        navigationView = (NavigationView) findViewById(R.id.nav_view);
+                        Menu nav_Menu = navigationView.getMenu();
+
+                        if(role.equals("coach")){
+                            nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
+                        }else if(role.equals("client")){
+                            nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("getUser:onCancelled", databaseError.toException());
+                    }
+                });
     }
 }
