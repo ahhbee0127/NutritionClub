@@ -10,13 +10,35 @@
         android:title="Calculate Fat"
         android:icon="@mipmap/baseline_exposure_black_18dp"></item>
 
+    <item android:id="@+id/nav_diet"
+        android:title="Diet Diary"
+        android:icon="@mipmap/baseline_exposure_black_18dp"></item>
+
+    <item android:id="@+id/nav_bodyComposition"
+        android:title="Body Composition"
+        android:icon="@mipmap/baseline_exposure_black_18dp"></item>
+
     <item
         android:id="@+id/nav_showAllUser"
         android:icon="@mipmap/baseline_supervised_user_circle_black_18dp"
         android:title="Show All User"></item>
 
+    <item
+        android:id="@+id/nav_activityBoard"
+        android:icon="@mipmap/baseline_supervised_user_circle_black_18dp"
+        android:title="Activity Board"></item>
+
+    <item
+        android:id="@+id/nav_customerLog"
+        android:icon="@mipmap/baseline_supervised_user_circle_black_18dp"
+        android:title="Customer Log"></item>
+
+    <item
+        android:id="@+id/nav_analysis"
+        android:icon="@mipmap/baseline_supervised_user_circle_black_18dp"
+        android:title="Analysis"></item>
+
     <item android:id="@+id/nav_account"
         android:title="Account Settings"
         android:icon="@mipmap/baseline_settings_black_18dp"></item>
-
 </menu>

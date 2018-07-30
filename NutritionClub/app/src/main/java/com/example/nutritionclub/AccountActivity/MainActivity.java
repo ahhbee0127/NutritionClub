@@ -317,6 +317,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
+
+            case R.id.nav_bodyComposition:
+                startActivity(new Intent(MainActivity.this, BodyCompositionActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_diet:
+                startActivity(new Intent(MainActivity.this, DietDiaryActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_activityBoard:
+                startActivity(new Intent(MainActivity.this, ActivityBoardActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_customerLog:
+                startActivity(new Intent(MainActivity.this, CustomerLogActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_analysis:
+                startActivity(new Intent(MainActivity.this, AnalysisActivity.class));
+                finish();
+                break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);

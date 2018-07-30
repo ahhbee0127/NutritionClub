@@ -29,6 +29,10 @@
         <activity android:name=".AccountActivity.PersonalDetailsActivity" />
         <activity android:name=".AccountActivity.ShowPersonalActivity" />
         <activity android:name=".AccountActivity.ShowAllUserActivity" />
+        <activity android:name=".AccountActivity.DietDiaryActivity" />
+        <activity android:name=".AccountActivity.ActivityBoardActivity" />
+        <activity android:name=".AccountActivity.CustomerLogActivity" />
+        <activity android:name=".AccountActivity.AnalysisActivity" />
     </application>
 
 </manifest>

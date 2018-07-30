@@ -1,28 +1,22 @@
 package com.example.nutritionclub.AccountActivity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.IntegerRes;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
+import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.nutritionclub.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class CalculateFatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class AnalysisActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
@@ -44,7 +38,7 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculate_fat);
+        setContentView(R.layout.activity_analysis);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -55,7 +49,6 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
 
@@ -84,83 +77,53 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
         switch (id)
         {
             case R.id.nav_account:
-                startActivity(new Intent(CalculateFatActivity.this, MainActivity.class));
+                startActivity(new Intent(AnalysisActivity.this, MainActivity.class));
                 finish();
                 break;
 
             case R.id.nav_me:
-                startActivity(new Intent(CalculateFatActivity.this, ShowPersonalActivity.class));
+                startActivity(new Intent(AnalysisActivity.this, ShowPersonalActivity.class));
                 finish();
                 break;
 
             case R.id.nav_calFat:
-                startActivity(new Intent(CalculateFatActivity.this, CalculateFatActivity.class));
+                startActivity(new Intent(AnalysisActivity.this, CalculateFatActivity.class));
                 finish();
                 break;
 
             case R.id.nav_showAllUser:
-                startActivity(new Intent(CalculateFatActivity.this, ShowAllUserActivity.class));
+                startActivity(new Intent(AnalysisActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(CalculateFatActivity.this, BodyCompositionActivity.class));
-                finish();
-                break;
-
-            case R.id.nav_diet:
-                startActivity(new Intent(CalculateFatActivity.this, DietDiaryActivity.class));
+                startActivity(new Intent(AnalysisActivity.this, BodyCompositionActivity.class));
                 finish();
                 break;
 
             case R.id.nav_activityBoard:
-                startActivity(new Intent(CalculateFatActivity.this, ActivityBoardActivity.class));
+                startActivity(new Intent(AnalysisActivity.this, ActivityBoardActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_diet:
+                startActivity(new Intent(AnalysisActivity.this, DietDiaryActivity.class));
                 finish();
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(CalculateFatActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(AnalysisActivity.this, CustomerLogActivity.class));
                 finish();
                 break;
 
             case R.id.nav_analysis:
-                startActivity(new Intent(CalculateFatActivity.this, AnalysisActivity.class));
+                startActivity(new Intent(AnalysisActivity.this, AnalysisActivity.class));
                 finish();
                 break;
-
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void onButtonClick(View v) {
-        EditText txtInWeight = (EditText)findViewById(R.id.weightText);
-        EditText txtInPercent = (EditText)findViewById(R.id.fatPercentText);
-        TextView viewResult = (TextView)findViewById(R.id.result);
-        TextView viewOpps = (TextView)findViewById(R.id.opps);
-
-        double weight = Double.parseDouble(txtInWeight.getText().toString());
-        double percent = Double.parseDouble(txtInPercent.getText().toString());
-
-        double result = ( percent / 100 ) * weight;
-
-        String hihi = txtInPercent.getText().toString().trim();
-        mDatabase.child("number").setValue(hihi).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(CalculateFatActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(CalculateFatActivity.this,"Error..",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-
-        viewResult.setText(Double.toString(result) + " KG");
-        viewResult.setVisibility(View.VISIBLE);
-        viewOpps.setVisibility(View.VISIBLE);
     }
 
     private void hideItem()

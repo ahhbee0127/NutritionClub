@@ -136,6 +136,31 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
                 startActivity(new Intent(ShowPersonalActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
+
+            case R.id.nav_bodyComposition:
+                startActivity(new Intent(ShowPersonalActivity.this, BodyCompositionActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_diet:
+                startActivity(new Intent(ShowPersonalActivity.this, DietDiaryActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_activityBoard:
+                startActivity(new Intent(ShowPersonalActivity.this, ActivityBoardActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_customerLog:
+                startActivity(new Intent(ShowPersonalActivity.this, CustomerLogActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_analysis:
+                startActivity(new Intent(ShowPersonalActivity.this, AnalysisActivity.class));
+                finish();
+                break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);

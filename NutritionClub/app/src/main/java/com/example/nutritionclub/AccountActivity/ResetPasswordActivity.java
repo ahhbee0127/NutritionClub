@@ -141,6 +141,31 @@ public class ResetPasswordActivity extends AppCompatActivity implements Navigati
                 startActivity(new Intent(ResetPasswordActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
+
+            case R.id.nav_bodyComposition:
+                startActivity(new Intent(ResetPasswordActivity.this, BodyCompositionActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_diet:
+                startActivity(new Intent(ResetPasswordActivity.this, DietDiaryActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_activityBoard:
+                startActivity(new Intent(ResetPasswordActivity.this, ActivityBoardActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_customerLog:
+                startActivity(new Intent(ResetPasswordActivity.this, CustomerLogActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_analysis:
+                startActivity(new Intent(ResetPasswordActivity.this, AnalysisActivity.class));
+                finish();
+                break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);

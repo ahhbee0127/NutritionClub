@@ -136,6 +136,31 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
                 startActivity(new Intent(ShowAllUserActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
+
+            case R.id.nav_bodyComposition:
+                startActivity(new Intent(ShowAllUserActivity.this, BodyCompositionActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_diet:
+                startActivity(new Intent(ShowAllUserActivity.this, DietDiaryActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_activityBoard:
+                startActivity(new Intent(ShowAllUserActivity.this, ActivityBoardActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_customerLog:
+                startActivity(new Intent(ShowAllUserActivity.this, CustomerLogActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_analysis:
+                startActivity(new Intent(ShowAllUserActivity.this, AnalysisActivity.class));
+                finish();
+                break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);
