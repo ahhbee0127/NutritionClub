@@ -97,7 +97,7 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 BodyComposition bodyComposition = bodyCompositionList.get(i);
 
-                Intent intent = new Intent(getApplicationContext(),ShowDetailActivity.class);
+                Intent intent = new Intent(getApplicationContext(),ShowBodyDetailActivity.class);
 
                 intent.putExtra(USER_ID,bodyComposition.getUserId());
                 intent.putExtra(BODY_ID,bodyComposition.getBodyId());

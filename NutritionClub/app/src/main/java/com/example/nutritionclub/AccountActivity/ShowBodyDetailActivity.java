@@ -48,7 +48,7 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_detail);
+        setContentView(R.layout.activity_show_body_detail);
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         String userId = getIntent().getStringExtra( ShowAllBodyActivity.USER_ID);
@@ -84,24 +84,39 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
 
         String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
 
-        mDatabase.child(bodyId).addListenerForSingleValueEvent(
+        getmDatabaseBody.child(bodyId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String name = dataSnapshot.child("name").getValue(String.class);
-                        nameV.setText(name);
-                        double heightD = dataSnapshot.child("height").getValue(Double.class);
-                        String height = Double.toString(heightD);
-                        heightV.setText(height);
-                        int ageI = dataSnapshot.child("age").getValue(Integer.class);
-                        String age = Double.toString(ageI);
-                        ageV.setText(age);
-                        String contact = dataSnapshot.child("contact").getValue(String.class);
-                        contactV.setText(contact);
-                        String inviter = dataSnapshot.child("inviter").getValue(String.class);
-                        inviterV.setText(inviter);
-                        String branch = dataSnapshot.child("nutritionClub").getValue(String.class);
-                        branchV.setText(branch);
+                        String date = dataSnapshot.child("todayDate").getValue(String.class);
+                        dateV.setText(date);
+                        double weightD = dataSnapshot.child("weight").getValue(Double.class);
+                        String weight = Double.toString(weightD);
+                        weightV.setText(weight);
+                        Double fatPercentD = dataSnapshot.child("fatPercent").getValue(Double.class);
+                        String fatPercent = Double.toString(fatPercentD);
+                        fatPercentV.setText(fatPercent);
+                        Double bmiD = dataSnapshot.child("bmi").getValue(Double.class);
+                        String bmi = Double.toString(bmiD);
+                        bmiV.setText(bmi);
+                        Double boneMassD = dataSnapshot.child("boneMass").getValue(Double.class);
+                        String boneMass = Double.toString(boneMassD);
+                        boneMassV.setText(boneMass);
+                        Double fatkgD = dataSnapshot.child("fatkg").getValue(Double.class);
+                        String fatkg = Double.toString(fatkgD);
+                        fatkgV.setText(fatkg);
+                        Double metaD = dataSnapshot.child("metabolicAge").getValue(Double.class);
+                        String meta = Double.toString(metaD);
+                        metaV.setText(meta);
+                        Double muscleD = dataSnapshot.child("muscle").getValue(Double.class);
+                        String muscle = Double.toString(muscleD);
+                        muscleV.setText(muscle);
+                        Double visceralD = dataSnapshot.child("visceralFat").getValue(Double.class);
+                        String visceral = Double.toString(visceralD);
+                        visceralV.setText(visceral);
+                        Double waterD = dataSnapshot.child("water").getValue(Double.class);
+                        String water = Double.toString(waterD);
+                        waterV.setText(water);
                     }
 
                     @Override
@@ -130,47 +145,47 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
         switch (id)
         {
             case R.id.nav_account:
-                startActivity(new Intent(ShowDetailActivity.this, MainActivity.class));
+                startActivity(new Intent(ShowBodyDetailActivity.this, MainActivity.class));
                 finish();
                 break;
 
             case R.id.nav_me:
-                startActivity(new Intent(ShowDetailActivity.this, ShowPersonalActivity.class));
+                startActivity(new Intent(ShowBodyDetailActivity.this, ShowPersonalActivity.class));
                 finish();
                 break;
 
             case R.id.nav_calFat:
-                startActivity(new Intent(ShowDetailActivity.this, CalculateFatActivity.class));
+                startActivity(new Intent(ShowBodyDetailActivity.this, CalculateFatActivity.class));
                 finish();
                 break;
 
             case R.id.nav_showAllUser:
-                startActivity(new Intent(ShowDetailActivity.this, ShowAllUserActivity.class));
+                startActivity(new Intent(ShowBodyDetailActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(ShowDetailActivity.this, ShowAllBodyActivity.class));
+                startActivity(new Intent(ShowBodyDetailActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 
             case R.id.nav_diet:
-                startActivity(new Intent(ShowDetailActivity.this, DietDiaryActivity.class));
+                startActivity(new Intent(ShowBodyDetailActivity.this, DietDiaryActivity.class));
                 finish();
                 break;
 
             case R.id.nav_activityBoard:
-                startActivity(new Intent(ShowDetailActivity.this, ActivityBoardActivity.class));
+                startActivity(new Intent(ShowBodyDetailActivity.this, ActivityBoardActivity.class));
                 finish();
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ShowDetailActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(ShowBodyDetailActivity.this, CustomerLogActivity.class));
                 finish();
                 break;
 
             case R.id.nav_analysis:
-                startActivity(new Intent(ShowDetailActivity.this, AnalysisActivity.class));
+                startActivity(new Intent(ShowBodyDetailActivity.this, AnalysisActivity.class));
                 finish();
                 break;
         }
