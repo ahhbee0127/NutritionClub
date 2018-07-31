@@ -158,7 +158,7 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(ShowAllUserActivity.this, BodyCompositionActivity.class));
+                startActivity(new Intent(ShowAllUserActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 

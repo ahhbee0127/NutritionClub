@@ -138,7 +138,7 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(ShowPersonalActivity.this, BodyCompositionActivity.class));
+                startActivity(new Intent(ShowPersonalActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 

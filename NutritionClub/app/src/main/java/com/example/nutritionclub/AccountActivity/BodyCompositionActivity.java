@@ -90,7 +90,6 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //navEmail = (TextView) findViewById(R.id.navEmailT);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         hideItem();
@@ -99,8 +98,8 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
             @Override
             public void onClick(View v) {
                 saveBodyComposition();
-//                startActivity(new Intent(PersonalDetailsActivity.this, ShowPersonalActivity.class));
-//                finish();
+                startActivity(new Intent(BodyCompositionActivity.this, ShowAllBodyActivity.class));
+                finish();
             }
         });
     }
@@ -136,7 +135,7 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
 
         String id = mDatabaseBody.push().getKey();
 
-        final BodyComposition userBody = new BodyComposition(todayDate,water,weight,fatPercent,visceralFat,boneMass,metaAge,muscle,fatKg,bmi);
+        final BodyComposition userBody = new BodyComposition(id,todayDate,water,weight,fatPercent,visceralFat,boneMass,metaAge,muscle,fatKg,bmi);
 
         mDatabaseBody.child(id).setValue(userBody).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -187,7 +186,7 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(BodyCompositionActivity.this, BodyCompositionActivity.class));
+                startActivity(new Intent(BodyCompositionActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 

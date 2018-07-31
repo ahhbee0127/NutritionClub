@@ -319,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(MainActivity.this, BodyCompositionActivity.class));
+                startActivity(new Intent(MainActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 

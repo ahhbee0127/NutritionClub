@@ -102,7 +102,7 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(CalculateFatActivity.this, BodyCompositionActivity.class));
+                startActivity(new Intent(CalculateFatActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 

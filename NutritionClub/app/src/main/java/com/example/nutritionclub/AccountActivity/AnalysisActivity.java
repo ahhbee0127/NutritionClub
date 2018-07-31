@@ -97,7 +97,7 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(AnalysisActivity.this, BodyCompositionActivity.class));
+                startActivity(new Intent(AnalysisActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 

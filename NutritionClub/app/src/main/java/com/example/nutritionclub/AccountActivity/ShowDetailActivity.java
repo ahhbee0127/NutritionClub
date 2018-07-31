@@ -139,7 +139,7 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(ShowDetailActivity.this, BodyCompositionActivity.class));
+                startActivity(new Intent(ShowDetailActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 

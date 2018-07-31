@@ -97,7 +97,7 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(CustomerLogActivity.this, BodyCompositionActivity.class));
+                startActivity(new Intent(CustomerLogActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 

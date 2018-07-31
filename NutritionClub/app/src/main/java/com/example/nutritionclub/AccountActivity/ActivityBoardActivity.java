@@ -97,7 +97,7 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(ActivityBoardActivity.this, BodyCompositionActivity.class));
+                startActivity(new Intent(ActivityBoardActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 

@@ -143,7 +143,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements Navigati
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(ResetPasswordActivity.this, BodyCompositionActivity.class));
+                startActivity(new Intent(ResetPasswordActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 
