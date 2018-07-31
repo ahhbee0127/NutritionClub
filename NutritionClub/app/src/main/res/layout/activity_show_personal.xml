@@ -20,7 +20,7 @@
             </include>
 
             <TextView
-                android:id="@+id/emailV"
+                android:id="@+id/dateV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
@@ -37,7 +37,7 @@
                 android:layout_marginStart="21dp" />
 
             <TextView
-                android:id="@+id/heightV"
+                android:id="@+id/fatpercentV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
@@ -46,12 +46,12 @@
                 android:textSize="18sp"
                 tools:layout_editor_absoluteX="162dp"
                 tools:layout_editor_absoluteY="61dp"
-                android:layout_below="@+id/ageV"
-                android:layout_alignLeft="@+id/ageV"
-                android:layout_alignStart="@+id/ageV" />
+                android:layout_below="@+id/weightV"
+                android:layout_alignLeft="@+id/weightV"
+                android:layout_alignStart="@+id/weightV" />
 
             <TextView
-                android:id="@+id/ageV"
+                android:id="@+id/weightV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="21dp"
@@ -59,17 +59,17 @@
                 android:textSize="18sp"
                 tools:layout_editor_absoluteX="162dp"
                 tools:layout_editor_absoluteY="61dp"
-                android:layout_below="@+id/emailV"
-                android:layout_alignLeft="@+id/emailV"
-                android:layout_alignStart="@+id/emailV" />
+                android:layout_below="@+id/dateV"
+                android:layout_alignLeft="@+id/dateV"
+                android:layout_alignStart="@+id/dateV" />
 
             <TextView
-                android:id="@+id/contactV"
+                android:id="@+id/fatkgV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/heightV"
-                android:layout_alignStart="@+id/heightV"
-                android:layout_below="@+id/heightV"
+                android:layout_alignLeft="@+id/fatpercentV"
+                android:layout_alignStart="@+id/fatpercentV"
+                android:layout_below="@+id/fatpercentV"
                 android:layout_marginTop="23dp"
                 android:text="Contact"
                 android:textSize="18sp"
@@ -77,7 +77,7 @@
                 tools:layout_editor_absoluteY="61dp" />
 
             <TextView
-                android:id="@+id/inviterV"
+                android:id="@+id/visceralFatV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Inviter"
@@ -85,11 +85,11 @@
                 tools:layout_editor_absoluteX="162dp"
                 tools:layout_editor_absoluteY="61dp"
                 android:layout_alignTop="@+id/textView15"
-                android:layout_alignLeft="@+id/contactV"
-                android:layout_alignStart="@+id/contactV" />
+                android:layout_alignLeft="@+id/fatkgV"
+                android:layout_alignStart="@+id/fatkgV" />
 
             <TextView
-                android:id="@+id/ncBranchV"
+                android:id="@+id/boneMassV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
@@ -97,9 +97,9 @@
                 android:textSize="18sp"
                 tools:layout_editor_absoluteX="162dp"
                 tools:layout_editor_absoluteY="61dp"
-                android:layout_below="@+id/inviterV"
-                android:layout_alignLeft="@+id/inviterV"
-                android:layout_alignStart="@+id/inviterV" />
+                android:layout_below="@+id/visceralFatV"
+                android:layout_alignLeft="@+id/visceralFatV"
+                android:layout_alignStart="@+id/visceralFatV" />
 
             <TextView
                 android:id="@+id/myV"
@@ -121,8 +121,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name :"
-                android:layout_alignBaseline="@+id/emailV"
-                android:layout_alignBottom="@+id/emailV"
+                android:layout_alignBaseline="@+id/dateV"
+                android:layout_alignBottom="@+id/dateV"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
@@ -130,7 +130,7 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/heightV"
+                android:layout_above="@+id/fatpercentV"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:text="Age :" />
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/heightV"
+                android:layout_alignTop="@+id/fatpercentV"
                 android:text="Height :" />
 
             <TextView
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/contactV"
+                android:layout_alignTop="@+id/fatkgV"
                 android:text="Contact :" />
 
             <TextView
@@ -166,7 +166,7 @@
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/ncBranchV"
+                android:layout_alignBottom="@+id/boneMassV"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:text="Nutrition Club :" />

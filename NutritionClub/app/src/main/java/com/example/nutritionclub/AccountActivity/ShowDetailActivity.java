@@ -48,12 +48,12 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
 
-        nameV = (TextView) findViewById(R.id.emailV);
-        contactV = (TextView) findViewById(R.id.contactV);
-        ageV = (TextView) findViewById(R.id.ageV);
-        inviterV = (TextView) findViewById(R.id.inviterV);
-        heightV = (TextView) findViewById(R.id.heightV);
-        branchV = (TextView) findViewById(R.id.ncBranchV);
+        nameV = (TextView) findViewById(R.id.dateV);
+        contactV = (TextView) findViewById(R.id.fatkgV);
+        ageV = (TextView) findViewById(R.id.weightV);
+        inviterV = (TextView) findViewById(R.id.visceralFatV);
+        heightV = (TextView) findViewById(R.id.fatpercentV);
+        branchV = (TextView) findViewById(R.id.boneMassV);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);

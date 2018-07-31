@@ -31,6 +31,7 @@ package com.example.nutritionclub.AccountActivity;
 public class ShowAllBodyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String BODY_ID = "bodyId";
+    public static final String USER_ID = "userId";
     private DatabaseReference mDatabaseBody;
     private DatabaseReference mDatabaseUsers;
     NavigationView navigationView;
@@ -59,7 +60,7 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
 
         //Later when comes to Admin View different.
         FirebaseUser user = auth.getCurrentUser();
-        String userId = user.getUid();
+        final String userId = user.getUid();
 
         mDatabaseBody = FirebaseDatabase.getInstance().getReference("Body Compositions").child(userId);
 
@@ -85,25 +86,25 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ShowAllBodyActivity.this, BodyCompositionActivity.class));
-                finish();
             }
         });
 
         hideItem();
 
-//        listViewBody.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                BodyComposition bodyComposition = bodyCompositionList.get(i);
-//
-//                Intent intent = new Intent(getApplicationContext(),ShowDetailActivity.class);
-//
-//                intent.putExtra(BODY_ID,bodyComposition.getBodyId());
-//
-//                startActivity(intent);
-//            }
-//        });
+        listViewBody.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                BodyComposition bodyComposition = bodyCompositionList.get(i);
+
+                Intent intent = new Intent(getApplicationContext(),ShowDetailActivity.class);
+
+                intent.putExtra(USER_ID,bodyComposition.getUserId());
+                intent.putExtra(BODY_ID,bodyComposition.getBodyId());
+
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

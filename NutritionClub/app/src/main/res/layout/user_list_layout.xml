@@ -11,7 +11,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
     <TextView
-        android:id="@+id/emailV"
+        android:id="@+id/dateV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Email" />

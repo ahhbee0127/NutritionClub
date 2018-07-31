@@ -19,8 +19,9 @@ public class BodyComposition {
     double fatkg;
     double bmi;
     String bodyId;
+    String userId;
 
-    public BodyComposition(String bodyId,String todayDate, double water, double weight, double fatPercent, int visceralFat, double boneMass, int metabolicAge, double muscle, double fatkg, double bmi) {
+    public BodyComposition(String userId,String bodyId,String todayDate, double water, double weight, double fatPercent, int visceralFat, double boneMass, int metabolicAge, double muscle, double fatkg, double bmi) {
         this.bodyId = bodyId;
         this.todayDate = todayDate;
         this.water = water;
@@ -32,6 +33,11 @@ public class BodyComposition {
         this.muscle = muscle;
         this.fatkg = fatkg;
         this.bmi = bmi;
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public BodyComposition(){}

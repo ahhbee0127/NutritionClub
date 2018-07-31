@@ -4,7 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context="com.example.nutritionclub.AccountActivity.ShowDetailActivity"
+tools:context="com.example.nutritionclub.AccountActivity.ShowBodyDetailActivity"
 android:id="@+id/drawerLayout">
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,7 +12,7 @@ android:id="@+id/drawerLayout">
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.nutritionclub.AccountActivity.ShowDetailActivity">
+    tools:context="com.example.nutritionclub.AccountActivity.ShowBodyDetailActivity">
 
     <include layout="@layout/navigation_action"
         android:layout_width="match_parent"
@@ -23,45 +23,45 @@ android:id="@+id/drawerLayout">
         android:id="@+id/dateV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/myV"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/myV"
+        android:layout_toRightOf="@+id/myV"
+
         android:paddingTop="10dp"
-        android:text="Name"
+        android:text="Date"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="61dp"
-        android:layout_marginTop="16dp"
-
-        android:layout_below="@+id/myV"
-        android:layout_toRightOf="@+id/myV"
-        android:layout_toEndOf="@+id/myV"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp" />
+        tools:layout_editor_absoluteY="61dp" />
 
     <TextView
         android:id="@+id/fatpercentV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/weightV"
+        android:layout_alignStart="@+id/weightV"
+        android:layout_below="@+id/weightV"
         android:layout_marginTop="18dp"
-        android:text="Height"
+        android:text="Fat(%)"
         android:textAlignment="center"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="61dp"
-        android:layout_below="@+id/weightV"
-        android:layout_alignLeft="@+id/weightV"
-        android:layout_alignStart="@+id/weightV" />
+        tools:layout_editor_absoluteY="61dp" />
 
     <TextView
         android:id="@+id/weightV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateV"
+        android:layout_alignStart="@+id/dateV"
+        android:layout_below="@+id/dateV"
         android:layout_marginTop="21dp"
-        android:text="Age"
+        android:text="Weight"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="61dp"
-        android:layout_below="@+id/dateV"
-        android:layout_alignLeft="@+id/dateV"
-        android:layout_alignStart="@+id/dateV" />
+        tools:layout_editor_absoluteY="61dp" />
 
     <TextView
         android:id="@+id/fatkgV"
@@ -71,7 +71,7 @@ android:id="@+id/drawerLayout">
         android:layout_alignStart="@+id/fatpercentV"
         android:layout_below="@+id/fatpercentV"
         android:layout_marginTop="23dp"
-        android:text="Contact"
+        android:text="Fat(kg)"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="162dp"
         tools:layout_editor_absoluteY="61dp" />
@@ -80,51 +80,51 @@ android:id="@+id/drawerLayout">
         android:id="@+id/visceralFatV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Inviter"
+        android:layout_alignLeft="@+id/fatkgV"
+        android:layout_alignStart="@+id/fatkgV"
+        android:layout_alignTop="@+id/textView15"
+        android:text="Visceral Fat"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="61dp"
-        android:layout_alignTop="@+id/textView15"
-        android:layout_alignLeft="@+id/fatkgV"
-        android:layout_alignStart="@+id/fatkgV" />
+        tools:layout_editor_absoluteY="61dp" />
 
     <TextView
         android:id="@+id/boneMassV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/visceralFatV"
+        android:layout_alignStart="@+id/visceralFatV"
+        android:layout_below="@+id/visceralFatV"
         android:layout_marginTop="14dp"
-        android:text="Nutrition Club"
+        android:text="Bone Mass"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="61dp"
-        android:layout_below="@+id/visceralFatV"
-        android:layout_alignLeft="@+id/visceralFatV"
-        android:layout_alignStart="@+id/visceralFatV" />
+        tools:layout_editor_absoluteY="61dp" />
 
     <TextView
         android:id="@+id/myV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:paddingTop="60dp"
-        android:text="Client's Details"
+        android:text="Body Composition"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name :"
         android:layout_alignBaseline="@+id/dateV"
         android:layout_alignBottom="@+id/dateV"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:text="Date :" />
 
     <TextView
         android:id="@+id/textView12"
@@ -133,7 +133,7 @@ android:id="@+id/drawerLayout">
         android:layout_above="@+id/fatpercentV"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="Age :" />
+        android:text="Weight :" />
 
     <TextView
         android:id="@+id/textView13"
@@ -142,7 +142,7 @@ android:id="@+id/drawerLayout">
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/fatpercentV"
-        android:text="Height :" />
+        android:text="Fat(%) :" />
 
     <TextView
         android:id="@+id/textView14"
@@ -151,7 +151,7 @@ android:id="@+id/drawerLayout">
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/fatkgV"
-        android:text="Contact :" />
+        android:text="Fat(kg) :" />
 
     <TextView
         android:id="@+id/textView15"
@@ -160,7 +160,7 @@ android:id="@+id/drawerLayout">
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:text="Inviter :" />
+        android:text="Visceral Fat :" />
 
     <TextView
         android:id="@+id/textView16"
@@ -169,54 +169,89 @@ android:id="@+id/drawerLayout">
         android:layout_alignBottom="@+id/boneMassV"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="Nutrition Club :" />
+        android:text="Bone Mass :" />
 
-    <Button
-        android:id="@+id/button2"
+    <TextView
+        android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView16"
-        android:layout_marginTop="37dp"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/weightV"
-        android:layout_alignRight="@+id/weightV"
-        android:layout_alignTop="@+id/button2"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button3"
-        android:layout_toEndOf="@+id/fatkgV"
-        android:layout_toRightOf="@+id/fatkgV"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button2"
         android:layout_marginTop="28dp"
-        android:layout_toLeftOf="@+id/dateV"
-        android:layout_toStartOf="@+id/dateV"
-        android:text="Button" />
+        android:text="Metabolic Age :" />
 
-    <Button
-        android:id="@+id/button6"
+    <TextView
+        android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button5"
-        android:layout_alignEnd="@+id/boneMassV"
-        android:layout_alignRight="@+id/boneMassV"
-        android:text="Button" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView18"
+        android:layout_marginTop="27dp"
+        android:text="Muscle :" />
+
+    <TextView
+        android:id="@+id/metaAgeV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView18"
+        android:layout_alignLeft="@+id/boneMassV"
+        android:layout_alignStart="@+id/boneMassV"
+        android:text="Metabolic Age"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/muscleV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView25"
+        android:layout_alignLeft="@+id/metaAgeV"
+        android:layout_alignStart="@+id/metaAgeV"
+        android:text="Muscle"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView25"
+        android:layout_marginTop="30dp"
+        android:text="BMI :" />
+
+    <TextView
+        android:id="@+id/bmiV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView28"
+        android:layout_alignBottom="@+id/textView28"
+        android:layout_alignLeft="@+id/muscleV"
+        android:layout_alignStart="@+id/muscleV"
+        android:text="BMI"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/bmiV"
+        android:layout_marginTop="22dp"
+        android:text="Water(%) :" />
+
+    <TextView
+        android:id="@+id/waterV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView30"
+        android:layout_alignLeft="@+id/bmiV"
+        android:layout_alignStart="@+id/bmiV"
+        android:text="Water(%)"
+        android:textSize="18sp" />
+
 </RelativeLayout>
 
 <android.support.design.widget.NavigationView

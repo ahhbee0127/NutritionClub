@@ -34,7 +34,8 @@
         <activity android:name=".AccountActivity.CustomerLogActivity" />
         <activity android:name=".AccountActivity.AnalysisActivity" />
         <activity android:name=".AccountActivity.ShowDetailActivity" />
-        <activity android:name=".AccountActivity.ShowAllBodyActivity"></activity>
+        <activity android:name=".AccountActivity.ShowAllBodyActivity" />
+        <activity android:name=".AccountActivity.ShowBodyDetailActivity"></activity>
     </application>
 
 </manifest>

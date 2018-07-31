@@ -1,35 +1,39 @@
 package com.example.nutritionclub.AccountActivity;
 
-import android.content.Intent;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
+        import android.content.Intent;
+        import android.support.design.widget.NavigationView;
+        import android.support.v4.view.GravityCompat;
+        import android.support.v4.widget.DrawerLayout;
+        import android.support.v7.app.ActionBarDrawerToggle;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.support.v7.widget.Toolbar;
+        import android.util.Log;
+        import android.view.Menu;
+        import android.view.MenuItem;
+        import android.widget.TextView;
 
-import com.example.nutritionclub.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+        import com.example.nutritionclub.R;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
+        import com.google.firebase.database.DataSnapshot;
+        import com.google.firebase.database.DatabaseError;
+        import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
+        import com.google.firebase.database.ValueEventListener;
 
-public class ShowPersonalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class ShowBodyDetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private TextView nameV;
-    private TextView heightV;
-    private TextView ageV;
-    private TextView contactV;
-    private TextView inviterV;
-    private TextView branchV;
+    private TextView dateV;
+    private TextView weightV;
+    private TextView fatPercentV;
+    private TextView fatkgV;
+    private TextView visceralV;
+    private TextView boneMassV;
+    private TextView metaV;
+    private TextView muscleV;
+    private TextView bmiV;
+    private TextView waterV;
 
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
@@ -37,23 +41,30 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
     private Toolbar mToolbar;
 
     private DatabaseReference mDatabase;
+    private DatabaseReference getmDatabaseBody;
     private FirebaseAuth auth;
     public static final String TAG = "TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_personal);
+        setContentView(R.layout.activity_show_detail);
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+        String userId = getIntent().getStringExtra( ShowAllBodyActivity.USER_ID);
+        getmDatabaseBody = FirebaseDatabase.getInstance().getReference("Body Compositions").child(userId);
         auth = FirebaseAuth.getInstance();
 
-        nameV = (TextView) findViewById(R.id.dateV);
-        contactV = (TextView) findViewById(R.id.fatkgV);
-        ageV = (TextView) findViewById(R.id.weightV);
-        inviterV = (TextView) findViewById(R.id.visceralFatV);
-        heightV = (TextView) findViewById(R.id.fatpercentV);
-        branchV = (TextView) findViewById(R.id.boneMassV);
+        dateV = (TextView) findViewById(R.id.dateV);
+        weightV = (TextView) findViewById(R.id.weightV);
+        fatPercentV = (TextView) findViewById(R.id.fatpercentV);
+        fatkgV = (TextView) findViewById(R.id.fatkgV);
+        visceralV = (TextView) findViewById(R.id.visceralFatV);
+        boneMassV = (TextView) findViewById(R.id.boneMassV);
+        metaV = (TextView) findViewById(R.id.metaAgeV);
+        muscleV = (TextView) findViewById(R.id.muscleV);
+        bmiV = (TextView) findViewById(R.id.bmiV);
+        waterV = (TextView) findViewById(R.id.waterV);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -67,12 +78,13 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//
+//        FirebaseUser authUser = auth.getCurrentUser();
+//        String userId = authUser.getUid();
 
-        FirebaseUser authUser = auth.getCurrentUser();
-        String userId = authUser.getUid();
+        String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
 
-
-        mDatabase.child(userId).addListenerForSingleValueEvent(
+        mDatabase.child(bodyId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -118,47 +130,47 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
         switch (id)
         {
             case R.id.nav_account:
-                startActivity(new Intent(ShowPersonalActivity.this, MainActivity.class));
+                startActivity(new Intent(ShowDetailActivity.this, MainActivity.class));
                 finish();
                 break;
 
             case R.id.nav_me:
-                startActivity(new Intent(ShowPersonalActivity.this, ShowPersonalActivity.class));
+                startActivity(new Intent(ShowDetailActivity.this, ShowPersonalActivity.class));
                 finish();
                 break;
 
             case R.id.nav_calFat:
-                startActivity(new Intent(ShowPersonalActivity.this, CalculateFatActivity.class));
+                startActivity(new Intent(ShowDetailActivity.this, CalculateFatActivity.class));
                 finish();
                 break;
 
             case R.id.nav_showAllUser:
-                startActivity(new Intent(ShowPersonalActivity.this, ShowAllUserActivity.class));
+                startActivity(new Intent(ShowDetailActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(ShowPersonalActivity.this, ShowAllBodyActivity.class));
+                startActivity(new Intent(ShowDetailActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 
             case R.id.nav_diet:
-                startActivity(new Intent(ShowPersonalActivity.this, DietDiaryActivity.class));
+                startActivity(new Intent(ShowDetailActivity.this, DietDiaryActivity.class));
                 finish();
                 break;
 
             case R.id.nav_activityBoard:
-                startActivity(new Intent(ShowPersonalActivity.this, ActivityBoardActivity.class));
+                startActivity(new Intent(ShowDetailActivity.this, ActivityBoardActivity.class));
                 finish();
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ShowPersonalActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(ShowDetailActivity.this, CustomerLogActivity.class));
                 finish();
                 break;
 
             case R.id.nav_analysis:
-                startActivity(new Intent(ShowPersonalActivity.this, AnalysisActivity.class));
+                startActivity(new Intent(ShowDetailActivity.this, AnalysisActivity.class));
                 finish();
                 break;
         }
@@ -195,3 +207,4 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
                 });
     }
 }
+
