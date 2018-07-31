@@ -20,15 +20,92 @@ android:id="@+id/drawerLayout">
     </include>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="146dp"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="60dp"
-        android:text="Customer Log" />
+        android:layout_centerHorizontal="true"
+        android:paddingTop="60dp"
+        android:text="Customer Log"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView27"
+        android:layout_marginTop="46dp"
+        android:layout_toLeftOf="@+id/textView27"
+        android:layout_toStartOf="@+id/textView27"
+        android:text="Client's Name :" />
+
+    <EditText
+        android:id="@+id/nameF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView27"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/textView29"
+        android:layout_toRightOf="@+id/textView29"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/dateF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/nameF"
+        android:layout_alignRight="@+id/nameF"
+        android:layout_below="@+id/nameF"
+        android:ems="10"
+        android:hint="Date"
+        android:inputType="date"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameF"
+        android:layout_marginTop="11dp"
+        android:layout_toLeftOf="@+id/nameF"
+        android:layout_toStartOf="@+id/nameF"
+        android:text="Date :" />
+
+    <EditText
+        android:id="@+id/timeF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateF"
+        android:layout_alignStart="@+id/dateF"
+        android:layout_below="@+id/dateF"
+        android:ems="10"
+        android:hint="Time"
+        android:inputType="time"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/timeF"
+        android:layout_alignEnd="@+id/textView32"
+        android:layout_alignRight="@+id/textView32"
+        android:layout_marginBottom="11dp"
+        android:text="Time :" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeF"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="51dp"
+        android:text="Save" />
 
 </RelativeLayout>
 
