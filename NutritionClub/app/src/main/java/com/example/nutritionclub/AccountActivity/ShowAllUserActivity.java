@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +33,8 @@ import java.util.List;
 
 public class ShowAllUserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String USER_NAME = "userName";
+    public static final String USER_ID = "userId";
     private DatabaseReference mDatabaseUsers;
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
@@ -71,7 +75,23 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         userList = new ArrayList<>();
+
         hideItem();
+
+        listViewUser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                User user = userList.get(i);
+
+                Intent intent = new Intent(getApplicationContext(),ShowDetailActivity.class);
+
+                intent.putExtra(USER_ID,user.getUserId());
+                intent.putExtra(USER_NAME,user.getName());
+
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -135,7 +135,6 @@ public class SignupActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(SignupActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-//                    appController.addUser(userInfo);;
                 }else{
                     Toast.makeText(SignupActivity.this,"Error..",Toast.LENGTH_LONG).show();
                 }

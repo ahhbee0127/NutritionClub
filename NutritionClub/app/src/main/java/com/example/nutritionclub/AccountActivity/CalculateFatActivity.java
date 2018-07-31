@@ -37,7 +37,6 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
-    private DatabaseReference mDatabase;
     private DatabaseReference mDatabaseUser;
     private FirebaseAuth auth;
 
@@ -52,11 +51,10 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users");
+
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -144,19 +142,6 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
         double percent = Double.parseDouble(txtInPercent.getText().toString());
 
         double result = ( percent / 100 ) * weight;
-
-        String hihi = txtInPercent.getText().toString().trim();
-        mDatabase.child("number").setValue(hihi).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(CalculateFatActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(CalculateFatActivity.this,"Error..",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
 
         viewResult.setText(Double.toString(result) + " KG");
         viewResult.setVisibility(View.VISIBLE);
