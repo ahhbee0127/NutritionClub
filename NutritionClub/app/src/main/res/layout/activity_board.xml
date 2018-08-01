@@ -20,15 +20,38 @@ android:id="@+id/drawerLayout">
     </include>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        android:paddingTop="60dp"
+        android:text="Event List"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ListView
+        android:id="@+id/eventListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="146dp"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="60dp"
-        android:text="Activity Board" />
+        android:layout_below="@+id/textView9" />
+
+    <Button
+        android:id="@+id/addEventButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Add Event"
+        android:textColor="@color/btn_login"
+        android:textStyle="bold|italic"
+        android:layout_above="@+id/eventListView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
 

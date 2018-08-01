@@ -13,7 +13,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.nutritionclub.R;
@@ -25,20 +27,37 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ActivityBoardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseEvent;
     private DatabaseReference mDatabaseUser;
     private FirebaseAuth auth;
+    private Button addEventButton;
+
+    ListView listViewEvent;
+    List<Event> eventList;
+    //ArrayAdapter<User> userAdapter;
+    Event event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
+
+        event = new Event();
+
+        mDatabaseEvent = FirebaseDatabase.getInstance().getReference("Events");
+
+
+        addEventButton = (Button) findViewById(R.id.addEventButton);
+        listViewEvent = (ListView) findViewById(R.id.eventListView);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -54,10 +73,61 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //navEmail = (TextView) findViewById(R.id.navEmailT);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        eventList = new ArrayList<>();
+
         hideItem();
+
+        addEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ActivityBoardActivity.this, BodyCompositionActivity.class));
+            }
+        });
+
+        listViewEvent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Event event = eventList.get(i);
+
+                Intent intent = new Intent(getApplicationContext(),ShowDetailActivity.class);
+
+//                intent.putExtra(USER_ID,user.getUserId());
+//                intent.putExtra(USER_NAME,user.getName());
+
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mDatabaseEvent.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                eventList.clear();
+
+                for(DataSnapshot eventSnapshot : dataSnapshot.getChildren()){
+                    Event event = eventSnapshot.getValue(Event.class);
+
+                    eventList.add(event);
+                }
+
+                EventList adapter = new EventList(ActivityBoardActivity.this,eventList);
+                listViewEvent.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override

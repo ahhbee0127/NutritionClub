@@ -67,7 +67,7 @@ public class UserList extends ArrayAdapter<User> {
 
         View listViewItem = inflater.inflate(R.layout.user_list_layout, null, true);
 
-        TextView textViewEmail = (TextView) listViewItem.findViewById(R.id.dateV);
+        TextView textViewEmail = (TextView) listViewItem.findViewById(R.id.emailV);
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.nameV);
 
         User user = userList.get(position);
