@@ -18,6 +18,10 @@ public class Checkin {
         this.time = time;
     }
 
+    public Checkin(String date){
+        this.date = date;
+    }
+
     public String getDate() {
         return date;
     }

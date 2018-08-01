@@ -44,7 +44,6 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
     private DatabaseReference mDatabaseCheckin;
     private DatabaseReference mDatabaseUser;
     private FirebaseAuth auth;
-    private EditText dateF;
     private EditText nameF;
     private EditText timeF;
     private Button saveButton;
@@ -55,7 +54,6 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
         setContentView(R.layout.activity_customer_log);
 
         nameF = (EditText) findViewById(R.id.nameF);
-        dateF = (EditText) findViewById(R.id.dateF);
         timeF = (EditText) findViewById(R.id.timeF);
         saveButton = (Button) findViewById(R.id.saveButton);
 
@@ -71,7 +69,6 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
         mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
 
-        String date = dateF.getText().toString().trim();
         mDatabaseCheckin = FirebaseDatabase.getInstance().getReference("Customer Log");
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -93,10 +90,10 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
     }
 
     protected void saveCheckin(){
-        String date = dateF.getText().toString().trim();
         String name = nameF.getText().toString().trim();
         String time = timeF.getText().toString().trim();
 
+        String date = getIntent().getStringExtra( LogCalenderActivity.DATE);
         final Checkin checkinData = new Checkin(date,name,time);
         String checkinId = mDatabaseCheckin.push().getKey();
         mDatabaseCheckin.child(date).child(checkinId).setValue(checkinData).addOnCompleteListener(new OnCompleteListener<Void>() {

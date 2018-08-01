@@ -35,7 +35,9 @@
         <activity android:name=".AccountActivity.AnalysisActivity" />
         <activity android:name=".AccountActivity.ShowDetailActivity" />
         <activity android:name=".AccountActivity.ShowAllBodyActivity" />
-        <activity android:name=".AccountActivity.ShowBodyDetailActivity"></activity>
+        <activity android:name=".AccountActivity.ShowBodyDetailActivity" />
+        <activity android:name=".AccountActivity.ShowAllLogActivity" />
+        <activity android:name=".AccountActivity.LogCalenderActivity"></activity>
     </application>
 
 </manifest>

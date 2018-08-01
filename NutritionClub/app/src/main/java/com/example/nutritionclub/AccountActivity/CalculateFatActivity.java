@@ -117,7 +117,7 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(CalculateFatActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(CalculateFatActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

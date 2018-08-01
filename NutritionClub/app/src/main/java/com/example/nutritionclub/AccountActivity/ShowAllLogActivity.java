@@ -1,7 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
         import android.content.Intent;
-        import android.provider.ContactsContract;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
         import android.support.v4.widget.DrawerLayout;
@@ -13,8 +12,9 @@ package com.example.nutritionclub.AccountActivity;
         import android.view.Menu;
         import android.view.MenuItem;
         import android.view.View;
+        import android.widget.AdapterView;
         import android.widget.Button;
-        import android.widget.TextView;
+        import android.widget.ListView;
 
         import com.example.nutritionclub.R;
         import com.google.firebase.auth.FirebaseAuth;
@@ -25,23 +25,47 @@ package com.example.nutritionclub.AccountActivity;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
 
-public class DietDiaryActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+        import java.util.ArrayList;
+        import java.util.List;
 
+public class ShowAllLogActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private DatabaseReference mDatabaseCheckin;
+    private DatabaseReference mDatabaseUsers;
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
-    private DatabaseReference mDatabase;
-    private DatabaseReference mDatabaseUser;
     private FirebaseAuth auth;
+    private Button addCheckinButton;
+
+    ListView listViewCheckin;
+    List<Checkin> checkinList;
+    //ArrayAdapter<User> userAdapter;
+    Checkin checkin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diet_diary);
+        setContentView(R.layout.activity_show_all_log);
+
+        addCheckinButton = (Button) findViewById(R.id.addCheckinButton);
+
+        checkin = new Checkin();
+        mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");
+        mDatabaseCheckin = FirebaseDatabase.getInstance().getReference("Customer Log");
+        auth = FirebaseAuth.getInstance();
+
+        //Later when comes to Admin View different.
+        FirebaseUser user = auth.getCurrentUser();
+        final String userId = user.getUid();
+
+        listViewCheckin = (ListView) findViewById(R.id.checkinListView);
+
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -49,14 +73,62 @@ public class DietDiaryActivity extends AppCompatActivity implements NavigationVi
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
-        mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
-        auth = FirebaseAuth.getInstance();
-
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        checkinList = new ArrayList<>();
+
+        addCheckinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShowAllLogActivity.this, LogCalenderActivity.class));
+            }
+        });
+
         hideItem();
+//
+//        listViewCheckin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Checkin checkin = checkinList.get(i);
+//
+//                Intent intent = new Intent(getApplicationContext(),ShowBodyDetailActivity.class);
+//
+//                intent.putExtra(USER_ID,bodyComposition.getUserId());
+//                intent.putExtra(BODY_ID,bodyComposition.getBodyId());
+//
+//                startActivity(intent);
+//            }
+//        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mDatabaseCheckin.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                checkinList.clear();
+
+                for(DataSnapshot checkinSnapshot : dataSnapshot.getChildren()){
+                    Checkin checkin = checkinSnapshot.getValue(Checkin.class);
+
+                    checkinList.add(checkin);
+                }
+
+                CheckinList adapter = new CheckinList(ShowAllLogActivity.this,checkinList);
+                listViewCheckin.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -76,47 +148,47 @@ public class DietDiaryActivity extends AppCompatActivity implements NavigationVi
         switch (id)
         {
             case R.id.nav_account:
-                startActivity(new Intent(DietDiaryActivity.this, MainActivity.class));
+                startActivity(new Intent(ShowAllLogActivity.this, MainActivity.class));
                 finish();
                 break;
 
             case R.id.nav_me:
-                startActivity(new Intent(DietDiaryActivity.this, ShowPersonalActivity.class));
+                startActivity(new Intent(ShowAllLogActivity.this, ShowPersonalActivity.class));
                 finish();
                 break;
 
             case R.id.nav_calFat:
-                startActivity(new Intent(DietDiaryActivity.this, CalculateFatActivity.class));
+                startActivity(new Intent(ShowAllLogActivity.this, CalculateFatActivity.class));
                 finish();
                 break;
 
             case R.id.nav_showAllUser:
-                startActivity(new Intent(DietDiaryActivity.this, ShowAllUserActivity.class));
+                startActivity(new Intent(ShowAllLogActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(DietDiaryActivity.this, ShowAllBodyActivity.class));
+                startActivity(new Intent(ShowAllLogActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 
             case R.id.nav_diet:
-                startActivity(new Intent(DietDiaryActivity.this, DietDiaryActivity.class));
+                startActivity(new Intent(ShowAllLogActivity.this, DietDiaryActivity.class));
                 finish();
                 break;
 
             case R.id.nav_activityBoard:
-                startActivity(new Intent(DietDiaryActivity.this, ActivityBoardActivity.class));
+                startActivity(new Intent(ShowAllLogActivity.this, ActivityBoardActivity.class));
                 finish();
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(DietDiaryActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(ShowAllLogActivity.this, CustomerLogActivity.class));
                 finish();
                 break;
 
             case R.id.nav_analysis:
-                startActivity(new Intent(DietDiaryActivity.this, AnalysisActivity.class));
+                startActivity(new Intent(ShowAllLogActivity.this, AnalysisActivity.class));
                 finish();
                 break;
         }
@@ -131,7 +203,7 @@ public class DietDiaryActivity extends AppCompatActivity implements NavigationVi
         FirebaseUser authUser = auth.getCurrentUser();
         String userId = authUser.getUid();
 
-        mDatabaseUser.child(userId).addListenerForSingleValueEvent(
+        mDatabaseUsers.child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -152,4 +224,8 @@ public class DietDiaryActivity extends AppCompatActivity implements NavigationVi
                     }
                 });
     }
+
 }
+
+
+

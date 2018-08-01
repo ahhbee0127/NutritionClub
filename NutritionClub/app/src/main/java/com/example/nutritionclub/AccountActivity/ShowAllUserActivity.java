@@ -173,7 +173,7 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ShowAllUserActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(ShowAllUserActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 
