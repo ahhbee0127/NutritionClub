@@ -7,27 +7,27 @@ package com.example.nutritionclub.AccountActivity;
 public class Event {
 
     String date;
-    String venue;
     String time;
     String eventName;
     String details;
+    String eventId;
 
     public Event(){}
 
-    public Event(String date, String venue, String time, String eventName, String details) {
+    public Event(String eventId,String date, String time, String eventName, String details) {
+        this.eventId = eventId;
         this.date = date;
-        this.venue = venue;
         this.time = time;
         this.eventName = eventName;
         this.details = details;
     }
 
-    public String getDate() {
-        return date;
+    public String getEventId() {
+        return eventId;
     }
 
-    public String getVenue() {
-        return venue;
+    public String getDate() {
+        return date;
     }
 
     public String getTime() {

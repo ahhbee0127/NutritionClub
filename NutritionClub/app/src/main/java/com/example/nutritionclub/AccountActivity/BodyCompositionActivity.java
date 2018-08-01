@@ -1,7 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nutritionclub.R;
@@ -30,14 +28,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class BodyCompositionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -63,9 +56,9 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_body_composition);
 
-        weightF = (EditText) findViewById(R.id.weightF);
-        waterF = (EditText) findViewById(R.id.waterF);
-        fatF = (EditText) findViewById(R.id.fatpF);
+        weightF = (EditText) findViewById(R.id.eDateF);
+        waterF = (EditText) findViewById(R.id.eNameF);
+        fatF = (EditText) findViewById(R.id.eFromF);
         viceralF = (EditText) findViewById(R.id.vfatF);
         boneMassF = (EditText) findViewById(R.id.boneMassF);
         metaAgeF = (EditText) findViewById(R.id.metaAgeF);

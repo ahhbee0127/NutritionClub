@@ -32,7 +32,7 @@
             android:text="Water :" />
 
         <EditText
-            android:id="@+id/waterF"
+            android:id="@+id/eNameF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/textView17"
@@ -47,24 +47,24 @@
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/weightF"
+            android:id="@+id/eDateF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/waterF"
-            android:layout_alignStart="@+id/waterF"
-            android:layout_below="@+id/waterF"
+            android:layout_alignLeft="@+id/eNameF"
+            android:layout_alignStart="@+id/eNameF"
+            android:layout_below="@+id/eNameF"
             android:ems="10"
             android:hint="Weight"
             android:inputType="numberDecimal"
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/fatpF"
+            android:id="@+id/eFromF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/weightF"
-            android:layout_alignStart="@+id/weightF"
-            android:layout_below="@+id/weightF"
+            android:layout_alignLeft="@+id/eDateF"
+            android:layout_alignStart="@+id/eDateF"
+            android:layout_below="@+id/eDateF"
             android:ems="10"
             android:hint="Fat %"
             android:inputType="numberDecimal"
@@ -75,8 +75,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Fat% :"
-            android:layout_alignBaseline="@+id/fatpF"
-            android:layout_alignBottom="@+id/fatpF"
+            android:layout_alignBaseline="@+id/eFromF"
+            android:layout_alignBottom="@+id/eFromF"
             android:layout_alignRight="@+id/textView20"
             android:layout_alignEnd="@+id/textView20" />
 
@@ -84,10 +84,10 @@
             android:id="@+id/textView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/weightF"
-            android:layout_alignBottom="@+id/weightF"
-            android:layout_toLeftOf="@+id/waterF"
-            android:layout_toStartOf="@+id/waterF"
+            android:layout_alignBaseline="@+id/eDateF"
+            android:layout_alignBottom="@+id/eDateF"
+            android:layout_toLeftOf="@+id/eNameF"
+            android:layout_toStartOf="@+id/eNameF"
             android:text="Weight :" />
 
         <TextView
@@ -104,9 +104,9 @@
             android:id="@+id/vfatF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/fatpF"
-            android:layout_alignStart="@+id/fatpF"
-            android:layout_below="@+id/fatpF"
+            android:layout_alignLeft="@+id/eFromF"
+            android:layout_alignStart="@+id/eFromF"
+            android:layout_below="@+id/eFromF"
             android:ems="10"
             android:hint="Visceral Fat"
             android:inputType="numberDecimal"

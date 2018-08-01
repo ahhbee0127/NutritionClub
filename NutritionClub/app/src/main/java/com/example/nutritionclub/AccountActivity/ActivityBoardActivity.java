@@ -32,6 +32,7 @@ import java.util.List;
 
 public class ActivityBoardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    public static final String EVENT_ID = "eventId";
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -82,7 +83,7 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ActivityBoardActivity.this, BodyCompositionActivity.class));
+                startActivity(new Intent(ActivityBoardActivity.this, addEventActivity.class));
             }
         });
 
@@ -94,8 +95,7 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
 
                 Intent intent = new Intent(getApplicationContext(),ShowDetailActivity.class);
 
-//                intent.putExtra(USER_ID,user.getUserId());
-//                intent.putExtra(USER_NAME,user.getName());
+                intent.putExtra(EVENT_ID,event.getEventId());
 
                 startActivity(intent);
             }
