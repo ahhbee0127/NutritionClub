@@ -1,24 +1,20 @@
 package com.example.nutritionclub.AccountActivity;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.nutritionclub.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,34 +28,41 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowAllUserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class CoachShowAllDietActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String USER_NAME = "userName";
-    public static final String USER_ID = "userId";
+    public static final String DIET_ID = "dietId";
+    private DatabaseReference mDatabaseDiet;
     private DatabaseReference mDatabaseUsers;
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
     private FirebaseAuth auth;
+    private Button addDiaryButton;
 
-    ListView listViewUser;
-    List<User> userList;
+    ListView listViewDiet;
+    List<Diet> dietList;
     //ArrayAdapter<User> userAdapter;
-    User user;
+    Diet diet;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_all_user);
+        setContentView(R.layout.activity_diet_diary);
 
-        user = new User();
+        addDiaryButton = (Button) findViewById(R.id.addDiaryButton);
+
+        diet = new Diet();
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");
 
-        auth = FirebaseAuth.getInstance();
+        final String userId = getIntent().getStringExtra( ShowAllUserActivity.USER_ID);
 
-        listViewUser = (ListView) findViewById(R.id.userListView);
+        mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(userId);
+
+        listViewDiet = (ListView) findViewById(R.id.dietDiaryListView);
+
+        auth = FirebaseAuth.getInstance();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
@@ -74,46 +77,51 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        userList = new ArrayList<>();
+        dietList = new ArrayList<>();
+
+        addDiaryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CoachShowAllDietActivity.this, addDietDiaryActivity.class));
+            }
+        });
 
         hideItem();
 
-        listViewUser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewDiet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                User user = userList.get(i);
+                Diet diet = dietList.get(i);
 
-                Intent intent = new Intent(getApplicationContext(),ShowDetailActivity.class);
+                Intent intent = new Intent(getApplicationContext(),ShowDietActivity.class);
 
-                intent.putExtra(USER_ID,user.getUserId());
-                intent.putExtra(USER_NAME,user.getName());
+                intent.putExtra(DIET_ID,diet.getId());
+                //intent.putExtra(BODY_ID,bodyComposition.getBodyId());
 
                 startActivity(intent);
             }
         });
-
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        mDatabaseUsers.addValueEventListener(new ValueEventListener() {
+        mDatabaseDiet.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                userList.clear();
+                dietList.clear();
 
-                for(DataSnapshot userSnapshot : dataSnapshot.getChildren()){
-                    User user = userSnapshot.getValue(User.class);
+                for(DataSnapshot dietSnapshot : dataSnapshot.getChildren()){
+                    Diet diet = dietSnapshot.getValue(Diet.class);
 
-                    userList.add(user);
+                    dietList.add(diet);
                 }
 
-                UserList adapter = new UserList(ShowAllUserActivity.this,userList);
-                listViewUser.setAdapter(adapter);
+                DietList adapter = new DietList(CoachShowAllDietActivity.this,dietList);
+                listViewDiet.setAdapter(adapter);
             }
 
             @Override
@@ -140,47 +148,47 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
         switch (id)
         {
             case R.id.nav_account:
-                startActivity(new Intent(ShowAllUserActivity.this, MainActivity.class));
+                startActivity(new Intent(CoachShowAllDietActivity.this, MainActivity.class));
                 finish();
                 break;
 
             case R.id.nav_me:
-                startActivity(new Intent(ShowAllUserActivity.this, ShowPersonalActivity.class));
+                startActivity(new Intent(CoachShowAllDietActivity.this, ShowPersonalActivity.class));
                 finish();
                 break;
 
             case R.id.nav_calFat:
-                startActivity(new Intent(ShowAllUserActivity.this, CalculateFatActivity.class));
+                startActivity(new Intent(CoachShowAllDietActivity.this, CalculateFatActivity.class));
                 finish();
                 break;
 
             case R.id.nav_showAllUser:
-                startActivity(new Intent(ShowAllUserActivity.this, ShowAllUserActivity.class));
+                startActivity(new Intent(CoachShowAllDietActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(ShowAllUserActivity.this, ShowAllBodyActivity.class));
+                startActivity(new Intent(CoachShowAllDietActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 
             case R.id.nav_diet:
-                startActivity(new Intent(ShowAllUserActivity.this, DietDiaryActivity.class));
+                startActivity(new Intent(CoachShowAllDietActivity.this, DietDiaryActivity.class));
                 finish();
                 break;
 
             case R.id.nav_activityBoard:
-                startActivity(new Intent(ShowAllUserActivity.this, ActivityBoardActivity.class));
+                startActivity(new Intent(CoachShowAllDietActivity.this, ActivityBoardActivity.class));
                 finish();
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ShowAllUserActivity.this, ShowAllLogActivity.class));
+                startActivity(new Intent(CoachShowAllDietActivity.this, CustomerLogActivity.class));
                 finish();
                 break;
 
             case R.id.nav_analysis:
-                startActivity(new Intent(ShowAllUserActivity.this, AnalysisActivity.class));
+                startActivity(new Intent(CoachShowAllDietActivity.this, AnalysisActivity.class));
                 finish();
                 break;
         }
@@ -218,3 +226,5 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
     }
 
 }
+
+

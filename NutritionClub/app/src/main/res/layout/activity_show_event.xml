@@ -172,7 +172,7 @@ android:id="@+id/drawerLayout">
         android:text="Nutrition Club :" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/dietButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -187,7 +187,7 @@ android:id="@+id/drawerLayout">
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/weightV"
         android:layout_alignRight="@+id/weightV"
-        android:layout_alignTop="@+id/button2"
+        android:layout_alignTop="@+id/dietButton"
         android:text="Button" />
 
     <Button
@@ -203,7 +203,7 @@ android:id="@+id/drawerLayout">
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button2"
+        android:layout_below="@+id/dietButton"
         android:layout_marginTop="28dp"
         android:layout_toLeftOf="@+id/dateV"
         android:layout_toStartOf="@+id/dateV"

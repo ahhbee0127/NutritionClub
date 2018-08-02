@@ -12,6 +12,7 @@ package com.example.nutritionclub.AccountActivity;
         import android.util.Log;
         import android.view.Menu;
         import android.view.MenuItem;
+        import android.view.View;
         import android.widget.ImageView;
         import android.widget.TextView;
 
@@ -30,7 +31,6 @@ public class ShowDietActivity extends AppCompatActivity implements NavigationVie
     private TextView dateV;
     private TextView mealV;
     private TextView calV;
-    private String wantedUserId;
 
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
@@ -55,37 +55,36 @@ public class ShowDietActivity extends AppCompatActivity implements NavigationVie
 
         FirebaseUser authUser = auth.getCurrentUser();
         final String currentUserId = authUser.getUid();
+        //mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(currentUserId);
+
+        mDatabase.child(currentUserId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String role = dataSnapshot.child("role").getValue(String.class);
+                        navigationView = (NavigationView) findViewById(R.id.nav_view);
+                        Menu nav_Menu = navigationView.getMenu();
+
+                        if (role.equals("coach")) {
+                            //wantedUserId = getIntent().getStringExtra(ShowAllUserActivity.USER_ID);
+                            //mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(iid);
+
+                        } else if (role.equals("client")) {
+                            //wantedUserId = currentUserId;
+                            //mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child("K95E8TKycNNnAEyhhw7BqUW8DUS2");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("getUser:onCancelled", databaseError.toException());
+                    }
+                });
+
+
+
 
         mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(currentUserId);
-
-//        mDatabase.child(currentUserId).addListenerForSingleValueEvent(
-//                new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        String role = dataSnapshot.child("role").getValue(String.class);
-//                        navigationView = (NavigationView) findViewById(R.id.nav_view);
-//                        Menu nav_Menu = navigationView.getMenu();
-//
-//                        if (role.equals("coach")) {
-//                            String iid = getIntent().getStringExtra(ShowAllUserActivity.USER_ID);
-//                            mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(iid);
-//
-//                        } else if (role.equals("client")) {
-//                            //wantedUserId = currentUserId;
-//                            mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(currentUserId);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//                        Log.w("getUser:onCancelled", databaseError.toException());
-//                    }
-//                });
-
-
-
-
-        //mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(wantedUserId);
         dateV = (TextView) findViewById(R.id.dateV);
         mealV = (TextView) findViewById(R.id.mealV);
         calV = (TextView) findViewById(R.id.calV);
@@ -229,31 +228,31 @@ public class ShowDietActivity extends AppCompatActivity implements NavigationVie
                     });
         }
 
-        private void getUser() {
-            FirebaseUser authUser = auth.getCurrentUser();
-            final String currentUserId = authUser.getUid();
-
-            mDatabase.child(currentUserId).addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            String role = dataSnapshot.child("role").getValue(String.class);
-                            navigationView = (NavigationView) findViewById(R.id.nav_view);
-                            Menu nav_Menu = navigationView.getMenu();
-
-                            if (role.equals("coach")) {
-                                wantedUserId = getIntent().getStringExtra(ShowAllUserActivity.USER_ID);
-
-                            } else if (role.equals("client")) {
-                                wantedUserId = currentUserId;
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            Log.w("getUser:onCancelled", databaseError.toException());
-                        }
-                    });
-        }
+//        private void getUser() {
+//            FirebaseUser authUser = auth.getCurrentUser();
+//            final String currentUserId = authUser.getUid();
+//
+//            mDatabase.child(currentUserId).addListenerForSingleValueEvent(
+//                    new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            String role = dataSnapshot.child("role").getValue(String.class);
+//                            navigationView = (NavigationView) findViewById(R.id.nav_view);
+//                            Menu nav_Menu = navigationView.getMenu();
+//
+//                            if (role.equals("coach")) {
+//                                wantedUserId = getIntent().getStringExtra(ShowAllUserActivity.USER_ID);
+//
+//                            } else if (role.equals("client")) {
+//                                wantedUserId = currentUserId;
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//                            Log.w("getUser:onCancelled", databaseError.toException());
+//                        }
+//                    });
+//        }
     }
 

@@ -119,14 +119,13 @@ public class addDietDiaryActivity extends AppCompatActivity {
         if(requestCode == Gallery_intent && resultCode == RESULT_OK){
             Uri uri = data.getData();
             filepath = mStorage.child("Meal").child(uri.getLastPathSegment());
-            imageView.setImageURI(uri);
+            //imageView.setImageURI(uri);
             filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(addDietDiaryActivity.this,"Uploading...",Toast.LENGTH_SHORT);
                     @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     downloadLink = downloadUrl.toString().trim();
-                    //Picasso.with(addDietDiaryActivity.this).load(downloadUrl).fit().centerCrop().into(imageView);
+                    Picasso.with(addDietDiaryActivity.this).load(downloadUrl).fit().centerCrop().into(imageView);
                     Toast.makeText(addDietDiaryActivity.this,"Uploaded",Toast.LENGTH_SHORT);
                 }
             }).addOnFailureListener(new OnFailureListener() {

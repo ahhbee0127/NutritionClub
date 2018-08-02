@@ -44,7 +44,8 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".AccountActivity.ShowEventActivity" />
         <activity android:name=".AccountActivity.addDietDiaryActivity" />
-        <activity android:name=".AccountActivity.ShowDietActivity"></activity>
+        <activity android:name=".AccountActivity.ShowDietActivity" />
+        <activity android:name=".AccountActivity.CoachShowAllDietActivity"></activity>
     </application>
 
 </manifest>

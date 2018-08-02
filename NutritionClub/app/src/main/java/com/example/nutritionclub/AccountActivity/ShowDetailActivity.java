@@ -11,6 +11,8 @@ package com.example.nutritionclub.AccountActivity;
         import android.util.Log;
         import android.view.Menu;
         import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.Button;
         import android.widget.TextView;
 
         import com.example.nutritionclub.R;
@@ -24,12 +26,14 @@ package com.example.nutritionclub.AccountActivity;
 
 public class ShowDetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    public static final String USER_ID = "userId";
     private TextView nameV;
     private TextView heightV;
     private TextView ageV;
     private TextView contactV;
     private TextView inviterV;
     private TextView branchV;
+    private Button dietButton;
 
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
@@ -54,6 +58,7 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
         inviterV = (TextView) findViewById(R.id.visceralFatV);
         heightV = (TextView) findViewById(R.id.fatpercentV);
         branchV = (TextView) findViewById(R.id.boneMassV);
+        dietButton = (Button) findViewById(R.id.dietButton);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -71,7 +76,7 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
 //        FirebaseUser authUser = auth.getCurrentUser();
 //        String userId = authUser.getUid();
 
-        String userId = getIntent().getStringExtra( ShowAllUserActivity.USER_ID);
+        final String userId = getIntent().getStringExtra( ShowAllUserActivity.USER_ID);
 
         mDatabase.child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -98,6 +103,18 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
                         Log.w(TAG, "getUser:onCancelled", databaseError.toException());
                     }
                 });
+
+
+        dietButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),CoachShowAllDietActivity.class);
+
+                intent.putExtra(USER_ID,userId);
+                startActivity(intent);
+            }
+        });
+
         hideItem();
     }
 

@@ -22,14 +22,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.List;
+
+import static android.R.id.list;
+
 public class ShowPersonalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    public String rolee = "role";
     private TextView nameV;
     private TextView heightV;
     private TextView ageV;
     private TextView contactV;
     private TextView inviterV;
     private TextView branchV;
+    private TextView roletxt;
+    private  TextView haiz;
 
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
@@ -39,6 +46,7 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
     private DatabaseReference mDatabase;
     private FirebaseAuth auth;
     public static final String TAG = "TAG";
+    public String userRole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +62,11 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
         inviterV = (TextView) findViewById(R.id.visceralFatV);
         heightV = (TextView) findViewById(R.id.fatpercentV);
         branchV = (TextView) findViewById(R.id.boneMassV);
+        roletxt = (TextView) findViewById(R.id.roletxt);
+        haiz = (TextView) findViewById(R.id.haiz);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -90,6 +100,8 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
                         inviterV.setText(inviter);
                         String branch = dataSnapshot.child("nutritionClub").getValue(String.class);
                         branchV.setText(branch);
+//                        String role = dataSnapshot.child("role").getValue(String.class);
+//                        roletxt.setText(role);
                     }
 
                     @Override
@@ -97,8 +109,41 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
                         Log.w(TAG, "getUser:onCancelled", databaseError.toException());
                     }
                 });
-        hideItem();
     }
+//
+//        readData(new MyCallback() {
+//            @Override
+//            public void onCallback(String value) {
+//                rolee = value;
+//            }
+//        });
+//
+//        haiz.setText(rolee);
+
+//    private void readData(final MyCallback myCallback){
+//        FirebaseUser authUser = auth.getCurrentUser();
+//        String userId = authUser.getUid();
+//        mDatabase.child(userId).addListenerForSingleValueEvent(
+//                new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        String role = dataSnapshot.child("role").getValue(String.class);
+//                        roletxt.setText(role);
+//
+//                        myCallback.onCallback(role);
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+//                    }
+//                });
+//    }
+//
+//
+//    private interface MyCallback{
+//        void onCallback(String value);
+//    }
 
 
     @Override
@@ -178,6 +223,7 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String role = dataSnapshot.child("role").getValue(String.class);
+                        userRole = role;
                         navigationView = (NavigationView) findViewById(R.id.nav_view);
                         Menu nav_Menu = navigationView.getMenu();
 

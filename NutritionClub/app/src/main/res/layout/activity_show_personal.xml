@@ -170,6 +170,27 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:text="Nutrition Club :" />
+
+            <TextView
+                android:id="@+id/roletxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/myV"
+                android:layout_toEndOf="@+id/boneMassV"
+                android:layout_toRightOf="@+id/boneMassV"
+                android:text="TextView"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/haiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/roletxt"
+                android:layout_alignStart="@+id/roletxt"
+                android:layout_alignTop="@+id/weightV"
+                android:layout_marginLeft="29dp"
+                android:layout_marginStart="29dp"
+                android:text="TextView" />
         </RelativeLayout>
 
     <android.support.design.widget.NavigationView
