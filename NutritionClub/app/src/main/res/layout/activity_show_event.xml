@@ -182,7 +182,7 @@ android:id="@+id/drawerLayout">
         android:text="Button" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/bodyComButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/weightV"
@@ -194,7 +194,7 @@ android:id="@+id/drawerLayout">
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button3"
+        android:layout_alignBottom="@+id/bodyComButton"
         android:layout_toEndOf="@+id/fatkgV"
         android:layout_toRightOf="@+id/fatkgV"
         android:text="Button" />

@@ -7,6 +7,11 @@ android:layout_height="match_parent"
 tools:context="com.example.nutritionclub.AccountActivity.ShowBodyDetailActivity"
 android:id="@+id/drawerLayout">
 
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -252,7 +257,31 @@ android:id="@+id/drawerLayout">
         android:text="Water(%)"
         android:textSize="18sp" />
 
+    <Button
+        android:id="@+id/commentButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/waterV"
+        android:layout_marginTop="15dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/commentV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/waterV"
+        android:layout_marginTop="15dp"
+        android:paddingTop="10dp"
+        android:text="No comment from coach."
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
 </RelativeLayout>
+    </ScrollView>
 
 <android.support.design.widget.NavigationView
     android:id="@+id/nav_view"

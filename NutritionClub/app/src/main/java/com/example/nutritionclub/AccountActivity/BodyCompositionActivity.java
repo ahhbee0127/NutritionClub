@@ -130,7 +130,7 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
         FirebaseUser user = auth.getCurrentUser();
         String userId = user.getUid();
 
-        final BodyComposition userBody = new BodyComposition(userId,id,todayDate,water,weight,fatPercent,visceralFat,boneMass,metaAge,muscle,fatKg,bmi);
+        final BodyComposition userBody = new BodyComposition(null,userId,id,todayDate,water,weight,fatPercent,visceralFat,boneMass,metaAge,muscle,fatKg,bmi);
 
         mDatabaseBody.child(id).setValue(userBody).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

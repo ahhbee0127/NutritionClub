@@ -12,8 +12,9 @@ package com.example.nutritionclub.AccountActivity;
         import android.view.Menu;
         import android.view.MenuItem;
         import android.view.View;
+        import android.widget.AdapterView;
         import android.widget.Button;
-        import android.widget.TextView;
+        import android.widget.ListView;
 
         import com.example.nutritionclub.R;
         import com.google.firebase.auth.FirebaseAuth;
@@ -24,47 +25,52 @@ package com.example.nutritionclub.AccountActivity;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
 
-public class ShowDetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+        import java.util.ArrayList;
+        import java.util.List;
 
-    public static final String USER_ID = "userId";
-    private TextView nameV;
-    private TextView heightV;
-    private TextView ageV;
-    private TextView contactV;
-    private TextView inviterV;
-    private TextView branchV;
-    private Button dietButton;
-    private Button bodyComButton;
+public class CoachShowAllBodyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String BODY_ID = "bodyId";
+    public static  String USER_ID = "userId";
+    private DatabaseReference mDatabaseBody;
+    private DatabaseReference mDatabaseUsers;
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
-
-    private DatabaseReference mDatabase;
     private FirebaseAuth auth;
-    public static final String TAG = "TAG";
+    private Button addRecordButton;
+
+    ListView listViewBody;
+    List<BodyComposition> bodyCompositionList;
+    //ArrayAdapter<User> userAdapter;
+    BodyComposition bodyComposition;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_detail);
+        setContentView(R.layout.activity_show_all_body);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+        addRecordButton = (Button) findViewById(R.id.addRecordButton);
+
+        bodyComposition = new BodyComposition();
+        mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
 
-        nameV = (TextView) findViewById(R.id.dateV);
-        contactV = (TextView) findViewById(R.id.fatkgV);
-        ageV = (TextView) findViewById(R.id.weightV);
-        inviterV = (TextView) findViewById(R.id.visceralFatV);
-        heightV = (TextView) findViewById(R.id.fatpercentV);
-        branchV = (TextView) findViewById(R.id.boneMassV);
-        dietButton = (Button) findViewById(R.id.dietButton);
-        bodyComButton = (Button) findViewById(R.id.bodyComButton);
+        //Later when comes to Admin View different.
+//        FirebaseUser user = auth.getCurrentUser();
+//        final String userId = user.getUid();
+
+        USER_ID = getIntent().getStringExtra( ShowAllUserActivity.USER_ID);
+
+        mDatabaseBody = FirebaseDatabase.getInstance().getReference("Body Compositions").child(USER_ID);
+
+        listViewBody = (ListView) findViewById(R.id.bodyCompositionListView);
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -75,62 +81,60 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//
-//        FirebaseUser authUser = auth.getCurrentUser();
-//        String userId = authUser.getUid();
 
-        final String userId = getIntent().getStringExtra( ShowAllUserActivity.USER_ID);
+        bodyCompositionList = new ArrayList<>();
 
-        mDatabase.child(userId).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String name = dataSnapshot.child("name").getValue(String.class);
-                        nameV.setText(name);
-                        double heightD = dataSnapshot.child("height").getValue(Double.class);
-                        String height = Double.toString(heightD);
-                        heightV.setText(height);
-                        int ageI = dataSnapshot.child("age").getValue(Integer.class);
-                        String age = Double.toString(ageI);
-                        ageV.setText(age);
-                        String contact = dataSnapshot.child("contact").getValue(String.class);
-                        contactV.setText(contact);
-                        String inviter = dataSnapshot.child("inviter").getValue(String.class);
-                        inviterV.setText(inviter);
-                        String branch = dataSnapshot.child("nutritionClub").getValue(String.class);
-                        branchV.setText(branch);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
-                    }
-                });
-
-
-        dietButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),CoachShowAllDietActivity.class);
-                intent.putExtra(USER_ID,userId);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        bodyComButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),CoachShowAllBodyActivity.class);
-                intent.putExtra(USER_ID,userId);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        addRecordButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(CoachShowAllBodyActivity.this, BodyCompositionActivity.class));
+//            }
+//        });
 
         hideItem();
+
+        listViewBody.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                BodyComposition bodyComposition = bodyCompositionList.get(i);
+
+                Intent intent = new Intent(getApplicationContext(),CoachShowBodyDetailActivity.class);
+
+                intent.putExtra(USER_ID,bodyComposition.getUserId());
+                intent.putExtra(BODY_ID,bodyComposition.getBodyId());
+
+                startActivity(intent);
+            }
+        });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mDatabaseBody.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                bodyCompositionList.clear();
+
+                for(DataSnapshot userSnapshot : dataSnapshot.getChildren()){
+                    BodyComposition bodyComposition = userSnapshot.getValue(BodyComposition.class);
+
+                    bodyCompositionList.add(bodyComposition);
+                }
+
+                BodyCompositionList adapter = new BodyCompositionList(CoachShowAllBodyActivity.this,bodyCompositionList);
+                listViewBody.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -149,47 +153,47 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
         switch (id)
         {
             case R.id.nav_account:
-                startActivity(new Intent(ShowDetailActivity.this, MainActivity.class));
+                startActivity(new Intent(CoachShowAllBodyActivity.this, MainActivity.class));
                 finish();
                 break;
 
             case R.id.nav_me:
-                startActivity(new Intent(ShowDetailActivity.this, ShowPersonalActivity.class));
+                startActivity(new Intent(CoachShowAllBodyActivity.this, ShowPersonalActivity.class));
                 finish();
                 break;
 
             case R.id.nav_calFat:
-                startActivity(new Intent(ShowDetailActivity.this, CalculateFatActivity.class));
+                startActivity(new Intent(CoachShowAllBodyActivity.this, CalculateFatActivity.class));
                 finish();
                 break;
 
             case R.id.nav_showAllUser:
-                startActivity(new Intent(ShowDetailActivity.this, ShowAllUserActivity.class));
+                startActivity(new Intent(CoachShowAllBodyActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(ShowDetailActivity.this, ShowAllBodyActivity.class));
+                startActivity(new Intent(CoachShowAllBodyActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 
             case R.id.nav_diet:
-                startActivity(new Intent(ShowDetailActivity.this, DietDiaryActivity.class));
+                startActivity(new Intent(CoachShowAllBodyActivity.this, DietDiaryActivity.class));
                 finish();
                 break;
 
             case R.id.nav_activityBoard:
-                startActivity(new Intent(ShowDetailActivity.this, ActivityBoardActivity.class));
+                startActivity(new Intent(CoachShowAllBodyActivity.this, ActivityBoardActivity.class));
                 finish();
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ShowDetailActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(CoachShowAllBodyActivity.this, CustomerLogActivity.class));
                 finish();
                 break;
 
             case R.id.nav_analysis:
-                startActivity(new Intent(ShowDetailActivity.this, AnalysisActivity.class));
+                startActivity(new Intent(CoachShowAllBodyActivity.this, AnalysisActivity.class));
                 finish();
                 break;
         }
@@ -204,7 +208,7 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
         FirebaseUser authUser = auth.getCurrentUser();
         String userId = authUser.getUid();
 
-        mDatabase.child(userId).addListenerForSingleValueEvent(
+        mDatabaseUsers.child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -214,6 +218,7 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
 
                         if(role.equals("coach")){
                             nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
+                            addRecordButton.setVisibility(View.GONE);
                         }else if(role.equals("client")){
                             nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
                         }
@@ -225,5 +230,6 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
                     }
                 });
     }
+
 }
 

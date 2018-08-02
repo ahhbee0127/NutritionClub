@@ -8,6 +8,7 @@ import java.util.Date;
 
 public class BodyComposition {
 
+    String comment;
     String todayDate;
     double water;
     double weight;
@@ -21,7 +22,8 @@ public class BodyComposition {
     String bodyId;
     String userId;
 
-    public BodyComposition(String userId,String bodyId,String todayDate, double water, double weight, double fatPercent, int visceralFat, double boneMass, int metabolicAge, double muscle, double fatkg, double bmi) {
+    public BodyComposition(String comment, String userId,String bodyId,String todayDate, double water, double weight, double fatPercent, int visceralFat, double boneMass, int metabolicAge, double muscle, double fatkg, double bmi) {
+        this.comment = comment;
         this.bodyId = bodyId;
         this.todayDate = todayDate;
         this.water = water;
@@ -34,6 +36,10 @@ public class BodyComposition {
         this.fatkg = fatkg;
         this.bmi = bmi;
         this.userId = userId;
+    }
+
+    public String getComment() {
+        return comment;
     }
 
     public String getUserId() {
