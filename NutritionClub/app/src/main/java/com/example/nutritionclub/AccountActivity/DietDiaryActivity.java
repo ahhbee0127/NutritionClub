@@ -255,7 +255,7 @@ public class DietDiaryActivity extends AppCompatActivity implements NavigationVi
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Diet diet = dietList.get(i);
 
-                Intent intent = new Intent(getApplicationContext(),ShowBodyDetailActivity.class);
+                Intent intent = new Intent(getApplicationContext(),ShowDietActivity.class);
 
                 intent.putExtra(DIET_ID,diet.getId());
                 //intent.putExtra(BODY_ID,bodyComposition.getBodyId());

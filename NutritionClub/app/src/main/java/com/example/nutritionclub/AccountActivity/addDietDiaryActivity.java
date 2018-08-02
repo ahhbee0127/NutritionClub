@@ -1,5 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.ContactsContract;
@@ -42,10 +43,10 @@ public class addDietDiaryActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseDiet;
     private StorageReference mStorage;
     private FirebaseAuth auth;
-    private StorageReference filepath;
+    StorageReference filepath;
     private ImageView imageView;
     private Button saveButton;
-
+    private String downloadLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +97,7 @@ public class addDietDiaryActivity extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         String userId = user.getUid();
 
-        final Diet diet = new Diet(id, filepath.toString(), meal, todayDate, null);
+        final Diet diet = new Diet(id, downloadLink, meal, todayDate, null);
 
         mDatabaseDiet.child(userId).child(id).setValue(diet).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -122,6 +123,10 @@ public class addDietDiaryActivity extends AppCompatActivity {
             filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(addDietDiaryActivity.this,"Uploading...",Toast.LENGTH_SHORT);
+                    @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    downloadLink = downloadUrl.toString().trim();
+                    //Picasso.with(addDietDiaryActivity.this).load(downloadUrl).fit().centerCrop().into(imageView);
                     Toast.makeText(addDietDiaryActivity.this,"Uploaded",Toast.LENGTH_SHORT);
                 }
             }).addOnFailureListener(new OnFailureListener() {
