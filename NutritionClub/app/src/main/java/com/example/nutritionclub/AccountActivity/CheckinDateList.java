@@ -21,16 +21,16 @@ package com.example.nutritionclub.AccountActivity;
  * Created by AhhBee on 23/7/2018.
  */
 
-public class CheckinList extends ArrayAdapter<Checkin> {
+public class CheckinDateList extends ArrayAdapter<CheckinDate> {
 
     private Activity context;
-    private List<Checkin> checkinList;
+    private List<CheckinDate> checkinDateList;
 
-    public CheckinList(Activity context, List<Checkin> checkinList) {
+    public CheckinDateList(Activity context, List<CheckinDate> checkinDateList) {
 
-        super(context, R.layout.log_layout, checkinList);
+        super(context, R.layout.log_layout, checkinDateList);
         this.context = context;
-        this.checkinList = checkinList;
+        this.checkinDateList = checkinDateList;
     }
 
     @NonNull
@@ -43,9 +43,9 @@ public class CheckinList extends ArrayAdapter<Checkin> {
 
         TextView dateV = (TextView) listViewItem.findViewById(R.id.dateV);
 
-        Checkin checkin = checkinList.get(position);
+        CheckinDate checkinDate = checkinDateList.get(position);
 
-        dateV.setText(checkin.getDate());
+        dateV.setText(checkinDate.getDate());
 
         return listViewItem;
     }

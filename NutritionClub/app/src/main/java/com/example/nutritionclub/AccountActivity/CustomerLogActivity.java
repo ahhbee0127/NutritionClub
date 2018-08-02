@@ -3,6 +3,7 @@ package com.example.nutritionclub.AccountActivity;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CheckableImageButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -69,7 +70,10 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
         mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
 
-        mDatabaseCheckin = FirebaseDatabase.getInstance().getReference("Customer Log");
+        String date = getIntent().getStringExtra( LogCalenderActivity.DATE);
+        String checkinDateId = getIntent().getStringExtra( LogCalenderActivity.CHECKINDATEID);
+
+        mDatabaseCheckin = FirebaseDatabase.getInstance().getReference("Customer Log").child(date);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -94,8 +98,11 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
         String time = timeF.getText().toString().trim();
 
         String date = getIntent().getStringExtra( LogCalenderActivity.DATE);
+
         final Checkin checkinData = new Checkin(date,name,time);
+
         String checkinId = mDatabaseCheckin.push().getKey();
+
         mDatabaseCheckin.child(date).child(checkinId).setValue(checkinData).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
