@@ -3,6 +3,7 @@
     package="com.example.nutritionclub">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -41,7 +42,9 @@
         <activity
             android:name=".AccountActivity.addEventActivity"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".AccountActivity.ShowEventActivity"></activity>
+        <activity android:name=".AccountActivity.ShowEventActivity" />
+        <activity android:name=".AccountActivity.addDietDiaryActivity" />
+        <activity android:name=".AccountActivity.ShowDietActivity"></activity>
     </application>
 
 </manifest>

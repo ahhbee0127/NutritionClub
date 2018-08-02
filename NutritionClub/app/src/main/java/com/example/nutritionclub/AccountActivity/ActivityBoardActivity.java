@@ -78,8 +78,6 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
 
         eventList = new ArrayList<>();
 
-        hideItem();
-
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +98,7 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
                 startActivity(intent);
             }
         });
+        hideItem();
     }
 
     @Override
@@ -214,6 +213,7 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
                             nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
                         }else if(role.equals("client")){
                             nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
+                            addEventButton.setVisibility(View.GONE);
                         }
                     }
 

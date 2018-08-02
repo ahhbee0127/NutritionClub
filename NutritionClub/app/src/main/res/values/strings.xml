@@ -39,4 +39,11 @@
         <item>Herbalife - Subang</item>
     </array>
 
+    <array name="meal">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>Supper</item>
+    </array>
+
 </resources>
