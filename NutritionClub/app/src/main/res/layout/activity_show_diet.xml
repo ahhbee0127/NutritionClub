@@ -109,6 +109,29 @@ android:id="@+id/drawerLayout">
         android:text="Calories"
         android:textStyle="bold" />
 
+    <EditText
+        android:id="@+id/calF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/textView40"
+        android:layout_toRightOf="@+id/textView40"
+        android:ems="10"
+        android:hint="Calories"
+        android:inputType="text"
+        android:paddingTop="200dp"
+        android:textAlignment="center"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="Submit"
+        android:visibility="invisible" />
+
 
 </RelativeLayout>
 

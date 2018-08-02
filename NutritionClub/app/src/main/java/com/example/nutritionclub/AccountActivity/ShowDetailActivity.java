@@ -109,9 +109,9 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),CoachShowAllDietActivity.class);
-
                 intent.putExtra(USER_ID,userId);
                 startActivity(intent);
+                finish();
             }
         });
 

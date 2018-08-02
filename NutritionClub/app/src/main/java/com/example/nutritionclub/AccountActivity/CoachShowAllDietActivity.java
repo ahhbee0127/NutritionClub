@@ -30,6 +30,7 @@ import java.util.List;
 
 public class CoachShowAllDietActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static String USER_ID = "userId";
     public static final String DIET_ID = "dietId";
     private DatabaseReference mDatabaseDiet;
     private DatabaseReference mDatabaseUsers;
@@ -56,9 +57,9 @@ public class CoachShowAllDietActivity extends AppCompatActivity implements Navig
         diet = new Diet();
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");
 
-        final String userId = getIntent().getStringExtra( ShowAllUserActivity.USER_ID);
+        USER_ID = getIntent().getStringExtra( ShowAllUserActivity.USER_ID);
 
-        mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(userId);
+        mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(USER_ID);
 
         listViewDiet = (ListView) findViewById(R.id.dietDiaryListView);
 
@@ -94,10 +95,10 @@ public class CoachShowAllDietActivity extends AppCompatActivity implements Navig
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Diet diet = dietList.get(i);
 
-                Intent intent = new Intent(getApplicationContext(),ShowDietActivity.class);
+                Intent intent = new Intent(getApplicationContext(),CoachShowDietActivity.class);
 
                 intent.putExtra(DIET_ID,diet.getId());
-                //intent.putExtra(BODY_ID,bodyComposition.getBodyId());
+                intent.putExtra(USER_ID,USER_ID);
 
                 startActivity(intent);
             }
@@ -213,6 +214,7 @@ public class CoachShowAllDietActivity extends AppCompatActivity implements Navig
 
                         if(role.equals("coach")){
                             nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
+                            addDiaryButton.setVisibility(View.GONE);
                         }else if(role.equals("client")){
                             nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
                         }

@@ -45,7 +45,8 @@
         <activity android:name=".AccountActivity.ShowEventActivity" />
         <activity android:name=".AccountActivity.addDietDiaryActivity" />
         <activity android:name=".AccountActivity.ShowDietActivity" />
-        <activity android:name=".AccountActivity.CoachShowAllDietActivity"></activity>
+        <activity android:name=".AccountActivity.CoachShowAllDietActivity" />
+        <activity android:name=".AccountActivity.CoachShowDietActivity"></activity>
     </application>
 
 </manifest>

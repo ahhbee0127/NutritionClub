@@ -35,8 +35,7 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
     private TextView contactV;
     private TextView inviterV;
     private TextView branchV;
-    private TextView roletxt;
-    private  TextView haiz;
+
 
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
@@ -62,8 +61,7 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
         inviterV = (TextView) findViewById(R.id.visceralFatV);
         heightV = (TextView) findViewById(R.id.fatpercentV);
         branchV = (TextView) findViewById(R.id.boneMassV);
-        roletxt = (TextView) findViewById(R.id.roletxt);
-        haiz = (TextView) findViewById(R.id.haiz);
+
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
