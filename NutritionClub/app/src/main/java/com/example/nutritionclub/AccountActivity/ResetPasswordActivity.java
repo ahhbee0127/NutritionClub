@@ -188,8 +188,11 @@ public class ResetPasswordActivity extends AppCompatActivity implements Navigati
 
                         if(role.equals("coach")){
                             nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_diet).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_bodyComposition).setVisible(false);
                         }else if(role.equals("client")){
                             nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_customerLog).setVisible(false);
                         }
                     }
 

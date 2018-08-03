@@ -218,9 +218,12 @@ public class CoachShowAllBodyActivity extends AppCompatActivity implements Navig
 
                         if(role.equals("coach")){
                             nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_diet).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_bodyComposition).setVisible(false);
                             addRecordButton.setVisibility(View.GONE);
                         }else if(role.equals("client")){
                             nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_customerLog).setVisible(false);
                         }
                     }
 

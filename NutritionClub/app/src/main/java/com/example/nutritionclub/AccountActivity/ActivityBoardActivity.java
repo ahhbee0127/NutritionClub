@@ -91,7 +91,7 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Event event = eventList.get(i);
 
-                Intent intent = new Intent(getApplicationContext(),ShowDetailActivity.class);
+                Intent intent = new Intent(getApplicationContext(),ShowEventActivity.class);
 
                 intent.putExtra(EVENT_ID,event.getEventId());
 
@@ -211,8 +211,12 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
 
                         if(role.equals("coach")){
                             nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_diet).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_bodyComposition).setVisible(false);
+
                         }else if(role.equals("client")){
                             nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_customerLog).setVisible(false);
                             addEventButton.setVisibility(View.GONE);
                         }
                     }

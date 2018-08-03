@@ -20,203 +20,114 @@ android:id="@+id/drawerLayout">
     </include>
 
     <TextView
-        android:id="@+id/dateV"
+        android:id="@+id/textView34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text="Name"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="61dp"
-        android:layout_marginTop="16dp"
-
-        android:layout_below="@+id/myV"
-        android:layout_toRightOf="@+id/myV"
-        android:layout_toEndOf="@+id/myV"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp" />
-
-    <TextView
-        android:id="@+id/fatpercentV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:text="Height"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="61dp"
-        android:layout_below="@+id/weightV"
-        android:layout_alignLeft="@+id/weightV"
-        android:layout_alignStart="@+id/weightV" />
-
-    <TextView
-        android:id="@+id/weightV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:text="Age"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="61dp"
-        android:layout_below="@+id/dateV"
-        android:layout_alignLeft="@+id/dateV"
-        android:layout_alignStart="@+id/dateV" />
-
-    <TextView
-        android:id="@+id/fatkgV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/fatpercentV"
-        android:layout_alignStart="@+id/fatpercentV"
-        android:layout_below="@+id/fatpercentV"
-        android:layout_marginTop="23dp"
-        android:text="Contact"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="61dp" />
-
-    <TextView
-        android:id="@+id/visceralFatV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Inviter"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="61dp"
-        android:layout_alignTop="@+id/textView15"
-        android:layout_alignLeft="@+id/fatkgV"
-        android:layout_alignStart="@+id/fatkgV" />
-
-    <TextView
-        android:id="@+id/boneMassV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:text="Nutrition Club"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="61dp"
-        android:layout_below="@+id/visceralFatV"
-        android:layout_alignLeft="@+id/visceralFatV"
-        android:layout_alignStart="@+id/visceralFatV" />
-
-    <TextView
-        android:id="@+id/myV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:paddingTop="60dp"
-        android:text="Client's Details"
+        android:text="Event's Details"
         android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/textView35"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name :"
-        android:layout_alignBaseline="@+id/dateV"
-        android:layout_alignBottom="@+id/dateV"
+        android:layout_marginTop="24dp"
+        android:text="Event Name :"
+        android:layout_below="@+id/textView34"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="81dp"
+        android:layout_marginStart="81dp" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/textView36"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/fatpercentV"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="Age :" />
+        android:layout_alignEnd="@+id/textView35"
+        android:layout_alignRight="@+id/textView35"
+        android:layout_below="@+id/textView35"
+        android:layout_marginTop="23dp"
+        android:text="Date :" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/textView37"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/fatpercentV"
-        android:text="Height :" />
+        android:layout_alignEnd="@+id/textView36"
+        android:layout_alignRight="@+id/textView36"
+        android:layout_below="@+id/textView36"
+        android:layout_marginTop="24dp"
+        android:text="Time :" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/textView38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/fatkgV"
-        android:text="Contact :" />
+        android:layout_alignEnd="@+id/textView37"
+        android:layout_alignRight="@+id/textView37"
+        android:layout_below="@+id/textView37"
+        android:layout_marginTop="23dp"
+        android:text="Description :" />
 
     <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
+        android:id="@+id/eDateV"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:text="Inviter :" />
+        android:layout_alignBaseline="@+id/textView36"
+        android:layout_alignBottom="@+id/textView36"
+        android:layout_alignLeft="@+id/eTimeV"
+        android:layout_alignStart="@+id/eTimeV"
+        android:text="Date"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
+        android:id="@+id/eTimeV"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/boneMassV"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="Nutrition Club :" />
+        android:layout_alignBaseline="@+id/textView37"
+        android:layout_alignBottom="@+id/textView37"
+        android:layout_alignLeft="@+id/eNameV"
+        android:layout_alignStart="@+id/eNameV"
+        android:text="Time"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/dietButton"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/eNameV"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView16"
-        android:layout_marginTop="37dp"
-        android:text="Button" />
+        android:layout_above="@+id/textView36"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="37dp"
+        android:layout_marginStart="37dp"
+        android:layout_toRightOf="@+id/textView35"
+        android:text="Event Name"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/bodyComButton"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/eDetailsV"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/weightV"
-        android:layout_alignRight="@+id/weightV"
-        android:layout_alignTop="@+id/dietButton"
-        android:text="Button" />
+        android:layout_alignLeft="@+id/eTimeV"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/eTimeV"
+        android:layout_alignTop="@+id/textView38"
+        android:text="Description"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bodyComButton"
-        android:layout_toEndOf="@+id/fatkgV"
-        android:layout_toRightOf="@+id/fatkgV"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dietButton"
-        android:layout_marginTop="28dp"
-        android:layout_toLeftOf="@+id/dateV"
-        android:layout_toStartOf="@+id/dateV"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button5"
-        android:layout_alignEnd="@+id/boneMassV"
-        android:layout_alignRight="@+id/boneMassV"
-        android:text="Button" />
 </RelativeLayout>
 
 <android.support.design.widget.NavigationView
