@@ -11,6 +11,8 @@ package com.example.nutritionclub.AccountActivity;
         import android.util.Log;
         import android.view.Menu;
         import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.Button;
         import android.widget.TextView;
 
         import com.example.nutritionclub.R;
@@ -24,6 +26,7 @@ package com.example.nutritionclub.AccountActivity;
 
 public class ShowBodyDetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    public static String BODY_ID1 = "bodyId";
     private TextView dateV;
     private TextView weightV;
     private TextView fatPercentV;
@@ -34,6 +37,8 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
     private TextView muscleV;
     private TextView bmiV;
     private TextView waterV;
+    private TextView commentV;
+    private Button commentButton;
 
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
@@ -65,6 +70,8 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
         muscleV = (TextView) findViewById(R.id.muscleV);
         bmiV = (TextView) findViewById(R.id.bmiV);
         waterV = (TextView) findViewById(R.id.waterV);
+        commentV = (TextView) findViewById(R.id.commentV);
+        commentButton = (Button) findViewById(R.id.commentButton);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -117,6 +124,12 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
                         Double waterD = dataSnapshot.child("water").getValue(Double.class);
                         String water = Double.toString(waterD);
                         waterV.setText(water);
+                        String comment = dataSnapshot.child("comment").getValue(String.class);
+                        if(comment != null){
+                            commentV.setVisibility(View.GONE);
+                            commentButton.setText("Show Comment");
+                            commentButton.setVisibility(View.VISIBLE);
+                        }
                     }
 
                     @Override
@@ -124,6 +137,19 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
                         Log.w(TAG, "getUser:onCancelled", databaseError.toException());
                     }
                 });
+
+        commentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(),BodyCommentActivity.class);
+
+                String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
+                intent.putExtra(BODY_ID1,bodyId);
+                startActivity(intent);
+            }
+        });
+
         hideItem();
     }
 

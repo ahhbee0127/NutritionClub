@@ -24,15 +24,15 @@ package com.example.nutritionclub.AccountActivity;
         import java.util.HashMap;
         import java.util.Map;
 
-public class BodyCommentActivity extends AppCompatActivity {
+public class CoachBodyCommentActivity extends AppCompatActivity{
 
 
     private DatabaseReference mDatabaseBody;
     private DatabaseReference mDatabaseUser;
     private FirebaseAuth auth;
+    private TextView commentV;
 
     private EditText commentF;
-    private TextView commentV;
     private Button submitButton;
     public static final String TAG = "TAG";
 
@@ -49,9 +49,8 @@ public class BodyCommentActivity extends AppCompatActivity {
         mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
 
-        FirebaseUser firebaseUser = auth.getCurrentUser();
-        String userId = firebaseUser.getUid();
-        String bodyId = getIntent().getStringExtra( ShowBodyDetailActivity.BODY_ID1);
+        String userId = getIntent().getStringExtra( CoachShowBodyDetailActivity.USER_ID1);
+        String bodyId = getIntent().getStringExtra( CoachShowBodyDetailActivity.BODY_ID1);
         mDatabaseBody = FirebaseDatabase.getInstance().getReference("Body Compositions").child(userId);
 
 
@@ -61,7 +60,12 @@ public class BodyCommentActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String comment = dataSnapshot.child("comment").getValue(String.class);
                         if (comment != null) {
+                            commentV.setVisibility(View.VISIBLE);
                             commentV.setText(comment);
+                        }else if (comment == null){
+                            commentV.setVisibility(View.GONE);
+                            commentF.setVisibility(View.VISIBLE);
+                            submitButton.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -70,7 +74,36 @@ public class BodyCommentActivity extends AppCompatActivity {
                         Log.w(TAG, "getUser:onCancelled", databaseError.toException());
                     }
                 });
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveComment();
+                submitButton.setVisibility(View.GONE);
+            }
+        });
+    }
 
+    protected void saveComment() {
+        String comment = commentF.getText().toString().trim();
+        String bodyId = getIntent().getStringExtra( CoachShowBodyDetailActivity.BODY_ID1);
+        DatabaseReference bodyRef = mDatabaseBody.child(bodyId);
+
+        Map<String, Object> bodyUpdates = new HashMap<>();
+        bodyUpdates.put("comment", comment);
+
+
+
+        bodyRef.updateChildren(bodyUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(CoachBodyCommentActivity.this,"Stored..",Toast.LENGTH_LONG).show();
+//                    appController.addUser(userInfo);;
+                }else{
+                    Toast.makeText(CoachBodyCommentActivity.this,"Error..",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }
 

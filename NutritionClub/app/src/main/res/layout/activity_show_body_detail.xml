@@ -264,6 +264,7 @@ android:id="@+id/drawerLayout">
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/waterV"
+        android:text="Comment"
         android:layout_marginTop="15dp"
         android:visibility="invisible" />
 

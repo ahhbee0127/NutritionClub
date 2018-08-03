@@ -24,8 +24,6 @@ package com.example.nutritionclub.AccountActivity;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
 
-        import java.util.ConcurrentModificationException;
-
 public class CoachShowBodyDetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     public static String USER_ID1 = "userId";
@@ -41,6 +39,7 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
     private TextView bmiV;
     private TextView waterV;
     private Button commentButton;
+    //private Button showCommentButton;
     private TextView commentV;
 
     NavigationView navigationView;
@@ -74,6 +73,7 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
         bmiV = (TextView) findViewById(R.id.bmiV);
         waterV = (TextView) findViewById(R.id.waterV);
         commentButton = (Button) findViewById(R.id.commentButton);
+        //showCommentButton = (Button) findViewById(R.id.showCommentButton);
         commentV = (TextView) findViewById(R.id.commentV);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -127,6 +127,16 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
                         Double waterD = dataSnapshot.child("water").getValue(Double.class);
                         String water = Double.toString(waterD);
                         waterV.setText(water);
+                        String comment = dataSnapshot.child("comment").getValue(String.class);
+                        if (comment != null){
+                            commentV.setVisibility(View.GONE);
+                            commentButton.setText("Show Comment");
+                            commentButton.setVisibility(View.VISIBLE);
+                        }else if (comment == null){
+                            commentV.setVisibility(View.GONE);
+                            commentButton.setText("Comment");
+                            commentButton.setVisibility(View.VISIBLE);
+                        }
                     }
 
                     @Override
@@ -139,7 +149,7 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(),BodyCommentActivity.class);
+                Intent intent = new Intent(getApplicationContext(),CoachBodyCommentActivity.class);
 
                 String userId = getIntent().getStringExtra( CoachShowAllBodyActivity.USER_ID);
                 String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
@@ -230,29 +240,13 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String role = dataSnapshot.child("role").getValue(String.class);
-                        String comment = dataSnapshot.child("comment").getValue(String.class);
-
                         navigationView = (NavigationView) findViewById(R.id.nav_view);
                         Menu nav_Menu = navigationView.getMenu();
 
                         if(role.equals("coach")){
                             nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
-                            if (comment != null){
-                                commentButton.setText("View Comment");
-                                commentButton.setVisibility(View.VISIBLE);
-                                commentV.setVisibility(View.GONE);
-                            }else if(comment == null){
-                                commentButton.setText("Comment");
-                                commentButton.setVisibility(View.VISIBLE);
-                                commentV.setVisibility(View.GONE);
-                            }
                         }else if(role.equals("client")){
                             nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
-                            if (comment != null){
-                                commentButton.setText("View Comment");
-                                commentButton.setVisibility(View.VISIBLE);
-                                commentV.setVisibility(View.GONE);
-                            }
                         }
                     }
 
