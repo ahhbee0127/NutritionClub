@@ -184,7 +184,7 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ShowDetailActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(ShowDetailActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

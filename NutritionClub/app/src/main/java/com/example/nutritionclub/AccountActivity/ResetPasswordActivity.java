@@ -158,7 +158,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements Navigati
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ResetPasswordActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(ResetPasswordActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

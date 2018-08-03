@@ -184,7 +184,7 @@ public class CoachShowAllDietActivity extends AppCompatActivity implements Navig
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(CoachShowAllDietActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(CoachShowAllDietActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

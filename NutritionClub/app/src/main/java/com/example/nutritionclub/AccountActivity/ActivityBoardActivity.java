@@ -181,7 +181,7 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ActivityBoardActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(ActivityBoardActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

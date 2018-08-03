@@ -79,12 +79,14 @@ public class CoachBodyCommentActivity extends AppCompatActivity{
             public void onClick(View v) {
                 saveComment();
                 submitButton.setVisibility(View.GONE);
+                commentV.setVisibility(View.VISIBLE);
+                commentF.setVisibility(View.GONE);
             }
         });
     }
 
     protected void saveComment() {
-        String comment = commentF.getText().toString().trim();
+        final String comment = commentF.getText().toString().trim();
         String bodyId = getIntent().getStringExtra( CoachShowBodyDetailActivity.BODY_ID1);
         DatabaseReference bodyRef = mDatabaseBody.child(bodyId);
 
@@ -98,7 +100,7 @@ public class CoachBodyCommentActivity extends AppCompatActivity{
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(CoachBodyCommentActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-//                    appController.addUser(userInfo);;
+                    commentV.setText(comment);
                 }else{
                     Toast.makeText(CoachBodyCommentActivity.this,"Error..",Toast.LENGTH_LONG).show();
                 }

@@ -112,7 +112,7 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(AnalysisActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(AnalysisActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

@@ -33,45 +33,42 @@ android:id="@+id/drawerLayout">
         android:id="@+id/textView29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView27"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="30dp"
+        android:text="Client's Name :"
+        android:layout_below="@+id/dateV"
         android:layout_toLeftOf="@+id/textView27"
-        android:layout_toStartOf="@+id/textView27"
-        android:text="Client's Name :" />
+        android:layout_toStartOf="@+id/textView27" />
 
     <EditText
         android:id="@+id/nameF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView27"
-        android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="30dp"
-        android:layout_toEndOf="@+id/textView29"
-        android:layout_toRightOf="@+id/textView29"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_alignBottom="@+id/textView29"
+        android:layout_alignLeft="@+id/doneButton"
+        android:layout_alignStart="@+id/doneButton" />
 
     <TextView
         android:id="@+id/timeVVV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nameF"
-        android:layout_marginTop="11dp"
-        android:layout_toLeftOf="@+id/nameF"
-        android:layout_toStartOf="@+id/nameF"
-        android:text="Time :" />
+        android:text="Time :"
+        android:layout_alignBaseline="@+id/timeF"
+        android:layout_alignBottom="@+id/timeF"
+        android:layout_alignRight="@+id/textView29"
+        android:layout_alignEnd="@+id/textView29" />
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:layout_marginTop="20dp"
+        android:text="Add"
         android:layout_below="@+id/timeF"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/timeF"
@@ -84,6 +81,32 @@ android:id="@+id/drawerLayout">
         android:hint="Time"
         android:inputType="time"
         android:textAlignment="center" />
+
+    <ListView
+        android:id="@+id/clientLogListView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/saveButton" />
+
+    <Button
+        android:id="@+id/doneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:layout_below="@+id/clientLogListView"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/dateV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView27"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="Date"
+        android:textSize="20sp" />
 
 </RelativeLayout>
 

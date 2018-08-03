@@ -28,7 +28,7 @@ public class CheckinList extends ArrayAdapter<Checkin> {
 
     public CheckinList(Activity context, List<Checkin> checkinList) {
 
-        super(context, R.layout.log_layout, checkinList);
+        super(context, R.layout.client_log_layout, checkinList);
         this.context = context;
         this.checkinList = checkinList;
     }
@@ -39,13 +39,16 @@ public class CheckinList extends ArrayAdapter<Checkin> {
 
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View listViewItem = inflater.inflate(R.layout.log_layout, null, true);
+        View listViewItem = inflater.inflate(R.layout.client_log_layout, null, true);
 
-        TextView dateV = (TextView) listViewItem.findViewById(R.id.dateV);
+        TextView nameV = (TextView) listViewItem.findViewById(R.id.nameV);
+        TextView timeV = (TextView) listViewItem.findViewById(R.id.timeV);
 
         Checkin checkin = checkinList.get(position);
 
-        dateV.setText(checkin.getDate());
+        nameV.setText(checkin.getName());
+        timeV.setText(checkin.getTime());
+
 
         return listViewItem;
     }

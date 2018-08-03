@@ -344,7 +344,7 @@ public class DietDiaryActivity extends AppCompatActivity implements NavigationVi
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(DietDiaryActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(DietDiaryActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

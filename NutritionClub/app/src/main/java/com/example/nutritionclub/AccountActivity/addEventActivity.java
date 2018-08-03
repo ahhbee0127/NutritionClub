@@ -262,7 +262,7 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(addEventActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(addEventActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

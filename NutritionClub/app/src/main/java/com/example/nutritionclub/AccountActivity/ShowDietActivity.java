@@ -187,7 +187,7 @@ public class ShowDietActivity extends AppCompatActivity implements NavigationVie
                     break;
 
                 case R.id.nav_customerLog:
-                    startActivity(new Intent(ShowDietActivity.this, CustomerLogActivity.class));
+                    startActivity(new Intent(ShowDietActivity.this, ShowAllLogActivity.class));
                     finish();
                     break;
 

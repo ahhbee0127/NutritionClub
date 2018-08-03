@@ -196,7 +196,7 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(BodyCompositionActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(BodyCompositionActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

@@ -196,7 +196,7 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ShowPersonalActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(ShowPersonalActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

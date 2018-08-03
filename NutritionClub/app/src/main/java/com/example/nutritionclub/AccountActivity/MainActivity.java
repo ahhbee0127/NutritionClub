@@ -334,7 +334,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(MainActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(MainActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

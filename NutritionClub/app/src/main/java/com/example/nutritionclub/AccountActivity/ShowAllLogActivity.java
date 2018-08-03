@@ -30,6 +30,7 @@ package com.example.nutritionclub.AccountActivity;
 
 public class ShowAllLogActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String CHECKIN_DATE = "checkinDate";
     private DatabaseReference mDatabaseCheckin;
     private DatabaseReference mDatabaseUsers;
     NavigationView navigationView;
@@ -39,10 +40,10 @@ public class ShowAllLogActivity extends AppCompatActivity implements NavigationV
     private FirebaseAuth auth;
     private Button addCheckinButton;
 
-    ListView listViewCheckin;
-    List<Checkin> checkinList;
+    ListView listViewCheckinDate;
+    List<CheckinDate> checkinDateList;
     //ArrayAdapter<User> userAdapter;
-    Checkin checkin;
+    CheckinDate checkinDate;
 
 
     @Override
@@ -52,16 +53,16 @@ public class ShowAllLogActivity extends AppCompatActivity implements NavigationV
 
         addCheckinButton = (Button) findViewById(R.id.addCheckinButton);
 
-        checkin = new Checkin();
+        checkinDate = new CheckinDate();
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");
-        mDatabaseCheckin = FirebaseDatabase.getInstance().getReference("Customer Log");
+        mDatabaseCheckin = FirebaseDatabase.getInstance().getReference("Log Date");
         auth = FirebaseAuth.getInstance();
 
         //Later when comes to Admin View different.
         FirebaseUser user = auth.getCurrentUser();
         final String userId = user.getUid();
 
-        listViewCheckin = (ListView) findViewById(R.id.checkinListView);
+        listViewCheckinDate = (ListView) findViewById(R.id.checkinDateListView);
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -77,31 +78,31 @@ public class ShowAllLogActivity extends AppCompatActivity implements NavigationV
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        checkinList = new ArrayList<>();
+        checkinDateList = new ArrayList<>();
 
         addCheckinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ShowAllLogActivity.this, LogCalenderActivity.class));
+
             }
         });
 
         hideItem();
-//
-//        listViewCheckin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Checkin checkin = checkinList.get(i);
-//
-//                Intent intent = new Intent(getApplicationContext(),ShowBodyDetailActivity.class);
-//
-//                intent.putExtra(USER_ID,bodyComposition.getUserId());
-//                intent.putExtra(BODY_ID,bodyComposition.getBodyId());
-//
-//                startActivity(intent);
-//            }
-//        });
+
+        listViewCheckinDate.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CheckinDate checkinDate = checkinDateList.get(i);
+
+                Intent intent = new Intent(getApplicationContext(),LogListActivity.class);
+
+                intent.putExtra(CHECKIN_DATE,checkinDate.getDate());
+
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -112,16 +113,16 @@ public class ShowAllLogActivity extends AppCompatActivity implements NavigationV
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                checkinList.clear();
+                checkinDateList.clear();
 
                 for(DataSnapshot checkinSnapshot : dataSnapshot.getChildren()){
-                    Checkin checkin = checkinSnapshot.getValue(Checkin.class);
+                    CheckinDate checkinDate = checkinSnapshot.getValue(CheckinDate.class);
 
-                    checkinList.add(checkin);
+                    checkinDateList.add(checkinDate);
                 }
 
-                CheckinList adapter = new CheckinList(ShowAllLogActivity.this,checkinList);
-                listViewCheckin.setAdapter(adapter);
+                CheckinDateList adapter = new CheckinDateList(ShowAllLogActivity.this,checkinDateList);
+                listViewCheckinDate.setAdapter(adapter);
             }
 
             @Override
@@ -183,7 +184,7 @@ public class ShowAllLogActivity extends AppCompatActivity implements NavigationV
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ShowAllLogActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(ShowAllLogActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

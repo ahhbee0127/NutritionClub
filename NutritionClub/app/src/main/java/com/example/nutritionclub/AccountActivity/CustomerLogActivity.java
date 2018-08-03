@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,8 +33,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class CustomerLogActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -48,6 +51,12 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
     private EditText nameF;
     private EditText timeF;
     private Button saveButton;
+    private ListView clientLogListView;
+    private Button doneButton;
+    private TextView dateV;
+
+    List<Checkin> checkinList;
+    Checkin checkin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +66,12 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
         nameF = (EditText) findViewById(R.id.nameF);
         timeF = (EditText) findViewById(R.id.timeF);
         saveButton = (Button) findViewById(R.id.saveButton);
+        doneButton = (Button) findViewById(R.id.doneButton);
+        dateV = (TextView) findViewById(R.id.dateV);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
+        clientLogListView = (ListView) findViewById(R.id.clientLogListView);
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -70,9 +82,10 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
         mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
 
-        String date = getIntent().getStringExtra( LogCalenderActivity.DATE);
-        String checkinDateId = getIntent().getStringExtra( LogCalenderActivity.CHECKINDATEID);
+        String date = getIntent().getStringExtra(LogCalenderActivity.DATE);
+        //String checkinDateId = getIntent().getStringExtra( LogCalenderActivity.CHECKINDATEID);
 
+        dateV.setText(date);
         mDatabaseCheckin = FirebaseDatabase.getInstance().getReference("Customer Log").child(date);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -80,13 +93,25 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
         //navEmail = (TextView) findViewById(R.id.navEmailT);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        checkinList = new ArrayList<>();
+
         hideItem();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveCheckin();
-                startActivity(new Intent(CustomerLogActivity.this,ShowAllBodyActivity.class));
+                nameF.setText("");
+                timeF.setText("");
+//                startActivity(new Intent(CustomerLogActivity.this,ShowAllBodyActivity.class));
+//                finish();
+            }
+        });
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CustomerLogActivity.this,ShowAllLogActivity.class));
                 finish();
             }
         });
@@ -103,7 +128,7 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
 
         String checkinId = mDatabaseCheckin.push().getKey();
 
-        mDatabaseCheckin.child(date).child(checkinId).setValue(checkinData).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabaseCheckin.child(checkinId).setValue(checkinData).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -111,6 +136,33 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
                 }else{
                     Toast.makeText(CustomerLogActivity.this,"Error..",Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mDatabaseCheckin.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                checkinList.clear();
+
+                for(DataSnapshot checkinSnapshot : dataSnapshot.getChildren()){
+                    Checkin checkin = checkinSnapshot.getValue(Checkin.class);
+
+                    checkinList.add(checkin);
+                }
+
+                CheckinList adapter = new CheckinList(CustomerLogActivity.this,checkinList);
+                clientLogListView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
@@ -167,7 +219,7 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(CustomerLogActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(CustomerLogActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

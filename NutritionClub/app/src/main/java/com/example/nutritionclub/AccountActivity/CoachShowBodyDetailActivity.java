@@ -215,7 +215,7 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(CoachShowBodyDetailActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(CoachShowBodyDetailActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

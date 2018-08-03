@@ -1,6 +1,9 @@
 package com.example.nutritionclub.AccountActivity;
 
         import android.content.Intent;
+        import android.provider.ContactsContract;
+        import android.support.annotation.NonNull;
+        import android.support.design.widget.CheckableImageButton;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
         import android.support.v4.widget.DrawerLayout;
@@ -12,11 +15,15 @@ package com.example.nutritionclub.AccountActivity;
         import android.view.Menu;
         import android.view.MenuItem;
         import android.view.View;
-        import android.widget.AdapterView;
         import android.widget.Button;
+        import android.widget.EditText;
         import android.widget.ListView;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
         import com.example.nutritionclub.R;
+        import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.Task;
         import com.google.firebase.auth.FirebaseAuth;
         import com.google.firebase.auth.FirebaseUser;
         import com.google.firebase.database.DataSnapshot;
@@ -25,50 +32,37 @@ package com.example.nutritionclub.AccountActivity;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
 
+        import java.text.SimpleDateFormat;
         import java.util.ArrayList;
+        import java.util.Calendar;
+        import java.util.Date;
         import java.util.List;
 
-public class ShowAllBodyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class LogListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    public static final String BODY_ID = "bodyId";
-    public static final String USER_ID = "userId";
-    private DatabaseReference mDatabaseBody;
-    private DatabaseReference mDatabaseUsers;
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
+    private DatabaseReference mDatabaseCheckin;
+    private DatabaseReference mDatabaseUser;
     private FirebaseAuth auth;
-    private Button addRecordButton;
+    private ListView logListView;
+    private TextView dateV;
 
-    ListView listViewBody;
-    List<BodyComposition> bodyCompositionList;
-    //ArrayAdapter<User> userAdapter;
-    BodyComposition bodyComposition;
-
+    List<Checkin> checkinList;
+    Checkin checkin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_all_body);
+        setContentView(R.layout.activity_log_list);
 
-        addRecordButton = (Button) findViewById(R.id.addRecordButton);
-
-        bodyComposition = new BodyComposition();
-        mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");
-        auth = FirebaseAuth.getInstance();
-
-        //Later when comes to Admin View different.
-        FirebaseUser user = auth.getCurrentUser();
-        final String userId = user.getUid();
-
-        mDatabaseBody = FirebaseDatabase.getInstance().getReference("Body Compositions").child(userId);
-
-        listViewBody = (ListView) findViewById(R.id.bodyCompositionListView);
-
+        dateV = (TextView) findViewById(R.id.dateV);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
+        logListView = (ListView) findViewById(R.id.logListView);
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -76,55 +70,44 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
+        auth = FirebaseAuth.getInstance();
+
+        String date = getIntent().getStringExtra(ShowAllLogActivity.CHECKIN_DATE);
+        //String checkinDateId = getIntent().getStringExtra( LogCalenderActivity.CHECKINDATEID);
+
+        dateV.setText(date);
+        mDatabaseCheckin = FirebaseDatabase.getInstance().getReference("Customer Log").child(date);
+
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        //navEmail = (TextView) findViewById(R.id.navEmailT);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        bodyCompositionList = new ArrayList<>();
-
-        addRecordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShowAllBodyActivity.this, BodyCompositionActivity.class));
-            }
-        });
+        checkinList = new ArrayList<>();
 
         hideItem();
 
-        listViewBody.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                BodyComposition bodyComposition = bodyCompositionList.get(i);
-
-                Intent intent = new Intent(getApplicationContext(),ShowBodyDetailActivity.class);
-
-                intent.putExtra(USER_ID,bodyComposition.getUserId());
-                intent.putExtra(BODY_ID,bodyComposition.getBodyId());
-
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        mDatabaseBody.addValueEventListener(new ValueEventListener() {
+        mDatabaseCheckin.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                bodyCompositionList.clear();
+                checkinList.clear();
 
-                for(DataSnapshot userSnapshot : dataSnapshot.getChildren()){
-                    BodyComposition bodyComposition = userSnapshot.getValue(BodyComposition.class);
+                for(DataSnapshot checkinSnapshot : dataSnapshot.getChildren()){
+                    Checkin checkin = checkinSnapshot.getValue(Checkin.class);
 
-                    bodyCompositionList.add(bodyComposition);
+                    checkinList.add(checkin);
                 }
 
-                BodyCompositionList adapter = new BodyCompositionList(ShowAllBodyActivity.this,bodyCompositionList);
-                listViewBody.setAdapter(adapter);
+                CheckinList adapter = new CheckinList(LogListActivity.this,checkinList);
+                logListView.setAdapter(adapter);
             }
 
             @Override
@@ -151,47 +134,47 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
         switch (id)
         {
             case R.id.nav_account:
-                startActivity(new Intent(ShowAllBodyActivity.this, MainActivity.class));
+                startActivity(new Intent(LogListActivity.this, MainActivity.class));
                 finish();
                 break;
 
             case R.id.nav_me:
-                startActivity(new Intent(ShowAllBodyActivity.this, ShowPersonalActivity.class));
+                startActivity(new Intent(LogListActivity.this, ShowPersonalActivity.class));
                 finish();
                 break;
 
             case R.id.nav_calFat:
-                startActivity(new Intent(ShowAllBodyActivity.this, CalculateFatActivity.class));
+                startActivity(new Intent(LogListActivity.this, CalculateFatActivity.class));
                 finish();
                 break;
 
             case R.id.nav_showAllUser:
-                startActivity(new Intent(ShowAllBodyActivity.this, ShowAllUserActivity.class));
+                startActivity(new Intent(LogListActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(ShowAllBodyActivity.this, ShowAllBodyActivity.class));
+                startActivity(new Intent(LogListActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 
             case R.id.nav_diet:
-                startActivity(new Intent(ShowAllBodyActivity.this, DietDiaryActivity.class));
+                startActivity(new Intent(LogListActivity.this, DietDiaryActivity.class));
                 finish();
                 break;
 
             case R.id.nav_activityBoard:
-                startActivity(new Intent(ShowAllBodyActivity.this, ActivityBoardActivity.class));
+                startActivity(new Intent(LogListActivity.this, ActivityBoardActivity.class));
                 finish();
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ShowAllBodyActivity.this, ShowAllLogActivity.class));
+                startActivity(new Intent(LogListActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 
             case R.id.nav_analysis:
-                startActivity(new Intent(ShowAllBodyActivity.this, AnalysisActivity.class));
+                startActivity(new Intent(LogListActivity.this, AnalysisActivity.class));
                 finish();
                 break;
         }
@@ -206,7 +189,7 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
         FirebaseUser authUser = auth.getCurrentUser();
         String userId = authUser.getUid();
 
-        mDatabaseUsers.child(userId).addListenerForSingleValueEvent(
+        mDatabaseUser.child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -227,6 +210,5 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
                     }
                 });
     }
-
 }
 

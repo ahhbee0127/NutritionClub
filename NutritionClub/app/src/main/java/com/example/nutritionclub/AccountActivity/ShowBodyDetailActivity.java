@@ -206,7 +206,7 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ShowBodyDetailActivity.this, CustomerLogActivity.class));
+                startActivity(new Intent(ShowBodyDetailActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 

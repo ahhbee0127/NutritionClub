@@ -29,6 +29,7 @@ public class LogCalenderActivity extends AppCompatActivity {
     private Button nextButton;
     private TextView myDate;
     private DatabaseReference mDatabaseCheckinDate;
+    CheckinDate checkinDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +40,12 @@ public class LogCalenderActivity extends AppCompatActivity {
         nextButton = (Button) findViewById(R.id.nextButton);
         myDate = (TextView) findViewById(R.id.myDate);
 
-        mDatabaseCheckinDate = FirebaseDatabase.getInstance().getReference("Customer Log");
+        mDatabaseCheckinDate = FirebaseDatabase.getInstance().getReference("Log Date");
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                date = i2 + "-" +( i1 + 1)+ "-" + i;
+                date = (i1 + 1) + "-" + i2 + "-" + i;
                 myDate.setText(date);
             }
         });
@@ -53,15 +54,19 @@ public class LogCalenderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //storeValue();
+                storeValue();
 
-                CheckinDate checkinDate = new CheckinDate(date);
+                //CheckinDate checkinDate = new CheckinDate();
+
                 Intent intent = new Intent(getApplicationContext(),CustomerLogActivity.class);
 
-                intent.putExtra(DATE,checkinDate.getDate());
+                String mdate = myDate.getText().toString().trim();
+                //intent.putExtra(DATE,checkinDate.getDate());
+                intent.putExtra(DATE,mdate);
                 //intent.putExtra(CHECKINDATEID,checkinDate.getCheckinDateId());
 
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -70,10 +75,9 @@ public class LogCalenderActivity extends AppCompatActivity {
 
         String mdate = myDate.getText().toString().trim();
 
+        //CHECKINDATEID = mdate;
 
-        //CHECKINDATEID = mDatabaseCheckinDate.push().getKey();
-
-        final CheckinDate checkinDate = new CheckinDate(mdate);
+        checkinDate = new CheckinDate(mdate);
 
         mDatabaseCheckinDate.child(mdate).setValue(checkinDate).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

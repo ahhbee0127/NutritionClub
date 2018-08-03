@@ -4,7 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context="com.example.nutritionclub.AccountActivity.ShowAllLogActivity"
+tools:context="com.example.nutritionclub.AccountActivity.LogListActivity"
 android:id="@+id/drawerLayout">
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,7 +12,7 @@ android:id="@+id/drawerLayout">
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.nutritionclub.AccountActivity.ShowAllLogActivity">
+    tools:context="com.example.nutritionclub.AccountActivity.LogListActivity">
 
     <include layout="@layout/navigation_action"
         android:layout_width="match_parent"
@@ -20,35 +20,35 @@ android:id="@+id/drawerLayout">
     </include>
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="16dp"
         android:paddingTop="60dp"
         android:text="Customer Log"
         android:textSize="18sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dateV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:text="Date"
+        android:textSize="20sp" />
 
     <ListView
-        android:id="@+id/checkinDateListView"
+        android:id="@+id/logListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/dateV"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/addCheckinButton"
-        android:layout_marginTop="22dp" />
+        android:layout_marginTop="24dp" />
 
-    <Button
-        android:id="@+id/addCheckinButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView9"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
-        android:text="Add Record" />
 </RelativeLayout>
 
 <android.support.design.widget.NavigationView
@@ -61,3 +61,4 @@ android:id="@+id/drawerLayout">
 </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
+
