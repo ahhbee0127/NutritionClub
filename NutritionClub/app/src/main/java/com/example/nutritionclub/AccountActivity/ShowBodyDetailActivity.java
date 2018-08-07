@@ -48,8 +48,10 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
 
     private DatabaseReference mDatabase;
     private DatabaseReference getmDatabaseBody;
+    private DatabaseReference getDeleteDatabaseBody;
     private FirebaseAuth auth;
     public static final String TAG = "TAG";
+    public Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
         commentV = (TextView) findViewById(R.id.commentV);
         commentButton = (Button) findViewById(R.id.commentButton);
         editButton = (Button) findViewById(R.id.editButton);
+        deleteButton = (Button) findViewById(R.id.deleteButton);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -160,6 +163,20 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
                 String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
                 intent.putExtra(BODY_ID1,bodyId);
                 startActivity(intent);
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
+                getmDatabaseBody.child(bodyId).getRef().removeValue();
+                            //appleSnapshot.getRef().removeValue();
+
+                Intent intent = new Intent(getApplicationContext(),ShowAllBodyActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

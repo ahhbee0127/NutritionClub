@@ -285,12 +285,24 @@ android:id="@+id/drawerLayout">
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Edit"
+        android:textColor="@color/bg_register"
         android:layout_alignBaseline="@+id/myV"
         android:layout_alignBottom="@+id/myV"
+        android:layout_alignRight="@+id/metaAgeV"
+        android:layout_alignEnd="@+id/metaAgeV" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editButton"
+        android:layout_alignBottom="@+id/editButton"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
-        android:text="Edit"
+        android:text="DELETE"
         android:textColor="@color/btn_logut_bg" />
 
 </RelativeLayout>
