@@ -168,6 +168,7 @@ public class ShowAllLogActivity extends AppCompatActivity implements NavigationV
                 finish();
                 break;
 
+
             case R.id.nav_bodyComposition:
                 startActivity(new Intent(ShowAllLogActivity.this, ShowAllBodyActivity.class));
                 finish();

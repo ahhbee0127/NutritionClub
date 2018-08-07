@@ -155,37 +155,58 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
             }
         });
 
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),EditBodyActivity.class);
-
-                String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
-                intent.putExtra(BODY_ID1,bodyId);
-                startActivity(intent);
-            }
-        });
-
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
-                getmDatabaseBody.child(bodyId).getRef().removeValue();
-                            //appleSnapshot.getRef().removeValue();
-
-                Intent intent = new Intent(getApplicationContext(),ShowAllBodyActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        editButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(),EditBodyActivity.class);
+//
+//                String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
+//                intent.putExtra(BODY_ID1,bodyId);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        deleteButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
+//                getmDatabaseBody.child(bodyId).getRef().removeValue();
+//                            //appleSnapshot.getRef().removeValue();
+//
+//                Intent intent = new Intent(getApplicationContext(),ShowAllBodyActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
         hideItem();
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
+        Intent intent;
+
+        switch (id){
+
+            case R.id.edit:
+                intent = new Intent(getApplicationContext(),EditBodyActivity.class);
+
+                intent.putExtra(BODY_ID1,bodyId);
+                startActivity(intent);
+                break;
+
+            case R.id.delete:
+
+                getmDatabaseBody.child(bodyId).getRef().removeValue();
+
+                intent = new Intent(getApplicationContext(),ShowAllBodyActivity.class);
+                startActivity(intent);
+                finish();
+        }
 
         if(mToggle.onOptionsItemSelected(item)){
             return true;
@@ -281,5 +302,12 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
                     }
                 });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.option_menu,menu);
+        return true;
+    }
+
 }
 
