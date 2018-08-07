@@ -155,6 +155,27 @@
         android:text="Nurtrition Club Branch :"
         android:layout_alignTop="@+id/ncSpinner"
         android:layout_alignLeft="@+id/textView8"
-        android:layout_alignStart="@+id/textView8" />
+        android:layout_alignStart="@+id/textView8"
+        android:layout_toLeftOf="@+id/saveButton"
+        android:layout_toStartOf="@+id/saveButton" />
+
+    <TextView
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView10"
+        android:layout_alignStart="@+id/textView10"
+        android:layout_below="@+id/ncSpinner"
+        android:layout_marginTop="23dp"
+        android:text="Gender :" />
+
+    <Spinner
+        android:id="@+id/genderSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/gender"
+        android:layout_alignLeft="@+id/inviterF"
+        android:layout_alignStart="@+id/inviterF"
+        android:entries="@array/gender" />
 
 </RelativeLayout>

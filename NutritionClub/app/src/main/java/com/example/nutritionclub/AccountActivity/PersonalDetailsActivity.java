@@ -35,6 +35,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     private EditText contactF;
     private Spinner ncBranchF;
     private Button saveButton;
+    private Spinner genderSpinner;
 
     private FirebaseAuth auth;
 
@@ -56,6 +57,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         inviterF = (EditText) findViewById(R.id.inviterF);
         contactF = (EditText) findViewById(R.id.contactF);
         ncBranchF = (Spinner) findViewById(R.id.ncSpinner);
+        genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
 
         saveButton = (Button) findViewById(R.id.saveButton);
 
@@ -69,6 +71,8 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         });
 
     }
+
+    //public
 
     public void onButtonClick(View v) {
         saveUserInfo();
@@ -85,6 +89,8 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         String inviter = inviterF.getText().toString().trim();
         String contact = contactF.getText().toString().trim();
 
+        String gender = genderSpinner.getSelectedItem().toString().trim();
+        //GENDER = gender;
 
         String branch = ncBranchF.getSelectedItem().toString().trim();
 
@@ -99,6 +105,8 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         userUpdates.put("height", height);
         userUpdates.put("inviter", inviter);
         userUpdates.put("nutritionClub", branch);
+        userUpdates.put("gender", gender);
+        userUpdates.put("role", "client");
 
 
         userRef.updateChildren(userUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {

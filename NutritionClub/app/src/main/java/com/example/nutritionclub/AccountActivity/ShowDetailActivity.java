@@ -33,6 +33,7 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
     private TextView contactV;
     private TextView inviterV;
     private TextView branchV;
+    private TextView genderV;
     private Button dietButton;
     private Button bodyComButton;
 
@@ -58,7 +59,8 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
         ageV = (TextView) findViewById(R.id.weightV);
         inviterV = (TextView) findViewById(R.id.visceralFatV);
         heightV = (TextView) findViewById(R.id.fatpercentV);
-        branchV = (TextView) findViewById(R.id.boneMassV);
+        branchV = (TextView) findViewById(R.id.ncV);
+        genderV = (TextView) findViewById(R.id.genderV);
         dietButton = (Button) findViewById(R.id.dietButton);
         bodyComButton = (Button) findViewById(R.id.bodyComButton);
 
@@ -99,6 +101,8 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
                         inviterV.setText(inviter);
                         String branch = dataSnapshot.child("nutritionClub").getValue(String.class);
                         branchV.setText(branch);
+                        String gender = dataSnapshot.child("gender").getValue(String.class);
+                        genderV.setText(gender);
                     }
 
                     @Override

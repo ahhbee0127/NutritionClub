@@ -20,15 +20,159 @@ android:id="@+id/drawerLayout">
     </include>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView50"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="60dp"
+        android:text="Analysis"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView52"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:text="Body Fat Index"
+        android:textStyle="bold"
+        android:layout_below="@+id/textView50"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="146dp"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="60dp"
-        android:text="Analysis" />
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView53"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView52"
+        android:layout_alignRight="@+id/textView52"
+        android:layout_below="@+id/textView52"
+        android:layout_marginTop="18dp"
+        android:text="Age :" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView53"
+        android:layout_alignRight="@+id/textView53"
+        android:layout_below="@+id/textView53"
+        android:layout_marginTop="19dp"
+        android:text="Gender :" />
+
+    <TextView
+        android:id="@+id/textView55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView54"
+        android:layout_alignRight="@+id/textView54"
+        android:layout_below="@+id/textView54"
+        android:layout_marginTop="24dp"
+        android:text="Fat Percent % :" />
+
+    <TextView
+        android:id="@+id/textView56"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
+        android:text="Visceral Fat Index"
+        android:textStyle="bold"
+        android:layout_below="@+id/evaluation1V"
+        android:layout_alignLeft="@+id/textView55"
+        android:layout_alignStart="@+id/textView55" />
+
+    <TextView
+        android:id="@+id/textView57"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView55"
+        android:layout_alignRight="@+id/textView55"
+        android:layout_below="@+id/textView56"
+        android:layout_marginTop="16dp"
+        android:text="Visceral Fat :" />
+
+    <TextView
+        android:id="@+id/textView58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView57"
+        android:layout_alignRight="@+id/textView57"
+        android:layout_below="@+id/textView57"
+        android:layout_marginTop="24dp"
+        android:text="Evaluation :" />
+
+    <TextView
+        android:id="@+id/ageV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView54"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_toEndOf="@+id/textView56"
+        android:layout_toRightOf="@+id/textView56"
+        android:text="Age"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/genderV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView55"
+        android:layout_alignLeft="@+id/ageV"
+        android:layout_alignStart="@+id/ageV"
+        android:text="Gender"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/fatPercentV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/genderV"
+        android:layout_alignStart="@+id/genderV"
+        android:layout_alignTop="@+id/textView55"
+        android:text="Fat Percent"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/visceralV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView58"
+        android:layout_alignLeft="@+id/fatPercentV"
+        android:layout_alignStart="@+id/fatPercentV"
+        android:text="Visceral Fat"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/evaluation2V"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView58"
+        android:layout_alignLeft="@+id/visceralV"
+        android:layout_alignStart="@+id/visceralV"
+        android:text="Evaluation"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView55"
+        android:layout_alignRight="@+id/textView55"
+        android:layout_below="@+id/fatPercentV"
+        android:layout_marginTop="20dp"
+        android:text="Evaluation" />
+
+    <TextView
+        android:id="@+id/evaluation1V"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fatPercentV"
+        android:layout_alignStart="@+id/fatPercentV"
+        android:layout_alignTop="@+id/textView51"
+        android:text="Evaluation"
+        android:textSize="18sp" />
 
 </RelativeLayout>
 

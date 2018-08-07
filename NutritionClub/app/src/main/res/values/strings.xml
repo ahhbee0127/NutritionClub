@@ -39,6 +39,11 @@
         <item>Herbalife - Subang</item>
     </array>
 
+    <array name="gender">
+        <item>Female</item>
+        <item>Male</item>
+    </array>
+
     <array name="meal">
         <item>Breakfast</item>
         <item>Lunch</item>

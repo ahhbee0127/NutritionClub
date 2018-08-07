@@ -161,14 +161,16 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
         String fatKgS = String.format("%.2f", fatKg1);
         double fatKg = Double.parseDouble(fatKgS);
 
-        double bmi = 124;
+        //double height = PersonalDetailsActivity.HEIGHT;
+        //double bmi = weight/(height*height);
+       // double bmi = PersonalDetailsActivity.HEIGHT;
 
 
         String id = mDatabaseBody.push().getKey();
         FirebaseUser user = auth.getCurrentUser();
         String userId = user.getUid();
 
-        final BodyComposition userBody = new BodyComposition(null,userId,id,todayDate,water,weight,fatPercent,visceralFat,boneMass,metaAge,muscle,fatKg,bmi);
+        final BodyComposition userBody = new BodyComposition(null,userId,id,todayDate,water,weight,fatPercent,visceralFat,boneMass,metaAge,muscle,fatKg);
 
         mDatabaseBody.child(id).setValue(userBody).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

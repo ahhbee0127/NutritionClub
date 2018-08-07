@@ -32,6 +32,10 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
 
     public static final String BODY_ID = "bodyId";
     public static final String USER_ID = "userId";
+    public static double BMI = 1;
+    public static int VISCERAL_FAT = 1;
+    public static double FAT_PERCENT = 1;
+
     private DatabaseReference mDatabaseBody;
     private DatabaseReference mDatabaseUsers;
     NavigationView navigationView;
@@ -61,6 +65,7 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
         //Later when comes to Admin View different.
         FirebaseUser user = auth.getCurrentUser();
         final String userId = user.getUid();
+
 
         mDatabaseBody = FirebaseDatabase.getInstance().getReference("Body Compositions").child(userId);
 
@@ -101,6 +106,10 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
 
                 intent.putExtra(USER_ID,bodyComposition.getUserId());
                 intent.putExtra(BODY_ID,bodyComposition.getBodyId());
+                //intent.putExtra(BMI,bodyComposition.getBmi());
+                BMI = bodyComposition.getBmi();
+                VISCERAL_FAT = bodyComposition.getVisceralFat();
+                FAT_PERCENT = bodyComposition.getFatPercent();
 
                 startActivity(intent);
             }

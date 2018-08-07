@@ -67,7 +67,7 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
         fatPercentV = (TextView) findViewById(R.id.fatpercentV);
         fatkgV = (TextView) findViewById(R.id.fatkgV);
         visceralV = (TextView) findViewById(R.id.visceralFatV);
-        boneMassV = (TextView) findViewById(R.id.boneMassV);
+        boneMassV = (TextView) findViewById(R.id.ncV);
         metaV = (TextView) findViewById(R.id.metaAgeV);
         muscleV = (TextView) findViewById(R.id.muscleV);
         bmiV = (TextView) findViewById(R.id.bmiV);
@@ -167,6 +167,21 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        int id = item.getItemId();
+        String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
+        Intent intent;
+
+        switch (id){
+
+            case R.id.analysis:
+                intent = new Intent(getApplicationContext(),AnalysisActivity.class);
+
+                intent.putExtra(BODY_ID1,bodyId);
+                startActivity(intent);
+                break;
+        }
+
+
         if(mToggle.onOptionsItemSelected(item)){
             return true;
         }
@@ -248,6 +263,7 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
                             nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
                             nav_Menu.findItem(R.id.nav_diet).setVisible(false);
                             nav_Menu.findItem(R.id.nav_bodyComposition).setVisible(false);
+
                         }else if(role.equals("client")){
                             nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
                             nav_Menu.findItem(R.id.nav_customerLog).setVisible(false);
@@ -260,5 +276,9 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
                     }
                 });
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.coach_option_menu,menu);
+        return true;
+    }
 }
-

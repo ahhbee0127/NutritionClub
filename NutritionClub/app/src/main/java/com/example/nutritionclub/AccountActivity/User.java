@@ -1,5 +1,7 @@
 package com.example.nutritionclub.AccountActivity;
 
+import android.accessibilityservice.GestureDescription;
+
 /**
  * Created by AhhBee on 22/7/2018.
  */
@@ -16,10 +18,12 @@ public class User {
     //Personal Details
     String name;
     int age;
+    String gender;
     double height;
     String nutritionClub;
     String contact;
     String inviter;
+    String ncPackage;
 
     public User(){
 
@@ -30,13 +34,32 @@ public class User {
         this.email = email;
     }
 
-    public  User(String name, int age, double height, String contact,String inviter, String nutritionClub){
+
+    public  User(String name, int age, String gender , double height, String contact, String inviter, String nutritionClub){
+        this.gender = gender;
         this.name = name;
         this.age = age;
         this.height = height;
         this.contact = contact;
+
         this.inviter = inviter;
         this.nutritionClub = nutritionClub;
+    }
+
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setNcPackage(String ncPackage) {
+        this.ncPackage = ncPackage;
+    }
+    public String getGender() {
+        return gender;
+    }
+
+    public String getNcPackage() {
+        return ncPackage;
     }
 
     public String getEmail() {

@@ -94,7 +94,7 @@ android:id="@+id/drawerLayout">
         tools:layout_editor_absoluteY="61dp" />
 
     <TextView
-        android:id="@+id/boneMassV"
+        android:id="@+id/ncV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/visceralFatV"
@@ -171,7 +171,7 @@ android:id="@+id/drawerLayout">
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/boneMassV"
+        android:layout_alignBottom="@+id/ncV"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:text="Bone Mass :" />
@@ -201,8 +201,8 @@ android:id="@+id/drawerLayout">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView18"
-        android:layout_alignLeft="@+id/boneMassV"
-        android:layout_alignStart="@+id/boneMassV"
+        android:layout_alignLeft="@+id/ncV"
+        android:layout_alignStart="@+id/ncV"
         android:text="Metabolic Age"
         android:textSize="18sp" />
 

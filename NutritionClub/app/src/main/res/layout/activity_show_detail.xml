@@ -89,17 +89,29 @@ android:id="@+id/drawerLayout">
         android:layout_alignStart="@+id/fatkgV" />
 
     <TextView
-        android:id="@+id/boneMassV"
+        android:id="@+id/ncV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
         android:text="Nutrition Club"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="162dp"
         tools:layout_editor_absoluteY="61dp"
         android:layout_below="@+id/visceralFatV"
         android:layout_alignLeft="@+id/visceralFatV"
-        android:layout_alignStart="@+id/visceralFatV" />
+        android:layout_alignStart="@+id/visceralFatV"
+        android:layout_marginTop="25dp" />
+
+    <TextView
+        android:id="@+id/genderV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView44"
+        android:layout_alignLeft="@+id/ncV"
+        android:layout_alignStart="@+id/ncV"
+        android:text="Gnder"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="61dp" />
 
     <TextView
         android:id="@+id/myV"
@@ -166,7 +178,7 @@ android:id="@+id/drawerLayout">
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/boneMassV"
+        android:layout_alignBottom="@+id/ncV"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:text="Nutrition Club :" />
@@ -175,11 +187,11 @@ android:id="@+id/drawerLayout">
         android:id="@+id/dietButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="79dp"
+        android:text="Diet Diary"
+        android:layout_below="@+id/ncV"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView16"
-        android:layout_marginTop="37dp"
-        android:text="Diet Diary" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/bodyComButton"
@@ -190,6 +202,16 @@ android:id="@+id/drawerLayout">
         android:layout_below="@+id/dietButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView16"
+        android:layout_marginTop="35dp"
+        android:text="Gneder :" />
 
 </RelativeLayout>
 

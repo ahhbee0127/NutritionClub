@@ -27,6 +27,7 @@ package com.example.nutritionclub.AccountActivity;
 public class ShowBodyDetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     public static String BODY_ID1 = "bodyId";
+    public static String BMI = "bmi";
     private TextView dateV;
     private TextView weightV;
     private TextView fatPercentV;
@@ -39,9 +40,9 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
     private TextView waterV;
     private TextView commentV;
     private Button commentButton;
-    private Button editButton;
 
     NavigationView navigationView;
+    NavigationView navigationOptionView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
@@ -51,7 +52,6 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
     private DatabaseReference getDeleteDatabaseBody;
     private FirebaseAuth auth;
     public static final String TAG = "TAG";
-    public Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +68,14 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
         fatPercentV = (TextView) findViewById(R.id.fatpercentV);
         fatkgV = (TextView) findViewById(R.id.fatkgV);
         visceralV = (TextView) findViewById(R.id.visceralFatV);
-        boneMassV = (TextView) findViewById(R.id.boneMassV);
+        boneMassV = (TextView) findViewById(R.id.ncV);
         metaV = (TextView) findViewById(R.id.metaAgeV);
         muscleV = (TextView) findViewById(R.id.muscleV);
         bmiV = (TextView) findViewById(R.id.bmiV);
         waterV = (TextView) findViewById(R.id.waterV);
         commentV = (TextView) findViewById(R.id.commentV);
         commentButton = (Button) findViewById(R.id.commentButton);
-        editButton = (Button) findViewById(R.id.editButton);
-        deleteButton = (Button) findViewById(R.id.deleteButton);
+
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -206,6 +205,15 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
                 intent = new Intent(getApplicationContext(),ShowAllBodyActivity.class);
                 startActivity(intent);
                 finish();
+                break;
+
+            case R.id.analysis:
+
+                //String bmi = getIntent().getStringExtra( ShowAllBodyActivity.BMI);
+                intent = new Intent(getApplicationContext(),AnalysisActivity.class);
+                //intent.putExtra(BMI,bmi);
+                startActivity(intent);
+                break;
         }
 
         if(mToggle.onOptionsItemSelected(item)){
@@ -285,11 +293,13 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
                         navigationView = (NavigationView) findViewById(R.id.nav_view);
                         Menu nav_Menu = navigationView.getMenu();
 
+
                         if(role.equals("coach")){
                             nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
                             nav_Menu.findItem(R.id.nav_diet).setVisible(false);
                             nav_Menu.findItem(R.id.nav_bodyComposition).setVisible(false);
-                            editButton.setVisibility(View.GONE);
+
+
                         }else if(role.equals("client")){
                             nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
                             nav_Menu.findItem(R.id.nav_customerLog).setVisible(false);

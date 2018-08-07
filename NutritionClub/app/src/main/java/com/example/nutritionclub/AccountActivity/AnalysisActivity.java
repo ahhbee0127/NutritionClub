@@ -1,7 +1,7 @@
 package com.example.nutritionclub.AccountActivity;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
+import android.renderscript.Double2;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,8 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.nutritionclub.R;
@@ -34,6 +32,14 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabaseUser;
     private FirebaseAuth auth;
+    private  TextView ageV;
+    private  TextView genderV;
+    private  TextView fatpercentV;
+    private  TextView visceralV;
+    private  TextView evaluation1;
+    private  TextView evaluation2;
+
+    private TextView bmiV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +55,142 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
+        bmiV = (TextView) findViewById(R.id.bmiV);
+        ageV = (TextView) findViewById(R.id.ageV);
+        genderV = (TextView) findViewById(R.id.genderV);
+        visceralV = (TextView) findViewById(R.id.visceralFatV);
+        fatpercentV = (TextView) findViewById(R.id.fatPercentV);
+        evaluation1 = (TextView) findViewById(R.id.evaluation1V);
+        evaluation2 = (TextView) findViewById(R.id.evaluation2V);
+
         mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        String userId = firebaseUser.getUid();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //navEmail = (TextView) findViewById(R.id.navEmailT);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //double bmi = ShowAllBodyActivity.BMI;
+//        String bmiS = Double.toString(bmi);
+//        bmiV.setText(bmiS);
+
+//        int visceralFat = ShowAllBodyActivity.VISCERAL_FAT;
+//        double fatPercent = ShowAllBodyActivity.FAT_PERCENT;
+
+        mDatabaseUser.child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int age = dataSnapshot.child("age").getValue(Integer.class);
+                        String gender = dataSnapshot.child("gender").getValue(String.class);
+                        int visceralFat = ShowAllBodyActivity.VISCERAL_FAT;
+                        double fatPercent = ShowAllBodyActivity.FAT_PERCENT;
+                        int age1 = age;
+
+                        String age2 = Integer.toString(age1);
+                        ageV.setText(age2);
+                        genderV.setText(gender);
+                        String fatPercent1 = Double.toString(fatPercent);
+                        fatpercentV.setText(fatPercent1);
+
+//                        double fatPercent1 = fatPercent;
+//                        String fatPercent2 = Double.toString(fatPercent1);
+//                        evaluation1.setText(fatPercent2);
+
+
+
+                        if(age < 30){
+                            if(gender.equals("Male")){
+                                if(fatPercent >=14 && fatPercent <= 20){
+                                    evaluation1.setText("You are currently in ideal body fat. Which is 14%-20% of fat percentage.");
+                                }else if (fatPercent > 25){
+                                    evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 14%-20%.");
+                                }else{
+                                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 14%-20%.");
+                                }
+                            }else if(gender.equals("Female")){
+                                if(fatPercent >=17 && fatPercent <= 24){
+                                    evaluation1.setText("You are currently in ideal body fat. Which is 17%-24% of fat percentage.");
+                                }else if (fatPercent > 30){
+                                    evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 17%-24%.");
+                                }else{
+                                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 17%-24%.");
+                                }
+                            }
+                        }else if(age >= 30){
+                            if(gender.equals("Male")){
+                                if(fatPercent >=17 && fatPercent <= 23){
+                                    evaluation1.setText("You are currently in ideal body fat. Which is 17%-23% of fat percentage.");
+                                }else if (fatPercent > 25){
+                                    evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 17%-23%.");
+                                }else{
+                                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 17%-23%.");
+                                }
+
+                            }else if(gender.equals("Female")){
+                                if(fatPercent >=20 && fatPercent <= 27){
+                                    evaluation1.setText("You are currently in ideal body fat. Which is 20%-27% of fat percentage.");
+                                }else if (fatPercent > 30){
+                                    evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 20%-27%.");
+                                }else{
+                                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 20%-27%.");
+                                }
+                            }
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("getUser:onCancelled", databaseError.toException());
+                    }
+                });
+
+//
+//        if(age < 30){
+//            if(gender == "Male"){
+//                if(fatPercent >=14 && fatPercent <= 20){
+//                    evaluation1.setText("You are currently in ideal body fat. Which is 14%-20% of fat percentage.");
+//                }else if (fatPercent > 25){
+//                    evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 14%-20%.");
+//                }else{
+//                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 14%-20%.");
+//                }
+//            }else if(gender == "Female"){
+//                if(fatPercent >=17 && fatPercent <= 24){
+//                    evaluation1.setText("You are currently in ideal body fat. Which is 17%-24% of fat percentage.");
+//                }else if (fatPercent > 30){
+//                    evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 17%-24%.");
+//                }else{
+//                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 17%-24%.");
+//                }
+//            }
+//        }else if(age >= 30){
+//            if(gender == "Male"){
+//                if(fatPercent >=17 && fatPercent <= 23){
+//                    evaluation1.setText("You are currently in ideal body fat. Which is 17%-23% of fat percentage.");
+//                }else if (fatPercent > 25){
+//                    evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 17%-23%.");
+//                }else{
+//                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 17%-23%.");
+//                }
+//
+//            }else if(gender == "Female"){
+//                if(fatPercent >=20 && fatPercent <= 27){
+//                    evaluation1.setText("You are currently in ideal body fat. Which is 20%-27% of fat percentage.");
+//                }else if (fatPercent > 30){
+//                    evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 20%-27%.");
+//                }else{
+//                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 20%-27%.");
+//                }
+//            }
+//        }
+
+
 
         hideItem();
     }

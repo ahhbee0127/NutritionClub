@@ -22,19 +22,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.List;
-
-import static android.R.id.list;
-
 public class ShowPersonalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    public String rolee = "role";
     private TextView nameV;
     private TextView heightV;
     private TextView ageV;
     private TextView contactV;
     private TextView inviterV;
     private TextView branchV;
+    private TextView genderV;
 
 
     NavigationView navigationView;
@@ -60,8 +56,8 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
         ageV = (TextView) findViewById(R.id.weightV);
         inviterV = (TextView) findViewById(R.id.visceralFatV);
         heightV = (TextView) findViewById(R.id.fatpercentV);
-        branchV = (TextView) findViewById(R.id.boneMassV);
-
+        branchV = (TextView) findViewById(R.id.ncV);
+        genderV = (TextView) findViewById(R.id.genderV);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
@@ -98,8 +94,8 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
                         inviterV.setText(inviter);
                         String branch = dataSnapshot.child("nutritionClub").getValue(String.class);
                         branchV.setText(branch);
-//                        String role = dataSnapshot.child("role").getValue(String.class);
-//                        roletxt.setText(role);
+                        String gender = dataSnapshot.child("gender").getValue(String.class);
+                        genderV.setText(gender);
                     }
 
                     @Override

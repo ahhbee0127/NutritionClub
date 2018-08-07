@@ -89,17 +89,30 @@
                 android:layout_alignStart="@+id/fatkgV" />
 
             <TextView
-                android:id="@+id/boneMassV"
+                android:id="@+id/ncV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_alignLeft="@+id/genderV"
+                android:layout_alignStart="@+id/genderV"
+                android:layout_below="@+id/genderV"
+                android:layout_marginTop="26dp"
                 android:text="Nutrition Club"
                 android:textSize="18sp"
                 tools:layout_editor_absoluteX="162dp"
-                tools:layout_editor_absoluteY="61dp"
-                android:layout_below="@+id/visceralFatV"
+                tools:layout_editor_absoluteY="61dp" />
+
+            <TextView
+                android:id="@+id/genderV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/visceralFatV"
-                android:layout_alignStart="@+id/visceralFatV" />
+                android:layout_alignStart="@+id/visceralFatV"
+                android:layout_below="@+id/visceralFatV"
+                android:layout_marginTop="14dp"
+                android:text="Gender"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="162dp"
+                tools:layout_editor_absoluteY="61dp" />
 
             <TextView
                 android:id="@+id/myV"
@@ -166,9 +179,19 @@
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/boneMassV"
+                android:layout_alignBottom="@+id/genderV"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:text="Gender :" />
+
+            <TextView
+                android:id="@+id/textView43"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView16"
+                android:layout_marginTop="27dp"
                 android:text="Nutrition Club :" />
 
         </RelativeLayout>
