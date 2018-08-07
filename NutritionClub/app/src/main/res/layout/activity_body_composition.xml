@@ -109,7 +109,7 @@
             android:layout_below="@+id/eFromF"
             android:ems="10"
             android:hint="Visceral Fat"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:textAlignment="center" />
 
         <EditText
@@ -143,7 +143,7 @@
             android:layout_below="@+id/boneMassF"
             android:ems="10"
             android:hint="Metabolic Age"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:textAlignment="center" />
 
         <TextView

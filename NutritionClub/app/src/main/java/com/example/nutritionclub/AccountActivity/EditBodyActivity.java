@@ -1,6 +1,7 @@
 package com.example.nutritionclub.AccountActivity;
 
         import android.content.Intent;
+        import android.support.annotation.NonNull;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
         import android.support.v4.widget.DrawerLayout;
@@ -13,9 +14,12 @@ package com.example.nutritionclub.AccountActivity;
         import android.view.MenuItem;
         import android.view.View;
         import android.widget.Button;
-        import android.widget.TextView;
+        import android.widget.EditText;
+        import android.widget.Toast;
 
         import com.example.nutritionclub.R;
+        import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.Task;
         import com.google.firebase.auth.FirebaseAuth;
         import com.google.firebase.auth.FirebaseUser;
         import com.google.firebase.database.DataSnapshot;
@@ -24,56 +28,43 @@ package com.example.nutritionclub.AccountActivity;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
 
-public class ShowBodyDetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+        import java.text.SimpleDateFormat;
+        import java.util.Calendar;
+        import java.util.Date;
 
-    public static String BODY_ID1 = "bodyId";
-    private TextView dateV;
-    private TextView weightV;
-    private TextView fatPercentV;
-    private TextView fatkgV;
-    private TextView visceralV;
-    private TextView boneMassV;
-    private TextView metaV;
-    private TextView muscleV;
-    private TextView bmiV;
-    private TextView waterV;
-    private TextView commentV;
-    private Button commentButton;
-    private Button editButton;
+public class EditBodyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
-
-    private DatabaseReference mDatabase;
-    private DatabaseReference getmDatabaseBody;
+    private DatabaseReference mDatabaseBody;
+    private DatabaseReference mDatabaseUser;
     private FirebaseAuth auth;
+
+    private EditText weightF;
+    private EditText waterF;
+    private EditText fatF;
+    private EditText viceralF;
+    private EditText boneMassF;
+    private EditText metaAgeF;
+    private EditText muscleF;
+    private Button saveButton;
     public static final String TAG = "TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_body_detail);
+        setContentView(R.layout.activity_edit_body);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-        String userId = getIntent().getStringExtra( ShowAllBodyActivity.USER_ID);
-        getmDatabaseBody = FirebaseDatabase.getInstance().getReference("Body Compositions").child(userId);
-        auth = FirebaseAuth.getInstance();
-
-        dateV = (TextView) findViewById(R.id.dateV);
-        weightV = (TextView) findViewById(R.id.weightV);
-        fatPercentV = (TextView) findViewById(R.id.fatpercentV);
-        fatkgV = (TextView) findViewById(R.id.fatkgV);
-        visceralV = (TextView) findViewById(R.id.visceralFatV);
-        boneMassV = (TextView) findViewById(R.id.boneMassV);
-        metaV = (TextView) findViewById(R.id.metaAgeV);
-        muscleV = (TextView) findViewById(R.id.muscleV);
-        bmiV = (TextView) findViewById(R.id.bmiV);
-        waterV = (TextView) findViewById(R.id.waterV);
-        commentV = (TextView) findViewById(R.id.commentV);
-        commentButton = (Button) findViewById(R.id.commentButton);
-        editButton = (Button) findViewById(R.id.editButton);
+        weightF = (EditText) findViewById(R.id.eDateF);
+        waterF = (EditText) findViewById(R.id.eNameF);
+        fatF = (EditText) findViewById(R.id.eFromF);
+        viceralF = (EditText) findViewById(R.id.vfatF);
+        boneMassF = (EditText) findViewById(R.id.boneMassF);
+        metaAgeF = (EditText) findViewById(R.id.metaAgeF);
+        muscleF = (EditText) findViewById(R.id.muscleF);
+        saveButton = (Button) findViewById(R.id.saveButton);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -84,54 +75,46 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
+        auth = FirebaseAuth.getInstance();
+
+        FirebaseUser user= auth.getCurrentUser();
+        String userId = user.getUid();
+        mDatabaseBody = FirebaseDatabase.getInstance().getReference("Body Compositions").child(userId);
+
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//
-//        FirebaseUser authUser = auth.getCurrentUser();
-//        String userId = authUser.getUid();
 
-        String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
 
-        getmDatabaseBody.child(bodyId).addListenerForSingleValueEvent(
+        String bodyId = getIntent().getStringExtra( ShowBodyDetailActivity.BODY_ID1);
+
+        mDatabaseBody.child(bodyId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String date = dataSnapshot.child("todayDate").getValue(String.class);
-                        dateV.setText(date);
                         double weightD = dataSnapshot.child("weight").getValue(Double.class);
                         String weight = Double.toString(weightD);
-                        weightV.setText(weight);
+                        weightF.setText(weight);
                         Double fatPercentD = dataSnapshot.child("fatPercent").getValue(Double.class);
                         String fatPercent = Double.toString(fatPercentD);
-                        fatPercentV.setText(fatPercent);
-                        Double bmiD = dataSnapshot.child("bmi").getValue(Double.class);
-                        String bmi = Double.toString(bmiD);
-                        bmiV.setText(bmi);
+                        fatF.setText(fatPercent);
                         Double boneMassD = dataSnapshot.child("boneMass").getValue(Double.class);
                         String boneMass = Double.toString(boneMassD);
-                        boneMassV.setText(boneMass);
-                        Double fatkgD = dataSnapshot.child("fatkg").getValue(Double.class);
-                        String fatkg = Double.toString(fatkgD);
-                        fatkgV.setText(fatkg);
+                        boneMassF.setText(boneMass);
                         int metaD = dataSnapshot.child("metabolicAge").getValue(Integer.class);
                         String meta = Integer.toString(metaD);
-                        metaV.setText(meta);
+                        metaAgeF.setText(meta);
                         Double muscleD = dataSnapshot.child("muscle").getValue(Double.class);
                         String muscle = Double.toString(muscleD);
-                        muscleV.setText(muscle);
+                        muscleF.setText(muscle);
                         int visceralD = dataSnapshot.child("visceralFat").getValue(Integer.class);
                         String visceral = Integer.toString(visceralD);
-                        visceralV.setText(visceral);
+                        //String visceral = String.format("%.0f",visceralD);
+                        viceralF.setText(visceral);
                         Double waterD = dataSnapshot.child("water").getValue(Double.class);
                         String water = Double.toString(waterD);
-                        waterV.setText(water);
-                        String comment = dataSnapshot.child("comment").getValue(String.class);
-                        if(comment != null){
-                            commentV.setVisibility(View.GONE);
-                            commentButton.setText("Show Comment");
-                            commentButton.setVisibility(View.VISIBLE);
-                        }
+                        waterF.setText(water);
                     }
 
                     @Override
@@ -140,32 +123,64 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
                     }
                 });
 
-        commentButton.setOnClickListener(new View.OnClickListener() {
+
+    hideItem();
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            saveBodyComposition();
+            startActivity(new Intent(EditBodyActivity.this, ShowAllBodyActivity.class));
+            finish();
+        }
+    });
+}
+
+    protected void saveBodyComposition() {
+        String waterS = waterF.getText().toString().trim();
+        double water = Double.parseDouble(waterS);
+        String weightS = weightF.getText().toString().trim();
+        double weight = Double.parseDouble(weightS);
+        String fatPercentS = fatF.getText().toString().trim();
+        double fatPercent = Double.parseDouble(fatPercentS);
+        String visceralFatS = viceralF.getText().toString().trim();
+        int visceralFat = Integer.parseInt(visceralFatS);
+        String boneMassS = boneMassF.getText().toString().trim();
+        double boneMass = Double.parseDouble(boneMassS);
+        String metaS = metaAgeF.getText().toString().trim();
+        int metaAge = Integer.parseInt(metaS);
+        String muscleS = muscleF.getText().toString().trim();
+        double muscle = Double.parseDouble(muscleS);
+
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String todayDate = df.format(c);
+
+        double fatKg1 = (fatPercent/100) * weight;
+        String fatKgS = String.format("%.2f", fatKg1);
+        double fatKg = Double.parseDouble(fatKgS);
+
+        double bmi = 124;
+
+        String id = getIntent().getStringExtra( ShowBodyDetailActivity.BODY_ID1);
+        FirebaseUser user = auth.getCurrentUser();
+        String userId = user.getUid();
+
+        final BodyComposition userBody = new BodyComposition(null,userId,id,todayDate,water,weight,fatPercent,visceralFat,boneMass,metaAge,muscle,fatKg,bmi);
+
+        mDatabaseBody.child(id).setValue(userBody).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(getApplicationContext(),BodyCommentActivity.class);
-
-                String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
-                intent.putExtra(BODY_ID1,bodyId);
-                startActivity(intent);
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(EditBodyActivity.this,"Stored..",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(EditBodyActivity.this,"Error..",Toast.LENGTH_LONG).show();
+                }
             }
         });
-
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),EditBodyActivity.class);
-
-                String bodyId = getIntent().getStringExtra( ShowAllBodyActivity.BODY_ID);
-                intent.putExtra(BODY_ID1,bodyId);
-                startActivity(intent);
-            }
-        });
-
-        hideItem();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -184,47 +199,47 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
         switch (id)
         {
             case R.id.nav_account:
-                startActivity(new Intent(ShowBodyDetailActivity.this, MainActivity.class));
+                startActivity(new Intent(EditBodyActivity.this, MainActivity.class));
                 finish();
                 break;
 
             case R.id.nav_me:
-                startActivity(new Intent(ShowBodyDetailActivity.this, ShowPersonalActivity.class));
+                startActivity(new Intent(EditBodyActivity.this, ShowPersonalActivity.class));
                 finish();
                 break;
 
             case R.id.nav_calFat:
-                startActivity(new Intent(ShowBodyDetailActivity.this, CalculateFatActivity.class));
+                startActivity(new Intent(EditBodyActivity.this, CalculateFatActivity.class));
                 finish();
                 break;
 
             case R.id.nav_showAllUser:
-                startActivity(new Intent(ShowBodyDetailActivity.this, ShowAllUserActivity.class));
+                startActivity(new Intent(EditBodyActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(ShowBodyDetailActivity.this, ShowAllBodyActivity.class));
+                startActivity(new Intent(EditBodyActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 
             case R.id.nav_diet:
-                startActivity(new Intent(ShowBodyDetailActivity.this, DietDiaryActivity.class));
+                startActivity(new Intent(EditBodyActivity.this, DietDiaryActivity.class));
                 finish();
                 break;
 
             case R.id.nav_activityBoard:
-                startActivity(new Intent(ShowBodyDetailActivity.this, ActivityBoardActivity.class));
+                startActivity(new Intent(EditBodyActivity.this, ActivityBoardActivity.class));
                 finish();
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(ShowBodyDetailActivity.this, ShowAllLogActivity.class));
+                startActivity(new Intent(EditBodyActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 
             case R.id.nav_analysis:
-                startActivity(new Intent(ShowBodyDetailActivity.this, AnalysisActivity.class));
+                startActivity(new Intent(EditBodyActivity.this, AnalysisActivity.class));
                 finish();
                 break;
         }
@@ -239,7 +254,7 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
         FirebaseUser authUser = auth.getCurrentUser();
         String userId = authUser.getUid();
 
-        mDatabase.child(userId).addListenerForSingleValueEvent(
+        mDatabaseUser.child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -251,7 +266,6 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
                             nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
                             nav_Menu.findItem(R.id.nav_diet).setVisible(false);
                             nav_Menu.findItem(R.id.nav_bodyComposition).setVisible(false);
-                            editButton.setVisibility(View.GONE);
                         }else if(role.equals("client")){
                             nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
                             nav_Menu.findItem(R.id.nav_customerLog).setVisible(false);
@@ -265,4 +279,3 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
                 });
     }
 }
-

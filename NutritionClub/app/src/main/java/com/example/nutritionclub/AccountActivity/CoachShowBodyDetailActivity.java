@@ -88,6 +88,7 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 //
 //        FirebaseUser authUser = auth.getCurrentUser();
 //        String userId = authUser.getUid();

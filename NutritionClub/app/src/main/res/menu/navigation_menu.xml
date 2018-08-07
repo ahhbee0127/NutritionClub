@@ -6,6 +6,15 @@
         android:title="Me"
         android:icon="@mipmap/baseline_account_circle_black_18dp"></item>
 
+    <item
+        android:id="@+id/nav_customerLog"
+        android:icon="@mipmap/baseline_playlist_add_black_18dp"
+        android:title="Customer Log"></item>
+
+    <item android:id="@+id/nav_bodyComposition"
+        android:title="Body Composition"
+        android:icon="@mipmap/baseline_accessibility_new_black_18dp"></item>
+
     <item android:id="@+id/nav_calFat"
         android:title="Calculate Fat"
         android:icon="@mipmap/baseline_exposure_black_18dp"></item>
@@ -14,9 +23,10 @@
         android:title="Diet Diary"
         android:icon="@mipmap/baseline_fastfood_black_18dp"></item>
 
-    <item android:id="@+id/nav_bodyComposition"
-        android:title="Body Composition"
-        android:icon="@mipmap/baseline_accessibility_new_black_18dp"></item>
+    <item
+        android:id="@+id/nav_analysis"
+        android:icon="@mipmap/baseline_bar_chart_black_18dp"
+        android:title="Analysis"></item>
 
     <item
         android:id="@+id/nav_showAllUser"
@@ -27,16 +37,6 @@
         android:id="@+id/nav_activityBoard"
         android:icon="@mipmap/baseline_motorcycle_black_18dp"
         android:title="Activity Board"></item>
-
-    <item
-        android:id="@+id/nav_customerLog"
-        android:icon="@mipmap/baseline_playlist_add_black_18dp"
-        android:title="Customer Log"></item>
-
-    <item
-        android:id="@+id/nav_analysis"
-        android:icon="@mipmap/baseline_bar_chart_black_18dp"
-        android:title="Analysis"></item>
 
     <item android:id="@+id/nav_account"
         android:title="Account Settings"

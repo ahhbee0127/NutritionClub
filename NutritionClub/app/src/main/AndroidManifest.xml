@@ -51,7 +51,8 @@
         <activity android:name=".AccountActivity.CoachShowAllBodyActivity" />
         <activity android:name=".AccountActivity.CoachShowBodyDetailActivity" />
         <activity android:name=".AccountActivity.BodyCommentActivity" />
-        <activity android:name=".AccountActivity.LogListActivity"></activity>
+        <activity android:name=".AccountActivity.LogListActivity" />
+        <activity android:name=".AccountActivity.EditBodyActivity"></activity>
     </application>
 
 </manifest>

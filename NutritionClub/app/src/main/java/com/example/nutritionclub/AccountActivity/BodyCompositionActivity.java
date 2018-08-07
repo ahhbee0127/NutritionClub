@@ -50,6 +50,8 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
     private EditText metaAgeF;
     private EditText muscleF;
     private Button saveButton;
+    public static final String TAG = "TAG";
+//    private String edit = "no";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,42 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        String bodyId = getIntent().getStringExtra( ShowBodyDetailActivity.BODY_ID1);
+
+//            mDatabaseBody.child(bodyId).addListenerForSingleValueEvent(
+//                    new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            double weightD = dataSnapshot.child("weight").getValue(Double.class);
+//                            String weight = Double.toString(weightD);
+//                            weightF.setText(weight);
+//                            Double fatPercentD = dataSnapshot.child("fatPercent").getValue(Double.class);
+//                            String fatPercent = Double.toString(fatPercentD);
+//                            fatF.setText(fatPercent);
+//                            Double boneMassD = dataSnapshot.child("boneMass").getValue(Double.class);
+//                            String boneMass = Double.toString(boneMassD);
+//                            boneMassF.setText(boneMass);
+//                            Double metaD = dataSnapshot.child("metabolicAge").getValue(Double.class);
+//                            String meta = Double.toString(metaD);
+//                            metaAgeF.setText(meta);
+//                            Double muscleD = dataSnapshot.child("muscle").getValue(Double.class);
+//                            String muscle = Double.toString(muscleD);
+//                            muscleF.setText(muscle);
+//                            Double visceralD = dataSnapshot.child("visceralFat").getValue(Double.class);
+//                            String visceral = Double.toString(visceralD);
+//                            viceralF.setText(visceral);
+//                            Double waterD = dataSnapshot.child("water").getValue(Double.class);
+//                            String water = Double.toString(waterD);
+//                            waterF.setText(water);
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//                            Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+//                        }
+//                    });
+
         hideItem();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +157,7 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String todayDate = df.format(c);
 
-        double fatKg1 = (fatPercent/weight) * 100;
+        double fatKg1 = (fatPercent/100) * weight;
         String fatKgS = String.format("%.2f", fatKg1);
         double fatKg = Double.parseDouble(fatKgS);
 

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.example.nutritionclub.AccountActivity.EditBodyActivity"
+android:id="@+id/drawerLayout">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.nutritionclub.AccountActivity.EditBodyActivity">
+
+    <include layout="@layout/navigation_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </include>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="54dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="19dp"
+        android:paddingTop="60dp"
+        android:text="Water :" />
+
+    <EditText
+        android:id="@+id/eNameF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView17"
+        android:layout_alignBottom="@+id/textView17"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_toEndOf="@+id/textView17"
+        android:layout_toRightOf="@+id/textView17"
+        android:ems="10"
+        android:hint="Water %"
+        android:inputType="numberDecimal"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/eDateF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/eNameF"
+        android:layout_alignStart="@+id/eNameF"
+        android:layout_below="@+id/eNameF"
+        android:ems="10"
+        android:hint="Weight"
+        android:inputType="numberDecimal"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/eFromF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/eDateF"
+        android:layout_alignStart="@+id/eDateF"
+        android:layout_below="@+id/eDateF"
+        android:ems="10"
+        android:hint="Fat %"
+        android:inputType="numberDecimal"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fat% :"
+        android:layout_alignBaseline="@+id/eFromF"
+        android:layout_alignBottom="@+id/eFromF"
+        android:layout_alignRight="@+id/textView20"
+        android:layout_alignEnd="@+id/textView20" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/eDateF"
+        android:layout_alignBottom="@+id/eDateF"
+        android:layout_toLeftOf="@+id/eNameF"
+        android:layout_toStartOf="@+id/eNameF"
+        android:text="Weight :" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/vfatF"
+        android:layout_alignBottom="@+id/vfatF"
+        android:layout_alignEnd="@+id/textView19"
+        android:layout_alignRight="@+id/textView19"
+        android:text="Visceral Fat :" />
+
+    <EditText
+        android:id="@+id/vfatF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/eFromF"
+        android:layout_alignStart="@+id/eFromF"
+        android:layout_below="@+id/eFromF"
+        android:ems="10"
+        android:hint="Visceral Fat"
+        android:inputType="number"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/boneMassF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/vfatF"
+        android:layout_alignStart="@+id/vfatF"
+        android:layout_below="@+id/vfatF"
+        android:ems="10"
+        android:hint="Bone Mass"
+        android:inputType="numberDecimal"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView21"
+        android:layout_alignRight="@+id/textView21"
+        android:layout_below="@+id/vfatF"
+        android:layout_marginTop="11dp"
+        android:text="Bone Mass" />
+
+    <EditText
+        android:id="@+id/metaAgeF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/boneMassF"
+        android:layout_alignStart="@+id/boneMassF"
+        android:layout_below="@+id/boneMassF"
+        android:ems="10"
+        android:hint="Metabolic Age"
+        android:inputType="number"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Metabolic Age :"
+        android:layout_below="@+id/boneMassF"
+        android:layout_alignBottom="@+id/metaAgeF"
+        android:layout_alignRight="@+id/textView22"
+        android:layout_alignEnd="@+id/textView22"
+        android:layout_alignLeft="@+id/textView21"
+        android:layout_alignStart="@+id/textView21" />
+
+    <EditText
+        android:id="@+id/muscleF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/metaAgeF"
+        android:layout_alignStart="@+id/metaAgeF"
+        android:layout_below="@+id/metaAgeF"
+        android:ems="10"
+        android:hint="Muscle"
+        android:inputType="numberDecimal"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView23"
+        android:layout_alignRight="@+id/textView23"
+        android:layout_below="@+id/textView23"
+        android:layout_marginTop="11dp"
+        android:text="Muscle :" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:text="Save"
+        android:layout_below="@+id/muscleF"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
+
+<android.support.design.widget.NavigationView
+    android:id="@+id/nav_view"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    app:menu="@menu/navigation_menu"
+    android:layout_gravity="start"
+    app:headerLayout="@layout/navigation_header">
+</android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>
+
+
