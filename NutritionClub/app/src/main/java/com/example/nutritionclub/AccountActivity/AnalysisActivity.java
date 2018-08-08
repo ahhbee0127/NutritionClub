@@ -58,7 +58,7 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
         bmiV = (TextView) findViewById(R.id.bmiV);
         ageV = (TextView) findViewById(R.id.ageV);
         genderV = (TextView) findViewById(R.id.genderV);
-        visceralV = (TextView) findViewById(R.id.visceralFatV);
+        visceralV = (TextView) findViewById(R.id.visceralV);
         fatpercentV = (TextView) findViewById(R.id.fatPercentV);
         evaluation1 = (TextView) findViewById(R.id.evaluation1V);
         evaluation2 = (TextView) findViewById(R.id.evaluation2V);
@@ -95,6 +95,8 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
                         genderV.setText(gender);
                         String fatPercent1 = Double.toString(fatPercent);
                         fatpercentV.setText(fatPercent1);
+                        String visceral1 = Integer.toString(visceralFat);
+                        visceralV.setText(visceral1);
 
 //                        double fatPercent1 = fatPercent;
 //                        String fatPercent2 = Double.toString(fatPercent1);
@@ -113,35 +115,41 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
                                 }
                             }else if(gender.equals("Female")){
                                 if(fatPercent >=17 && fatPercent <= 24){
-                                    evaluation1.setText("You are currently in ideal body fat. Which is 17%-24% of fat percentage.");
+                                    evaluation1.setText("You are currently in IDEAL body fat. Which is 17%-24% of fat percentage.");
                                 }else if (fatPercent > 30){
                                     evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 17%-24%.");
                                 }else{
-                                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 17%-24%.");
+                                    evaluation1.setText("You are currently in NORMAL state. Your ideal body fat percent is 17%-24%.");
                                 }
                             }
                         }else if(age >= 30){
                             if(gender.equals("Male")){
                                 if(fatPercent >=17 && fatPercent <= 23){
-                                    evaluation1.setText("You are currently in ideal body fat. Which is 17%-23% of fat percentage.");
+                                    evaluation1.setText("You are currently in IDEAL body fat. Which is 17%-23% of fat percentage.");
                                 }else if (fatPercent > 25){
                                     evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 17%-23%.");
                                 }else{
-                                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 17%-23%.");
+                                    evaluation1.setText("You are currently in NORMAL state. Your ideal body fat percent is 17%-23%.");
                                 }
 
                             }else if(gender.equals("Female")){
                                 if(fatPercent >=20 && fatPercent <= 27){
-                                    evaluation1.setText("You are currently in ideal body fat. Which is 20%-27% of fat percentage.");
+                                    evaluation1.setText("You are currently in IDEAL body fat. Which is 20%-27% of fat percentage.");
                                 }else if (fatPercent > 30){
                                     evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 20%-27%.");
                                 }else{
-                                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 20%-27%.");
+                                    evaluation1.setText("You are currently in NORMAL state. Your ideal body fat percent is 20%-27%.");
                                 }
                             }
                         }
 
-
+                        if(visceralFat >= 1 && visceralFat <= 4){
+                            evaluation2.setText("Your visceral fat index is in HEALTHY range,whhich is between 1 - 4.");
+                        }else if(visceralFat > 4 && visceralFat <= 12 ){
+                            evaluation2.setText("Your visceral fat index is in UNHEALTHY range,ideal visceral fat range is 1 - 4.");
+                        }else{
+                            evaluation2.setText("Your visceral fat index is at HIGH RISK,please consult our coach for more information.Ideal visceral fat range is 1 - 4.");
+                        }
                     }
 
                     @Override
