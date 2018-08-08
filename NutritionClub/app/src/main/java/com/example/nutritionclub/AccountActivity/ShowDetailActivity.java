@@ -27,6 +27,8 @@ package com.example.nutritionclub.AccountActivity;
 public class ShowDetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     public static final String USER_ID = "userId";
+    public static final String GENDER = "gender";
+    public static final String AGE = "age";
     private TextView nameV;
     private TextView heightV;
     private TextView ageV;
@@ -125,8 +127,12 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
         bodyComButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //String age= getIntent().getStringExtra( ShowAllUserActivity.AGE);
+                String gender = getIntent().getStringExtra( ShowAllUserActivity.GENDER);
                 Intent intent = new Intent(getApplicationContext(),CoachShowAllBodyActivity.class);
                 intent.putExtra(USER_ID,userId);
+                //intent.putExtra(AGE,age);
+                intent.putExtra(GENDER,gender);
                 startActivity(intent);
                 finish();
             }

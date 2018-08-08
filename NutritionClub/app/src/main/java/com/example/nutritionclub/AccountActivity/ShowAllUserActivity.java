@@ -36,6 +36,8 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
 
     public static final String USER_NAME = "userName";
     public static final String USER_ID = "userId";
+    public  static int AGE ;
+    public static String GENDER = "gender";
     private DatabaseReference mDatabaseUsers;
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
@@ -88,12 +90,19 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
 
                 intent.putExtra(USER_ID,user.getUserId());
                 intent.putExtra(USER_NAME,user.getName());
+                //intent.putExtra(AGE,user.getAge());
+                AGE = user.getAge();
+                intent.putExtra(GENDER,user.getGender());
 
                 startActivity(intent);
             }
         });
 
 
+    }
+
+    public static int getAGE(){
+        return AGE;
     }
 
     @Override

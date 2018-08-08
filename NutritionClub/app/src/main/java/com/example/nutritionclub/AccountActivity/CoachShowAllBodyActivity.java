@@ -31,6 +31,10 @@ package com.example.nutritionclub.AccountActivity;
 public class CoachShowAllBodyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String BODY_ID = "bodyId";
+    public static final String AGE = "age";
+    public static final String GENDER = "gender";
+    public static double VISCERAL_FAT;
+    public static double FAT_PERCENT;
     public static  String USER_ID = "userId";
     private DatabaseReference mDatabaseBody;
     private DatabaseReference mDatabaseUsers;
@@ -99,14 +103,32 @@ public class CoachShowAllBodyActivity extends AppCompatActivity implements Navig
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 BodyComposition bodyComposition = bodyCompositionList.get(i);
 
+                //String age = getIntent().getStringExtra( ShowDetailActivity.AGE);
+                String gender = getIntent().getStringExtra( ShowDetailActivity.GENDER);
+
                 Intent intent = new Intent(getApplicationContext(),CoachShowBodyDetailActivity.class);
 
                 intent.putExtra(USER_ID,bodyComposition.getUserId());
                 intent.putExtra(BODY_ID,bodyComposition.getBodyId());
+                //intent.putExtra(AGE,age);
+                intent.putExtra(GENDER,gender);
+                //intent.putExtra(VISCERAL_FAT,bodyComposition.getVisceralFat());
+                //intent.putExtra(FAT_PERCENT,bodyComposition.getFatPercent());
+
+                VISCERAL_FAT = bodyComposition.getVisceralFat();
+                FAT_PERCENT = bodyComposition.getFatPercent();
 
                 startActivity(intent);
             }
         });
+    }
+
+    public static double getVisceralFat(){
+        return VISCERAL_FAT;
+    }
+
+    public static double getFatPercent(){
+        return FAT_PERCENT;
     }
 
     @Override

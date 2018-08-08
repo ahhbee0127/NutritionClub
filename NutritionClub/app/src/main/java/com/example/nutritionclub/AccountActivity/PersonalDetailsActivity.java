@@ -28,6 +28,7 @@ import java.util.Map;
 
 public class PersonalDetailsActivity extends AppCompatActivity {
 
+    public static double HEIGHT=0;
     private EditText nameF;
     private EditText ageF;
     private EditText heightF;
@@ -88,6 +89,8 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         double height = Double.parseDouble(heightS);
         String inviter = inviterF.getText().toString().trim();
         String contact = contactF.getText().toString().trim();
+
+        HEIGHT = height;
 
         String gender = genderSpinner.getSelectedItem().toString().trim();
         //GENDER = gender;

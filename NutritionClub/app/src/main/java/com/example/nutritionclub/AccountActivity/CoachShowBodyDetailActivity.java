@@ -28,6 +28,10 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
 
     public static String USER_ID1 = "userId";
     public static String BODY_ID1 = "bodyId";
+    public static String AGE = "age";
+    public static String GENDER = "gender";
+    public static final String VISCERAL_FAT = "visceralFat";
+    public static final String FAT_PERCENT = "fatPercent";
     private TextView dateV;
     private TextView weightV;
     private TextView fatPercentV;
@@ -89,7 +93,6 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//
 //        FirebaseUser authUser = auth.getCurrentUser();
 //        String userId = authUser.getUid();
 
@@ -174,9 +177,18 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
         switch (id){
 
             case R.id.analysis:
-                intent = new Intent(getApplicationContext(),AnalysisActivity.class);
+
+                //String age = getIntent().getStringExtra( CoachShowAllBodyActivity.AGE);
+                String gender = getIntent().getStringExtra( CoachShowAllBodyActivity.GENDER);
+                //String visceralFat = getIntent().getStringExtra( CoachShowAllBodyActivity.VISCERAL_FAT);
+                //String fatPercent = getIntent().getStringExtra( CoachShowAllBodyActivity.FAT_PERCENT);
+                intent = new Intent(getApplicationContext(),CoachAnalysisActivity.class);
 
                 intent.putExtra(BODY_ID1,bodyId);
+                intent.putExtra(GENDER,gender);
+                //intent.putExtra(AGE,age);
+                //intent.putExtra(VISCERAL_FAT,visceralFat);
+                //intent.putExtra(FAT_PERCENT,fatPercent);
                 startActivity(intent);
                 break;
         }

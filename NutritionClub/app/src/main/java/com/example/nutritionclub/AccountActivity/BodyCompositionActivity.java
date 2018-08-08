@@ -161,9 +161,8 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
         String fatKgS = String.format("%.2f", fatKg1);
         double fatKg = Double.parseDouble(fatKgS);
 
-        //double height = PersonalDetailsActivity.HEIGHT;
+        double height = ShowPersonalActivity.HEIGHT;
         //double bmi = weight/(height*height);
-       // double bmi = PersonalDetailsActivity.HEIGHT;
 
 
         String id = mDatabaseBody.push().getKey();
