@@ -25,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ShowPersonalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    public static double HEIGHT;
     private TextView nameV;
     private TextView heightV;
     private TextView ageV;
@@ -69,8 +68,6 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
 
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
-
-        //HEIGHT = PersonalDetailsActivity.HEIGHT;
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

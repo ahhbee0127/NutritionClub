@@ -1,6 +1,5 @@
 package com.example.nutritionclub.AccountActivity;
 
-        import android.app.DatePickerDialog;
         import android.content.Intent;
         import android.support.annotation.NonNull;
         import android.support.design.widget.NavigationView;
@@ -16,7 +15,6 @@ package com.example.nutritionclub.AccountActivity;
         import android.view.View;
         import android.widget.Button;
         import android.widget.CalendarView;
-        import android.widget.DatePicker;
         import android.widget.EditText;
         import android.widget.TimePicker;
         import android.widget.Toast;
@@ -32,10 +30,7 @@ package com.example.nutritionclub.AccountActivity;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
 
-        import java.text.SimpleDateFormat;
         import java.util.Calendar;
-        import java.util.Date;
-        import java.util.Locale;
 
 public class addEventActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -69,7 +64,7 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
         eDateF = (EditText) findViewById(R.id.eDateF);
         eFromF = (EditText) findViewById(R.id.eFromF);
         eToF = (EditText) findViewById(R.id.eToF);
-        eNameF = (EditText) findViewById(R.id.eNameF);
+        eNameF = (EditText) findViewById(R.id.heightF);
         eDescriptionf = (EditText) findViewById(R.id.eDescriptionF);
         saveButton = (Button) findViewById(R.id.saveButton);
         eCalendarView = (CalendarView) findViewById(R.id.eCalendarView);

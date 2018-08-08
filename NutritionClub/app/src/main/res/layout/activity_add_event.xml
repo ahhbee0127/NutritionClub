@@ -34,7 +34,7 @@
             android:text="Event Name :" />
 
         <EditText
-            android:id="@+id/eNameF"
+            android:id="@+id/heightF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/textView17"
@@ -52,9 +52,9 @@
             android:id="@+id/eDateF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/eNameF"
-            android:layout_alignStart="@+id/eNameF"
-            android:layout_below="@+id/eNameF"
+            android:layout_alignLeft="@+id/heightF"
+            android:layout_alignStart="@+id/heightF"
+            android:layout_below="@+id/heightF"
             android:ems="10"
             android:hint="Date"
             android:inputType="text"
@@ -89,8 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/eDateF"
             android:layout_alignBottom="@+id/eDateF"
-            android:layout_toLeftOf="@+id/eNameF"
-            android:layout_toStartOf="@+id/eNameF"
+            android:layout_toLeftOf="@+id/heightF"
+            android:layout_toStartOf="@+id/heightF"
             android:text="Date :" />
 
         <TextView

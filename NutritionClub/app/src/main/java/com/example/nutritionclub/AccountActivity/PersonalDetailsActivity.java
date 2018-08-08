@@ -28,7 +28,6 @@ import java.util.Map;
 
 public class PersonalDetailsActivity extends AppCompatActivity {
 
-    public static double HEIGHT=0;
     private EditText nameF;
     private EditText ageF;
     private EditText heightF;
@@ -66,14 +65,11 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveUserInfo();
-                startActivity(new Intent(PersonalDetailsActivity.this, ShowPersonalActivity.class));
-                finish();
             }
         });
 
     }
 
-    //public
 
     public void onButtonClick(View v) {
         saveUserInfo();
@@ -84,44 +80,50 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     protected void saveUserInfo() {
         String name = nameF.getText().toString().trim();
         String ageS = ageF.getText().toString().trim();
-        int age = Integer.parseInt(ageS);
         String heightS = heightF.getText().toString().trim();
-        double height = Double.parseDouble(heightS);
         String inviter = inviterF.getText().toString().trim();
         String contact = contactF.getText().toString().trim();
-
-        HEIGHT = height;
-
         String gender = genderSpinner.getSelectedItem().toString().trim();
-        //GENDER = gender;
-
         String branch = ncBranchF.getSelectedItem().toString().trim();
 
-        FirebaseUser authUser = auth.getCurrentUser();
-        String userId = authUser.getUid();
 
-        DatabaseReference userRef = mDatabaseUser.child(userId);
-        Map<String, Object> userUpdates = new HashMap<>();
-        userUpdates.put("name", name);
-        userUpdates.put("age", age);
-        userUpdates.put("contact", contact);
-        userUpdates.put("height", height);
-        userUpdates.put("inviter", inviter);
-        userUpdates.put("nutritionClub", branch);
-        userUpdates.put("gender", gender);
-        userUpdates.put("role", "client");
+        int age = Integer.parseInt(ageS);
+        double height = Double.parseDouble(heightS);
+
+        if(name.equals("") || ageS.equals("") || heightS.equals("") || inviter.equals("") || contact.equals("") || gender.equals("") || branch.equals("")){
+            Toast.makeText(this, "Please fill in all the field before proceed.", Toast.LENGTH_SHORT).show();
+            return;
+        }else {
+
+            FirebaseUser authUser = auth.getCurrentUser();
+            String userId = authUser.getUid();
+
+            DatabaseReference userRef = mDatabaseUser.child(userId);
+            Map<String, Object> userUpdates = new HashMap<>();
+            userUpdates.put("name", name);
+            userUpdates.put("age", age);
+            userUpdates.put("contact", contact);
+            userUpdates.put("height", height);
+            userUpdates.put("inviter", inviter);
+            userUpdates.put("nutritionClub", branch);
+            userUpdates.put("gender", gender);
+            userUpdates.put("role", "client");
 
 
-        userRef.updateChildren(userUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(PersonalDetailsActivity.this,"Stored..",Toast.LENGTH_LONG).show();
+            userRef.updateChildren(userUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(PersonalDetailsActivity.this, "Stored..", Toast.LENGTH_LONG).show();
 //                    appController.addUser(userInfo);;
-                }else{
-                    Toast.makeText(PersonalDetailsActivity.this,"Error..",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(PersonalDetailsActivity.this, "Error..", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
+
+            startActivity(new Intent(PersonalDetailsActivity.this, ShowPersonalActivity.class));
+            finish();
+        }
     }
 }

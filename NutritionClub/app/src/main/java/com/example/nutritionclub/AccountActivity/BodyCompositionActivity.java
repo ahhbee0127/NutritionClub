@@ -43,8 +43,9 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
     private FirebaseAuth auth;
 
     private EditText weightF;
-    private EditText waterF;
+    private EditText heightF;
     private EditText fatF;
+    private EditText waterF;
     private EditText viceralF;
     private EditText boneMassF;
     private EditText metaAgeF;
@@ -59,13 +60,14 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
         setContentView(R.layout.activity_body_composition);
 
         weightF = (EditText) findViewById(R.id.eDateF);
-        waterF = (EditText) findViewById(R.id.eNameF);
+        heightF = (EditText) findViewById(R.id.heightF);
         fatF = (EditText) findViewById(R.id.eFromF);
         viceralF = (EditText) findViewById(R.id.vfatF);
         boneMassF = (EditText) findViewById(R.id.boneMassF);
         metaAgeF = (EditText) findViewById(R.id.metaAgeF);
         muscleF = (EditText) findViewById(R.id.muscleF);
         saveButton = (Button) findViewById(R.id.saveButton);
+        waterF = (EditText) findViewById(R.id.waterF);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -129,58 +131,71 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
             @Override
             public void onClick(View v) {
                 saveBodyComposition();
-                startActivity(new Intent(BodyCompositionActivity.this, ShowAllBodyActivity.class));
-                finish();
             }
         });
     }
 
     protected void saveBodyComposition() {
         String waterS = waterF.getText().toString().trim();
-        double water = Double.parseDouble(waterS);
         String weightS = weightF.getText().toString().trim();
-        double weight = Double.parseDouble(weightS);
         String fatPercentS = fatF.getText().toString().trim();
-        double fatPercent = Double.parseDouble(fatPercentS);
         String visceralFatS = viceralF.getText().toString().trim();
-        int visceralFat = Integer.parseInt(visceralFatS);
         String boneMassS = boneMassF.getText().toString().trim();
-        double boneMass = Double.parseDouble(boneMassS);
         String metaS = metaAgeF.getText().toString().trim();
-        int metaAge = Integer.parseInt(metaS);
         String muscleS = muscleF.getText().toString().trim();
-        double muscle = Double.parseDouble(muscleS);
+        String heightS = heightF.getText().toString().trim();
 
-        Date c = Calendar.getInstance().getTime();
-        System.out.println("Current time => " + c);
+        //if(TextUtils.isEmpty(waterS) || TextUtils.isEmpty(weightS)) {
+        if(waterS.equals("") || weightS.equals("") || fatPercentS.equals("") || visceralFatS.equals("") || boneMassS.equals("") || metaS.equals("") || muscleS.equals("") || heightS.equals("")) {
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        String todayDate = df.format(c);
+            Toast.makeText(this, "Please fill in all the field before save.", Toast.LENGTH_SHORT).show();
+            return;
 
-        double fatKg1 = (fatPercent/100) * weight;
-        String fatKgS = String.format("%.2f", fatKg1);
-        double fatKg = Double.parseDouble(fatKgS);
+        }else {
 
-        double height = ShowPersonalActivity.HEIGHT;
-        //double bmi = weight/(height*height);
+            double water = Double.parseDouble(waterS);
+            double weight = Double.parseDouble(weightS);
+            double fatPercent = Double.parseDouble(fatPercentS);
+            int visceralFat = Integer.parseInt(visceralFatS);
+            double boneMass = Double.parseDouble(boneMassS);
+            int metaAge = Integer.parseInt(metaS);
+            double muscle = Double.parseDouble(muscleS);
+            double height = Double.parseDouble(heightS);
 
+            Date c = Calendar.getInstance().getTime();
+            System.out.println("Current time => " + c);
 
-        String id = mDatabaseBody.push().getKey();
-        FirebaseUser user = auth.getCurrentUser();
-        String userId = user.getUid();
+            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+            String todayDate = df.format(c);
 
-        final BodyComposition userBody = new BodyComposition(null,userId,id,todayDate,water,weight,fatPercent,visceralFat,boneMass,metaAge,muscle,fatKg);
+            double fatKg1 = (fatPercent/100) * weight;
+            String fatKgS = String.format("%.2f", fatKg1);
+            double fatKg = Double.parseDouble(fatKgS);
 
-        mDatabaseBody.child(id).setValue(userBody).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(BodyCompositionActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(BodyCompositionActivity.this,"Error..",Toast.LENGTH_LONG).show();
+            double bmi1 = weight/((height/100)*(height/100));
+            String bmiS = String.format("%.2f", bmi1);
+            double bmi = Double.parseDouble(bmiS);
+
+            String id = mDatabaseBody.push().getKey();
+            FirebaseUser user = auth.getCurrentUser();
+            String userId = user.getUid();
+
+            final BodyComposition userBody = new BodyComposition(null, userId, id, todayDate, water, weight, fatPercent, visceralFat, boneMass, metaAge, muscle, fatKg, bmi ,height);
+
+            mDatabaseBody.child(id).setValue(userBody).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(BodyCompositionActivity.this, "Stored..", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(BodyCompositionActivity.this, "Error..", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
+        }
+
+        startActivity(new Intent(BodyCompositionActivity.this, ShowAllBodyActivity.class));
+        finish();
     }
 
     @Override

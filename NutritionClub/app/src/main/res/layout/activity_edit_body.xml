@@ -29,10 +29,10 @@ android:id="@+id/drawerLayout">
         android:layout_marginStart="54dp"
         android:layout_marginTop="19dp"
         android:paddingTop="60dp"
-        android:text="Water :" />
+        android:text="Height :" />
 
     <EditText
-        android:id="@+id/eNameF"
+        android:id="@+id/heightF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView17"
@@ -42,7 +42,7 @@ android:id="@+id/drawerLayout">
         android:layout_toEndOf="@+id/textView17"
         android:layout_toRightOf="@+id/textView17"
         android:ems="10"
-        android:hint="Water %"
+        android:hint="Height"
         android:inputType="numberDecimal"
         android:textAlignment="center" />
 
@@ -50,9 +50,9 @@ android:id="@+id/drawerLayout">
         android:id="@+id/eDateF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/eNameF"
-        android:layout_alignStart="@+id/eNameF"
-        android:layout_below="@+id/eNameF"
+        android:layout_alignLeft="@+id/heightF"
+        android:layout_alignStart="@+id/heightF"
+        android:layout_below="@+id/heightF"
         android:ems="10"
         android:hint="Weight"
         android:inputType="numberDecimal"
@@ -86,8 +86,8 @@ android:id="@+id/drawerLayout">
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/eDateF"
         android:layout_alignBottom="@+id/eDateF"
-        android:layout_toLeftOf="@+id/eNameF"
-        android:layout_toStartOf="@+id/eNameF"
+        android:layout_toLeftOf="@+id/heightF"
+        android:layout_toStartOf="@+id/heightF"
         android:text="Weight :" />
 
     <TextView
@@ -184,10 +184,32 @@ android:id="@+id/drawerLayout">
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
         android:text="Save"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="87dp" />
+
+    <TextView
+        android:id="@+id/textView47"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView24"
+        android:layout_alignRight="@+id/textView24"
         android:layout_below="@+id/muscleF"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="17dp"
+        android:text="Water% :" />
+
+    <EditText
+        android:id="@+id/waterF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/muscleF"
+        android:layout_alignStart="@+id/muscleF"
+        android:layout_below="@+id/muscleF"
+        android:ems="10"
+        android:hint="Water %"
+        android:inputType="numberDecimal"
+        android:textAlignment="center" />
 
 </RelativeLayout>
 
@@ -201,5 +223,3 @@ android:id="@+id/drawerLayout">
 </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
-
-

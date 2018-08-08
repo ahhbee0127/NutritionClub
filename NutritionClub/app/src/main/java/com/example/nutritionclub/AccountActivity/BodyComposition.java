@@ -19,10 +19,11 @@ public class BodyComposition {
     double muscle;
     double fatkg;
     double bmi;
+    double height;
     String bodyId;
     String userId;
 
-    public BodyComposition(String comment, String userId,String bodyId,String todayDate, double water, double weight, double fatPercent, int visceralFat, double boneMass, int metabolicAge, double muscle, double fatkg) {
+    public BodyComposition(String comment, String userId,String bodyId,String todayDate, double water, double weight, double fatPercent, int visceralFat, double boneMass, int metabolicAge, double muscle, double fatkg, double bmi, double height) {
         this.comment = comment;
         this.bodyId = bodyId;
         this.todayDate = todayDate;
@@ -35,10 +36,16 @@ public class BodyComposition {
         this.muscle = muscle;
         this.fatkg = fatkg;
         this.userId = userId;
+        this.bmi = bmi;
+        this.height = height;
     }
 
     public String getComment() {
         return comment;
+    }
+
+    public double getHeight() {
+        return height;
     }
 
     public String getUserId() {
