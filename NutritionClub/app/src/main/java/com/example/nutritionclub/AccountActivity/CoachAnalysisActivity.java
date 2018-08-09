@@ -192,8 +192,13 @@ public class CoachAnalysisActivity extends AppCompatActivity implements Navigati
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(CoachAnalysisActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(CoachAnalysisActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(CoachAnalysisActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

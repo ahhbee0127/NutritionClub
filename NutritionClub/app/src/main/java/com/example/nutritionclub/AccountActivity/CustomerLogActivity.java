@@ -124,20 +124,25 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
 
         String date = getIntent().getStringExtra( LogCalenderActivity.DATE);
 
-        final Checkin checkinData = new Checkin(date,name,time);
+        if(name.equals("") || time.equals("")){
+            Toast.makeText(this, "Please fill in all the field before proceed.", Toast.LENGTH_SHORT).show();
+            return;
+        }else {
+            final Checkin checkinData = new Checkin(date, name, time);
 
-        String checkinId = mDatabaseCheckin.push().getKey();
+            String checkinId = mDatabaseCheckin.push().getKey();
 
-        mDatabaseCheckin.child(checkinId).setValue(checkinData).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(CustomerLogActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(CustomerLogActivity.this,"Error..",Toast.LENGTH_LONG).show();
+            mDatabaseCheckin.child(checkinId).setValue(checkinData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(CustomerLogActivity.this, "Stored..", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(CustomerLogActivity.this, "Error..", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
@@ -223,8 +228,13 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(CustomerLogActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(CustomerLogActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(CustomerLogActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +43,13 @@ public class LogCalenderActivity extends AppCompatActivity {
         myDate = (TextView) findViewById(R.id.myDate);
 
         mDatabaseCheckinDate = FirebaseDatabase.getInstance().getReference("Log Date");
+
+        Date c = java.util.Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        String todayDate = df.format(c);
+        myDate.setText(todayDate);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -89,25 +98,5 @@ public class LogCalenderActivity extends AppCompatActivity {
                 }
             }
         });
-//        Map<String, Object> checkinDateUpdates = new HashMap<>();
-//        checkinDateUpdates.put("name", name);
-//        checkinDateUpdates.put("age", age);
-//        userUpdates.put("contact", contact);
-//        userUpdates.put("height", height);
-//        userUpdates.put("inviter", inviter);
-//        userUpdates.put("nutritionClub", branch);
-//
-//
-//        userRef.updateChildren(userUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if(task.isSuccessful()){
-//                    Toast.makeText(PersonalDetailsActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-////                    appController.addUser(userInfo);;
-//                }else{
-//                    Toast.makeText(PersonalDetailsActivity.this,"Error..",Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
     }
 }

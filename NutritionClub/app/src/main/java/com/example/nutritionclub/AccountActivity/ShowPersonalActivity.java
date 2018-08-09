@@ -200,8 +200,13 @@ public class ShowPersonalActivity extends AppCompatActivity implements Navigatio
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(ShowPersonalActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(ShowPersonalActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(ShowPersonalActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

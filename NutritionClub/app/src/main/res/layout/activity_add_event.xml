@@ -55,10 +55,10 @@
             android:layout_alignLeft="@+id/heightF"
             android:layout_alignStart="@+id/heightF"
             android:layout_below="@+id/heightF"
+            android:clickable="true"
             android:ems="10"
             android:hint="Date"
-            android:inputType="text"
-            android:clickable="true"
+            android:inputType="date"
             android:textAlignment="center" />
 
         <EditText
@@ -70,7 +70,7 @@
             android:layout_below="@+id/eDateF"
             android:ems="10"
             android:hint="Start Time"
-            android:inputType="text"
+            android:inputType="time"
             android:textAlignment="center" />
 
         <TextView
@@ -131,7 +131,7 @@
             android:layout_below="@+id/eFromF"
             android:ems="10"
             android:hint="End Time"
-            android:inputType="text"
+            android:inputType="time"
             android:textAlignment="center" />
 
         <EditText
@@ -149,62 +149,6 @@
             android:minLines="6"
             android:scrollbars="vertical"
             android:textAlignment="center" />
-
-        <Button
-            android:id="@+id/dateDoneButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/saveButton"
-            android:layout_alignStart="@+id/saveButton"
-            android:layout_below="@+id/eCalendarView"
-            android:layout_marginTop="27dp"
-            android:text="Done"
-            android:visibility="invisible" />
-
-        <CalendarView
-            android:id="@+id/eCalendarView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:visibility="invisible" />
-
-        <TimePicker
-            android:id="@+id/timePicker1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/saveButton"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/timeDoneButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/dateDoneButton"
-            android:layout_alignStart="@+id/dateDoneButton"
-            android:layout_alignTop="@+id/dateDoneButton"
-            android:text="Done"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/timeDoneButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/dateDoneButton"
-            android:layout_centerHorizontal="true"
-            android:text="Done"
-            android:visibility="invisible" />
-
-        <TimePicker
-            android:id="@+id/timePicker2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/timePicker1"
-            android:visibility="invisible" />
 
     </RelativeLayout>
 

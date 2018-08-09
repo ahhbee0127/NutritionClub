@@ -46,7 +46,9 @@
 
     <array name="meal">
         <item>Breakfast</item>
+        <item>Snack</item>
         <item>Lunch</item>
+        <item>Tea Break</item>
         <item>Dinner</item>
         <item>Supper</item>
     </array>

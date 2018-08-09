@@ -1,9 +1,12 @@
 package com.example.nutritionclub.AccountActivity;
 
+        import android.content.Intent;
         import android.support.annotation.NonNull;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.util.Log;
+        import android.view.Menu;
+        import android.view.MenuItem;
         import android.view.View;
         import android.widget.Button;
         import android.widget.EditText;
@@ -21,12 +24,15 @@ package com.example.nutritionclub.AccountActivity;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
 
+        import java.security.PublicKey;
         import java.util.HashMap;
         import java.util.Map;
 
 public class CoachBodyCommentActivity extends AppCompatActivity{
 
 
+    public static String BODY_ID1;
+    public  static String USER_ID;
     private DatabaseReference mDatabaseBody;
     private DatabaseReference mDatabaseUser;
     private FirebaseAuth auth;
@@ -106,6 +112,44 @@ public class CoachBodyCommentActivity extends AppCompatActivity{
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.edit_delete_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        String bodyId = getIntent().getStringExtra( CoachShowBodyDetailActivity.BODY_ID1);
+        String userId = getIntent().getStringExtra( CoachShowBodyDetailActivity.USER_ID1);
+        Intent intent;
+
+        switch (id){
+
+            case R.id.edit:
+                intent = new Intent(getApplicationContext(),EditCommentActivity.class);
+
+                intent.putExtra(BODY_ID1,bodyId);
+                intent.putExtra(USER_ID,userId);
+                startActivity(intent);
+                break;
+
+            case R.id.delete:
+
+                bodyId = getIntent().getStringExtra( CoachShowBodyDetailActivity.BODY_ID1);
+
+                DatabaseReference bodyRef = mDatabaseBody.child(bodyId);
+
+                Map<String, Object> bodyUpdates = new HashMap<>();
+                bodyUpdates.put("comment", "");
+
+                intent = new Intent(getApplicationContext(),CoachShowBodyDetailActivity.class);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

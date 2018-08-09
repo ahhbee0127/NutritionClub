@@ -37,6 +37,7 @@ import java.util.Map;
 
 public class CoachShowDietActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+
     private TextView dateV;
     private TextView mealV;
     private TextView calV;
@@ -203,8 +204,13 @@ public class CoachShowDietActivity extends AppCompatActivity implements Navigati
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(CoachShowDietActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(CoachShowDietActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(CoachShowDietActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

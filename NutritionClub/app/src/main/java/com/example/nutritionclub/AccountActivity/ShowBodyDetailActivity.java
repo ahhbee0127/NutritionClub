@@ -268,9 +268,14 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
                 startActivity(new Intent(ShowBodyDetailActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
+//
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(ShowBodyDetailActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(ShowBodyDetailActivity.this, AnalysisActivity.class));
+            case R.id.nav_info:
+                startActivity(new Intent(ShowBodyDetailActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

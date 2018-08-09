@@ -52,8 +52,11 @@
         <activity android:name=".AccountActivity.CoachShowBodyDetailActivity" />
         <activity android:name=".AccountActivity.BodyCommentActivity" />
         <activity android:name=".AccountActivity.LogListActivity" />
-        <activity android:name=".AccountActivity.EditBodyActivity"></activity>
-        <activity android:name=".AccountActivity.CoachAnalysisActivity"></activity>
+        <activity android:name=".AccountActivity.EditBodyActivity" />
+        <activity android:name=".AccountActivity.CoachAnalysisActivity" />
+        <activity android:name=".AccountActivity.EditCommentActivity" />
+        <activity android:name=".AccountActivity.EditDietActivity" />
+        <activity android:name=".AccountActivity.InfoCornerActivity"></activity>
     </application>
 
 </manifest>

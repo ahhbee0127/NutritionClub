@@ -247,8 +247,13 @@ public class CoachShowBodyDetailActivity extends AppCompatActivity implements Na
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(CoachShowBodyDetailActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(CoachShowBodyDetailActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(CoachShowBodyDetailActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

@@ -23,10 +23,10 @@
         android:title="Diet Diary"
         android:icon="@mipmap/baseline_fastfood_black_18dp"></item>
 
-    <item
-        android:id="@+id/nav_analysis"
-        android:icon="@mipmap/baseline_bar_chart_black_18dp"
-        android:title="Analysis"></item>
+    <!--<item-->
+        <!--android:id="@+id/nav_analysis"-->
+        <!--android:icon="@mipmap/baseline_bar_chart_black_18dp"-->
+        <!--android:title="Analysis"></item>-->
 
     <item
         android:id="@+id/nav_showAllUser"
@@ -37,6 +37,10 @@
         android:id="@+id/nav_activityBoard"
         android:icon="@mipmap/baseline_motorcycle_black_18dp"
         android:title="Activity Board"></item>
+
+    <item android:id="@+id/nav_info"
+        android:title="Information Corner"
+        android:icon="@mipmap/baseline_chrome_reader_mode_black_18dp"></item>
 
     <item android:id="@+id/nav_account"
         android:title="Account Settings"

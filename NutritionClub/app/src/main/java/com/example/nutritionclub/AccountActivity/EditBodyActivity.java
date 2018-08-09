@@ -272,8 +272,13 @@ public class EditBodyActivity extends AppCompatActivity implements NavigationVie
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(EditBodyActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(EditBodyActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(EditBodyActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

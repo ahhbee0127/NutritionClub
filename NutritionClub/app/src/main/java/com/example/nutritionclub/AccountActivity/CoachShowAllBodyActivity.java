@@ -214,8 +214,13 @@ public class CoachShowAllBodyActivity extends AppCompatActivity implements Navig
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(CoachShowAllBodyActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(CoachShowAllBodyActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(CoachShowAllBodyActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

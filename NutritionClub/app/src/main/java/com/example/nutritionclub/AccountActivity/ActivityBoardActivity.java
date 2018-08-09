@@ -185,8 +185,13 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(ActivityBoardActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(ActivityBoardActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(ActivityBoardActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

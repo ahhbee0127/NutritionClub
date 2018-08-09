@@ -189,8 +189,13 @@ public class ShowAllLogActivity extends AppCompatActivity implements NavigationV
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(ShowAllLogActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(ShowAllLogActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(ShowAllLogActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

@@ -105,6 +105,10 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
         return AGE;
     }
 
+    public static String getUserId(){
+        return USER_ID;
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -188,8 +192,13 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(ShowAllUserActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(ShowAllUserActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(ShowAllUserActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

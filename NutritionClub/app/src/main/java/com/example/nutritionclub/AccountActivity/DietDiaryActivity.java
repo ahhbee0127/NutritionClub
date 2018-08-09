@@ -348,8 +348,13 @@ public class DietDiaryActivity extends AppCompatActivity implements NavigationVi
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(DietDiaryActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(DietDiaryActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(DietDiaryActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

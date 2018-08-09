@@ -259,8 +259,13 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(AnalysisActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(AnalysisActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(AnalysisActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

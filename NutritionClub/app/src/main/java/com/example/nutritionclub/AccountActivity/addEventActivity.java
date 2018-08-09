@@ -67,12 +67,12 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
         eNameF = (EditText) findViewById(R.id.heightF);
         eDescriptionf = (EditText) findViewById(R.id.eDescriptionF);
         saveButton = (Button) findViewById(R.id.saveButton);
-        eCalendarView = (CalendarView) findViewById(R.id.eCalendarView);
-        dateDoneButton = (Button) findViewById(R.id.dateDoneButton);
-        timeDoneButton1 = (Button) findViewById(R.id.timeDoneButton1);
-        timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
-        timeDoneButton2 = (Button) findViewById(R.id.timeDoneButton2);
-        timePicker2 = (TimePicker) findViewById(R.id.timePicker2);
+//        eCalendarView = (CalendarView) findViewById(R.id.eCalendarView);
+//        dateDoneButton = (Button) findViewById(R.id.dateDoneButton);
+//        timeDoneButton1 = (Button) findViewById(R.id.timeDoneButton1);
+//        timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
+//        timeDoneButton2 = (Button) findViewById(R.id.timeDoneButton2);
+//        timePicker2 = (TimePicker) findViewById(R.id.timePicker2);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -96,86 +96,11 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
 
         hideItem();
 
-//        eDateF.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                eCalendarView.setVisibility(View.VISIBLE);
-//                dateDoneButton.setVisibility(View.VISIBLE);
-//            }
-//        });
-//
-//        dateDoneButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                eDateF.setVisibility(View.GONE);
-//                dateDoneButton.setVisibility(View.GONE);
-//            }
-//        });
-//
-//        eCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-//            @Override
-//            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-//                String date = (i2 + 1) + "-" + i1 + "-" + i;
-//                eDateF.setText(date);
-//            }
-//        });
-//
-//
-//        eFromF.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                timePicker1.setVisibility(View.VISIBLE);
-//                timeDoneButton1.setVisibility(View.VISIBLE);
-//            }
-//        });
-//
-//        timeDoneButton1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                timePicker1.setVisibility(View.GONE);
-//                timeDoneButton1.setVisibility(View.GONE);
-//            }
-//        });
-//
-//        timePicker1.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-//            @Override
-//            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-//                String fromTime = (i1 + i + "");
-//                eDateF.setText(fromTime);
-//            }
-//        });
-//
-//        eToF.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                timePicker2.setVisibility(View.VISIBLE);
-//                timeDoneButton2.setVisibility(View.VISIBLE);
-//            }
-//        });
-//
-//        timeDoneButton2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                timePicker2.setVisibility(View.GONE);
-//                timeDoneButton2.setVisibility(View.GONE);
-//            }
-//        });
-//
-//        timePicker2.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-//            @Override
-//            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-//                String toTime = (i1 + i + "");
-//                eToF.setText(toTime);
-//            }
-//        });
-
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveEvent();
-                startActivity(new Intent(addEventActivity.this, ActivityBoardActivity.class));
-                finish();
             }
         });
     }
@@ -183,26 +108,36 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
     protected void saveEvent() {
         String date = eDateF.getText().toString().trim();
         String description = eDescriptionf.getText().toString().trim();
-        String time = eFromF.getText().toString().trim();
+        String toTime = eToF.getText().toString().trim();
+        String fromTime = eFromF.getText().toString().trim();
         String eventName = eNameF.getText().toString().trim();
 
 
-        String id = mDatabaseEvent.push().getKey();
+        if(description.equals("") || toTime.equals("") || fromTime.equals("") || eventName.equals("")){
+            Toast.makeText(this, "Please fill in all the field before save.", Toast.LENGTH_SHORT).show();
+            return;
+        }else {
+
+            String id = mDatabaseEvent.push().getKey();
 //        FirebaseUser user = auth.getCurrentUser();
 //        String userId = user.getUid();
 
-        final Event event = new Event(id,date,time,eventName,description);
+            final Event event = new Event(id, date, toTime, eventName, description);
 
-        mDatabaseEvent.child(id).setValue(event).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(addEventActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(addEventActivity.this,"Error..",Toast.LENGTH_LONG).show();
+            mDatabaseEvent.child(id).setValue(event).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(addEventActivity.this, "Stored..", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(addEventActivity.this, "Error..", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
+
+            startActivity(new Intent(addEventActivity.this, ActivityBoardActivity.class));
+            finish();
+        }
     }
 
     @Override
@@ -261,8 +196,13 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(addEventActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(addEventActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(addEventActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

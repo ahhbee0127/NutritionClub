@@ -162,8 +162,13 @@ public class ResetPasswordActivity extends AppCompatActivity implements Navigati
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(ResetPasswordActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(ResetPasswordActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(ResetPasswordActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

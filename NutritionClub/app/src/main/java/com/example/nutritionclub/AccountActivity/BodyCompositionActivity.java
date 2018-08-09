@@ -254,8 +254,13 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(BodyCompositionActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(BodyCompositionActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(BodyCompositionActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

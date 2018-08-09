@@ -1,42 +1,44 @@
 package com.example.nutritionclub.AccountActivity;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.net.Uri;
-import android.provider.ContactsContract;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.Toast;
+        import android.app.ProgressDialog;
+        import android.content.Intent;
+        import android.net.Uri;
+        import android.provider.ContactsContract;
+        import android.support.annotation.IdRes;
+        import android.support.annotation.NonNull;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.util.Log;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.ImageButton;
+        import android.widget.ImageView;
+        import android.widget.Spinner;
+        import android.widget.Toast;
 
-import com.example.nutritionclub.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
+        import com.example.nutritionclub.R;
+        import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.OnFailureListener;
+        import com.google.android.gms.tasks.OnSuccessListener;
+        import com.google.android.gms.tasks.Task;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
+        import com.google.firebase.database.DataSnapshot;
+        import com.google.firebase.database.DatabaseError;
+        import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
+        import com.google.firebase.database.ValueEventListener;
+        import com.google.firebase.storage.FirebaseStorage;
+        import com.google.firebase.storage.StorageReference;
+        import com.google.firebase.storage.UploadTask;
+        import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+        import java.text.SimpleDateFormat;
+        import java.util.Calendar;
+        import java.util.Date;
 
-import static android.R.drawable.ic_menu_mapmode;
-
-public class addDietDiaryActivity extends AppCompatActivity {
+public class EditDietActivity extends AppCompatActivity {
 
     private Spinner mealSpinner;
     private ImageButton imageButton;
@@ -49,6 +51,7 @@ public class addDietDiaryActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button saveButton;
     private String downloadLink;
+    public static final String TAG = "TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,27 @@ public class addDietDiaryActivity extends AppCompatActivity {
         mDatabaseDiet = FirebaseDatabase.getInstance().getReference().child("Diet Diary");
 
         auth = FirebaseAuth.getInstance();
+
+        String dietId = getIntent().getStringExtra(ShowDietActivity.DIET_ID);
+
+        mDatabaseDiet.child(dietId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String meal = dataSnapshot.child("meal").getValue(String.class);
+                        mealSpinner.equals(meal);
+
+                        String uri = dataSnapshot.child("image").getValue(String.class);
+                        Picasso.with(EditDietActivity.this).load(uri).fit().centerCrop().into(imageView);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                    }
+                });
+
+
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,13 +117,11 @@ public class addDietDiaryActivity extends AppCompatActivity {
 
         String meal = mealSpinner.getSelectedItem().toString().trim();
 
-        String imageTag = String.valueOf(imageView.getTag());
-
-        if (imageView.getDrawable() == null || imageTag == "default"){
+        if (imageView.getDrawable() == null){
             Toast.makeText(this, "Please upload at least one photo before save.", Toast.LENGTH_SHORT).show();
             return;
         }else{
-            String id = mDatabaseDiet.push().getKey();
+            String id = getIntent().getStringExtra(ShowDietActivity.DIET_ID);
             FirebaseUser user = auth.getCurrentUser();
             String userId = user.getUid();
 
@@ -109,14 +131,14 @@ public class addDietDiaryActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(addDietDiaryActivity.this,"Stored..",Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditDietActivity.this,"Stored..",Toast.LENGTH_LONG).show();
                     }else{
-                        Toast.makeText(addDietDiaryActivity.this,"Error..",Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditDietActivity.this,"Error..",Toast.LENGTH_LONG).show();
                     }
                 }
             });
 
-            startActivity(new Intent(addDietDiaryActivity.this, DietDiaryActivity.class));
+            startActivity(new Intent(EditDietActivity.this, DietDiaryActivity.class));
             finish();
         }
     }
@@ -134,13 +156,13 @@ public class addDietDiaryActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     downloadLink = downloadUrl.toString().trim();
-                    Picasso.with(addDietDiaryActivity.this).load(downloadUrl).fit().centerCrop().into(imageView);
-                    Toast.makeText(addDietDiaryActivity.this,"Uploaded",Toast.LENGTH_SHORT);
+                    Picasso.with(EditDietActivity.this).load(downloadUrl).fit().centerCrop().into(imageView);
+                    Toast.makeText(EditDietActivity.this,"Uploaded",Toast.LENGTH_SHORT);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(addDietDiaryActivity.this,"Not Uploaded",Toast.LENGTH_SHORT);
+                    Toast.makeText(EditDietActivity.this,"Not Uploaded",Toast.LENGTH_SHORT);
                 }
             });
         }

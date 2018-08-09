@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -121,8 +122,13 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(CalculateFatActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(CalculateFatActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(CalculateFatActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
 

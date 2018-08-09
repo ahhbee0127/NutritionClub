@@ -26,8 +26,12 @@ package com.example.nutritionclub.AccountActivity;
         import com.google.firebase.database.ValueEventListener;
         import com.squareup.picasso.Picasso;
 
+        import java.util.HashMap;
+        import java.util.Map;
+
 public class ShowDietActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static String DIET_ID;
     private TextView dateV;
     private TextView mealV;
     private TextView calV;
@@ -82,8 +86,6 @@ public class ShowDietActivity extends AppCompatActivity implements NavigationVie
                 });
 
 
-
-
         mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(currentUserId);
         dateV = (TextView) findViewById(R.id.dateV);
         mealV = (TextView) findViewById(R.id.mealV);
@@ -107,155 +109,160 @@ public class ShowDietActivity extends AppCompatActivity implements NavigationVie
 //        String userId = authUser.getUid();
 
 
-            String dietId = getIntent().getStringExtra(DietDiaryActivity.DIET_ID);
+        String dietId = getIntent().getStringExtra(DietDiaryActivity.DIET_ID);
 
-            mDatabaseDiet.child(dietId).addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            String date = dataSnapshot.child("date").getValue(String.class);
-                            dateV.setText(date);
-                            String meal = dataSnapshot.child("meal").getValue(String.class);
-                            mealV.setText(meal);
-                            String cal = dataSnapshot.child("calories").getValue(String.class);
-                            if(cal == null) {
-                                calV.setText("Waiting for Coach's feedback.");
-                            }else{
-                                calV.setText(cal);
-                            }
-
-                            String uri = dataSnapshot.child("image").getValue(String.class);
-                            Picasso.with(ShowDietActivity.this).load(uri).fit().centerCrop().into(imageView);
+        mDatabaseDiet.child(dietId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String date = dataSnapshot.child("date").getValue(String.class);
+                        dateV.setText(date);
+                        String meal = dataSnapshot.child("meal").getValue(String.class);
+                        mealV.setText(meal);
+                        String cal = dataSnapshot.child("calories").getValue(String.class);
+                        if (cal == null) {
+                            calV.setText("Waiting for Coach's feedback.");
+                        } else {
+                            calV.setText(cal);
                         }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            Log.w(TAG, "getUser:onCancelled", databaseError.toException());
-                        }
-                    });
-            hideItem();
+                        String uri = dataSnapshot.child("image").getValue(String.class);
+                        Picasso.with(ShowDietActivity.this).load(uri).fit().centerCrop().into(imageView);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                    }
+                });
+        hideItem();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        String dietId = getIntent().getStringExtra(DietDiaryActivity.DIET_ID);
+        Intent intent;
+
+        switch (id) {
+
+            case R.id.edit:
+                intent = new Intent(getApplicationContext(), EditDietActivity.class);
+
+                intent.putExtra(DIET_ID, dietId);
+                startActivity(intent);
+                break;
+
+            case R.id.delete:
+
+                mDatabaseDiet.child(dietId).getRef().removeValue();
+
+                intent = new Intent(getApplicationContext(), DietDiaryActivity.class);
+                finish();
         }
 
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-
-            if (mToggle.onOptionsItemSelected(item)) {
-                return true;
-            }
-
-            return super.onOptionsItemSelected(item);
-        }
-
-        @SuppressWarnings("StatementWithEmptyBody")
-        @Override
-        public boolean onNavigationItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            switch (id) {
-                case R.id.nav_account:
-                    startActivity(new Intent(ShowDietActivity.this, MainActivity.class));
-                    finish();
-                    break;
-
-                case R.id.nav_me:
-                    startActivity(new Intent(ShowDietActivity.this, ShowPersonalActivity.class));
-                    finish();
-                    break;
-
-                case R.id.nav_calFat:
-                    startActivity(new Intent(ShowDietActivity.this, CalculateFatActivity.class));
-                    finish();
-                    break;
-
-                case R.id.nav_showAllUser:
-                    startActivity(new Intent(ShowDietActivity.this, ShowAllUserActivity.class));
-                    finish();
-                    break;
-
-                case R.id.nav_bodyComposition:
-                    startActivity(new Intent(ShowDietActivity.this, ShowAllBodyActivity.class));
-                    finish();
-                    break;
-
-                case R.id.nav_diet:
-                    startActivity(new Intent(ShowDietActivity.this, DietDiaryActivity.class));
-                    finish();
-                    break;
-
-                case R.id.nav_activityBoard:
-                    startActivity(new Intent(ShowDietActivity.this, ActivityBoardActivity.class));
-                    finish();
-                    break;
-
-                case R.id.nav_customerLog:
-                    startActivity(new Intent(ShowDietActivity.this, ShowAllLogActivity.class));
-                    finish();
-                    break;
-
-                case R.id.nav_analysis:
-                    startActivity(new Intent(ShowDietActivity.this, AnalysisActivity.class));
-                    finish();
-                    break;
-            }
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
-            drawer.closeDrawer(GravityCompat.START);
+        if (mToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
-        private void hideItem() {
-
-            FirebaseUser authUser = auth.getCurrentUser();
-            String userId = authUser.getUid();
-
-            mDatabase.child(userId).addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            String role = dataSnapshot.child("role").getValue(String.class);
-                            navigationView = (NavigationView) findViewById(R.id.nav_view);
-                            Menu nav_Menu = navigationView.getMenu();
-
-                            if (role.equals("coach")) {
-                                nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
-                                nav_Menu.findItem(R.id.nav_diet).setVisible(false);
-                                nav_Menu.findItem(R.id.nav_bodyComposition).setVisible(false);
-                            } else if (role.equals("client")) {
-                                nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
-                                nav_Menu.findItem(R.id.nav_customerLog).setVisible(false);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            Log.w("getUser:onCancelled", databaseError.toException());
-                        }
-                    });
-        }
-
-//        private void getUser() {
-//            FirebaseUser authUser = auth.getCurrentUser();
-//            final String currentUserId = authUser.getUid();
-//
-//            mDatabase.child(currentUserId).addListenerForSingleValueEvent(
-//                    new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            String role = dataSnapshot.child("role").getValue(String.class);
-//                            navigationView = (NavigationView) findViewById(R.id.nav_view);
-//                            Menu nav_Menu = navigationView.getMenu();
-//
-//                            if (role.equals("coach")) {
-//                                wantedUserId = getIntent().getStringExtra(ShowAllUserActivity.USER_ID);
-//
-//                            } else if (role.equals("client")) {
-//                                wantedUserId = currentUserId;
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//                            Log.w("getUser:onCancelled", databaseError.toException());
-//                        }
-//                    });
-//        }
+        return super.onOptionsItemSelected(item);
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.nav_account:
+                startActivity(new Intent(ShowDietActivity.this, MainActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_me:
+                startActivity(new Intent(ShowDietActivity.this, ShowPersonalActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_calFat:
+                startActivity(new Intent(ShowDietActivity.this, CalculateFatActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_showAllUser:
+                startActivity(new Intent(ShowDietActivity.this, ShowAllUserActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_bodyComposition:
+                startActivity(new Intent(ShowDietActivity.this, ShowAllBodyActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_diet:
+                startActivity(new Intent(ShowDietActivity.this, DietDiaryActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_activityBoard:
+                startActivity(new Intent(ShowDietActivity.this, ActivityBoardActivity.class));
+                finish();
+                break;
+
+            case R.id.nav_customerLog:
+                startActivity(new Intent(ShowDietActivity.this, ShowAllLogActivity.class));
+                finish();
+                break;
+
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(ShowDietActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(ShowDietActivity.this, InfoCornerActivity.class));
+                finish();
+                break;
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void hideItem() {
+
+        FirebaseUser authUser = auth.getCurrentUser();
+        String userId = authUser.getUid();
+
+        mDatabase.child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String role = dataSnapshot.child("role").getValue(String.class);
+                        navigationView = (NavigationView) findViewById(R.id.nav_view);
+                        Menu nav_Menu = navigationView.getMenu();
+
+                        if (role.equals("coach")) {
+                            nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_diet).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_bodyComposition).setVisible(false);
+                        } else if (role.equals("client")) {
+                            nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_customerLog).setVisible(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("getUser:onCancelled", databaseError.toException());
+                    }
+                });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.edit_delete_menu, menu);
+        return true;
+    }
+
+}

@@ -338,8 +338,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(MainActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(MainActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+            case R.id.nav_info:
+                startActivity(new Intent(MainActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

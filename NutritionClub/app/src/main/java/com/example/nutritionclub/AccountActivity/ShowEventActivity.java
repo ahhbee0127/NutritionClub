@@ -166,9 +166,14 @@ public class ShowEventActivity extends AppCompatActivity implements NavigationVi
                 startActivity(new Intent(ShowEventActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
+//
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(ShowEventActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(ShowEventActivity.this, AnalysisActivity.class));
+            case R.id.nav_info:
+                startActivity(new Intent(ShowEventActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

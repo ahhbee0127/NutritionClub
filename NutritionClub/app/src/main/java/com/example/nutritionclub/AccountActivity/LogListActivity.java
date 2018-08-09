@@ -173,8 +173,13 @@ public class LogListActivity extends AppCompatActivity implements NavigationView
                 finish();
                 break;
 
-            case R.id.nav_analysis:
-                startActivity(new Intent(LogListActivity.this, AnalysisActivity.class));
+//            case R.id.nav_analysis:
+//                startActivity(new Intent(LogListActivity.this, AnalysisActivity.class));
+//                finish();
+//                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(LogListActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }
