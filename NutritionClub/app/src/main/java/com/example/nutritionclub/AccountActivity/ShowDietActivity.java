@@ -159,7 +159,9 @@ public class ShowDietActivity extends AppCompatActivity implements NavigationVie
                 mDatabaseDiet.child(dietId).getRef().removeValue();
 
                 intent = new Intent(getApplicationContext(), DietDiaryActivity.class);
+                startActivity(intent);
                 finish();
+                break;
         }
 
         if (mToggle.onOptionsItemSelected(item)) {

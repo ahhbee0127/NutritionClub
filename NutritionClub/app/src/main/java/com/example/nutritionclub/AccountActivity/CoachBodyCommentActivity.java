@@ -84,34 +84,42 @@ public class CoachBodyCommentActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 saveComment();
-                submitButton.setVisibility(View.GONE);
-                commentV.setVisibility(View.VISIBLE);
-                commentF.setVisibility(View.GONE);
             }
         });
     }
 
     protected void saveComment() {
         final String comment = commentF.getText().toString().trim();
-        String bodyId = getIntent().getStringExtra( CoachShowBodyDetailActivity.BODY_ID1);
-        DatabaseReference bodyRef = mDatabaseBody.child(bodyId);
 
-        Map<String, Object> bodyUpdates = new HashMap<>();
-        bodyUpdates.put("comment", comment);
+        if(comment.equals("")) {
+
+            Toast.makeText(this, "Please fill in comment before submit.", Toast.LENGTH_SHORT).show();
+            return;
+
+        }else {
+            String bodyId = getIntent().getStringExtra(CoachShowBodyDetailActivity.BODY_ID1);
+            DatabaseReference bodyRef = mDatabaseBody.child(bodyId);
+
+            Map<String, Object> bodyUpdates = new HashMap<>();
+            bodyUpdates.put("comment", comment);
 
 
-
-        bodyRef.updateChildren(bodyUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(CoachBodyCommentActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-                    commentV.setText(comment);
-                }else{
-                    Toast.makeText(CoachBodyCommentActivity.this,"Error..",Toast.LENGTH_LONG).show();
+            bodyRef.updateChildren(bodyUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(CoachBodyCommentActivity.this, "Stored..", Toast.LENGTH_LONG).show();
+                        commentV.setText(comment);
+                    } else {
+                        Toast.makeText(CoachBodyCommentActivity.this, "Error..", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
+        }
+
+        submitButton.setVisibility(View.GONE);
+        commentV.setVisibility(View.VISIBLE);
+        commentF.setVisibility(View.GONE);
     }
 
     @Override

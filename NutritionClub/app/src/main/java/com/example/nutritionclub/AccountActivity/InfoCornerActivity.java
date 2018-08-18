@@ -8,15 +8,27 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.nutritionclub.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class InfoCornerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
+    private DatabaseReference mDatabaseUsers;
     private ActionBarDrawerToggle mToggle;
+    private FirebaseAuth auth;
     private Toolbar mToolbar;
 
 
@@ -29,8 +41,12 @@ public class InfoCornerActivity extends AppCompatActivity implements NavigationV
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
 
+        mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");
+
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
+
+        auth = FirebaseAuth.getInstance();
 
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
@@ -41,6 +57,7 @@ public class InfoCornerActivity extends AppCompatActivity implements NavigationV
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        hideItem();
 
     }
 
@@ -114,5 +131,36 @@ public class InfoCornerActivity extends AppCompatActivity implements NavigationV
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void hideItem()
+    {
+
+        FirebaseUser authUser = auth.getCurrentUser();
+        String userId = authUser.getUid();
+
+        mDatabaseUsers.child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String role = dataSnapshot.child("role").getValue(String.class);
+                        navigationView = (NavigationView) findViewById(R.id.nav_view);
+                        Menu nav_Menu = navigationView.getMenu();
+
+                        if(role.equals("coach")){
+                            nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_diet).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_bodyComposition).setVisible(false);
+                        }else if(role.equals("client")){
+                            nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_customerLog).setVisible(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("getUser:onCancelled", databaseError.toException());
+                    }
+                });
     }
 }

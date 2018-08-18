@@ -37,6 +37,8 @@ package com.example.nutritionclub.AccountActivity;
         import java.text.SimpleDateFormat;
         import java.util.Calendar;
         import java.util.Date;
+        import java.util.HashMap;
+        import java.util.Map;
 
 public class EditDietActivity extends AppCompatActivity {
 
@@ -63,10 +65,13 @@ public class EditDietActivity extends AppCompatActivity {
         saveButton = (Button) findViewById(R.id.saveButton);
         imageView = (ImageView) findViewById(R.id.imageView2);
 
-        mStorage = FirebaseStorage.getInstance().getReference();
-        mDatabaseDiet = FirebaseDatabase.getInstance().getReference().child("Diet Diary");
-
         auth = FirebaseAuth.getInstance();
+        FirebaseUser authUser = auth.getCurrentUser();
+        final String currentUserId = authUser.getUid();
+
+        mStorage = FirebaseStorage.getInstance().getReference();
+        mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(currentUserId);
+
 
         String dietId = getIntent().getStringExtra(ShowDietActivity.DIET_ID);
 
@@ -74,8 +79,23 @@ public class EditDietActivity extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        int pos;
                         String meal = dataSnapshot.child("meal").getValue(String.class);
-                        mealSpinner.equals(meal);
+
+                        if(meal.equals("Breakfast")){
+                            pos = 0;
+                        }else if(meal.equals("Snack")){
+                            pos = 1;
+                        }else if(meal.equals("Lunch")){
+                            pos = 2;
+                        }else if(meal.equals("Tea Break")){
+                            pos = 3;
+                        }else if(meal.equals("Dinner")){
+                            pos = 4;
+                        }else{
+                            pos = 5;
+                        }
+                        mealSpinner.setSelection(pos);
 
                         String uri = dataSnapshot.child("image").getValue(String.class);
                         Picasso.with(EditDietActivity.this).load(uri).fit().centerCrop().into(imageView);
@@ -108,12 +128,6 @@ public class EditDietActivity extends AppCompatActivity {
     }
 
     private void storeValue(){
-        Date c = Calendar.getInstance().getTime();
-        System.out.println("Current time => " + c);
-
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        String todayDate = df.format(c);
-
 
         String meal = mealSpinner.getSelectedItem().toString().trim();
 
@@ -121,19 +135,24 @@ public class EditDietActivity extends AppCompatActivity {
             Toast.makeText(this, "Please upload at least one photo before save.", Toast.LENGTH_SHORT).show();
             return;
         }else{
-            String id = getIntent().getStringExtra(ShowDietActivity.DIET_ID);
-            FirebaseUser user = auth.getCurrentUser();
-            String userId = user.getUid();
 
-            final Diet diet = new Diet(id, downloadLink, meal, todayDate, null);
 
-            mDatabaseDiet.child(userId).child(id).setValue(diet).addOnCompleteListener(new OnCompleteListener<Void>() {
+            String dietId = getIntent().getStringExtra(ShowDietActivity.DIET_ID);
+
+            DatabaseReference dietRef = mDatabaseDiet.child(dietId);
+            Map<String, Object> dietUpdates = new HashMap<>();
+            dietUpdates.put("image", downloadLink);
+            dietUpdates.put("meal", meal);
+
+
+
+            dietRef.updateChildren(dietUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(EditDietActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(EditDietActivity.this,"Error..",Toast.LENGTH_LONG).show();
+                    if (task.isSuccessful()) {
+                        Toast.makeText(EditDietActivity.this, "Stored..", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(EditDietActivity.this, "Error..", Toast.LENGTH_LONG).show();
                     }
                 }
             });

@@ -9,14 +9,14 @@
     <item
         android:id="@+id/nav_customerLog"
         android:icon="@mipmap/baseline_playlist_add_black_18dp"
-        android:title="Customer Log"></item>
+        android:title="Visit Log"></item>
 
     <item android:id="@+id/nav_bodyComposition"
         android:title="Body Composition"
         android:icon="@mipmap/baseline_accessibility_new_black_18dp"></item>
 
     <item android:id="@+id/nav_calFat"
-        android:title="Calculate Fat"
+        android:title="Fat Calculator"
         android:icon="@mipmap/baseline_exposure_black_18dp"></item>
 
     <item android:id="@+id/nav_diet"
@@ -31,7 +31,7 @@
     <item
         android:id="@+id/nav_showAllUser"
         android:icon="@mipmap/baseline_supervised_user_circle_black_18dp"
-        android:title="Show All User"></item>
+        android:title="Show All Client"></item>
 
     <item
         android:id="@+id/nav_activityBoard"

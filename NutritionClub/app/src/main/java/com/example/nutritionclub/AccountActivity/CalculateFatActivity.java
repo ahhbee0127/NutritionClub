@@ -144,14 +144,24 @@ public class CalculateFatActivity extends AppCompatActivity implements Navigatio
         TextView viewResult = (TextView)findViewById(R.id.result);
         TextView viewOpps = (TextView)findViewById(R.id.opps);
 
-        double weight = Double.parseDouble(txtInWeight.getText().toString());
-        double percent = Double.parseDouble(txtInPercent.getText().toString());
+        String weightS = txtInWeight.getText().toString();
+        String percentS = txtInPercent.getText().toString();
 
-        double result = ( percent / 100 ) * weight;
+        if(weightS.equals("") || percentS.equals("")){
 
-        viewResult.setText(Double.toString(result) + " KG");
-        viewResult.setVisibility(View.VISIBLE);
-        viewOpps.setVisibility(View.VISIBLE);
+            Toast.makeText(this, "Please fill in all the figure for calculation.", Toast.LENGTH_SHORT).show();
+            return;
+
+        }else {
+            double weight = Double.parseDouble(weightS);
+            double percent = Double.parseDouble(percentS);
+
+            double result = (percent / 100) * weight;
+
+            viewResult.setText(Double.toString(result) + " KG");
+            viewResult.setVisibility(View.VISIBLE);
+            viewOpps.setVisibility(View.VISIBLE);
+        }
     }
 
     private void hideItem()

@@ -95,7 +95,7 @@ public class addDietDiaryActivity extends AppCompatActivity {
 
         String imageTag = String.valueOf(imageView.getTag());
 
-        if (imageView.getDrawable() == null || imageTag == "default"){
+        if (imageView.getDrawable() == null){
             Toast.makeText(this, "Please upload at least one photo before save.", Toast.LENGTH_SHORT).show();
             return;
         }else{
@@ -120,6 +120,17 @@ public class addDietDiaryActivity extends AppCompatActivity {
             finish();
         }
     }
+
+//    private boolean hasImage(@NonNull ImageView view) {
+//        Drawable drawable = view.getDrawable();
+//        boolean hasImage = (drawable != null);
+//
+//        if (hasImage && (drawable instanceof BitmapDrawable)) {
+//            hasImage = ((BitmapDrawable)drawable).getBitmap() != null;
+//        }
+//
+//        return hasImage;
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

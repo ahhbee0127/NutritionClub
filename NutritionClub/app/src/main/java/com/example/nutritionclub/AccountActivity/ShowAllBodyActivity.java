@@ -199,11 +199,6 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
                 finish();
                 break;
 
-//            case R.id.nav_analysis:
-//                startActivity(new Intent(ShowAllBodyActivity.this, AnalysisActivity.class));
-//                finish();
-//                break;
-
             case R.id.nav_info:
                 startActivity(new Intent(ShowAllBodyActivity.this, InfoCornerActivity.class));
                 finish();

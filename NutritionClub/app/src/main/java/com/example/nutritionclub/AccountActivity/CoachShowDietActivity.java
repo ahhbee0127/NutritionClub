@@ -121,9 +121,7 @@ public class CoachShowDietActivity extends AppCompatActivity implements Navigati
             @Override
             public void onClick(View view) {
                 saveData();
-                calV.setVisibility(View.VISIBLE);
-                calF.setVisibility(View.GONE);
-                submitButton.setVisibility(View.GONE);
+
             }
         });
         hideItem();
@@ -131,22 +129,32 @@ public class CoachShowDietActivity extends AppCompatActivity implements Navigati
 
     public void saveData(){
         final String cal = calF.getText().toString().trim();
-        Map<String, Object> dietUpdates = new HashMap<>();
-        dietUpdates.put("calories", cal);
+        if(cal.equals("")){
 
-        String dietId = getIntent().getStringExtra(DietDiaryActivity.DIET_ID);
+            Toast.makeText(this, "Please fill in calories before submit.", Toast.LENGTH_SHORT).show();
+            return;
 
-        mDatabaseDiet.child(dietId).updateChildren(dietUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(CoachShowDietActivity.this,"Stored..",Toast.LENGTH_LONG).show();
-                    calV.setText(cal);
-                }else{
-                    Toast.makeText(CoachShowDietActivity.this,"Error..",Toast.LENGTH_LONG).show();
+        }else {
+            Map<String, Object> dietUpdates = new HashMap<>();
+            dietUpdates.put("calories", cal);
+
+            String dietId = getIntent().getStringExtra(DietDiaryActivity.DIET_ID);
+
+            mDatabaseDiet.child(dietId).updateChildren(dietUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(CoachShowDietActivity.this, "Stored..", Toast.LENGTH_LONG).show();
+                        calV.setText(cal);
+                    } else {
+                        Toast.makeText(CoachShowDietActivity.this, "Error..", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
+        }
+        calV.setVisibility(View.VISIBLE);
+        calF.setVisibility(View.GONE);
+        submitButton.setVisibility(View.GONE);
     }
 
     @Override

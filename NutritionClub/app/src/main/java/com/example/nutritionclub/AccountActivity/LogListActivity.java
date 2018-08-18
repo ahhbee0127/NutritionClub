@@ -45,6 +45,7 @@ public class LogListActivity extends AppCompatActivity implements NavigationView
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
     private DatabaseReference mDatabaseCheckin;
+    private DatabaseReference mDatabaseLog;
     private DatabaseReference mDatabaseUser;
     private FirebaseAuth auth;
     private ListView logListView;
@@ -78,6 +79,7 @@ public class LogListActivity extends AppCompatActivity implements NavigationView
 
         dateV.setText(date);
         mDatabaseCheckin = FirebaseDatabase.getInstance().getReference("Customer Log").child(date);
+        mDatabaseLog = FirebaseDatabase.getInstance().getReference("Log Date").child(date);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -119,6 +121,22 @@ public class LogListActivity extends AppCompatActivity implements NavigationView
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        Intent intent;
+
+        switch (id){
+            case R.id.delete:
+
+                mDatabaseLog.getRef().removeValue();
+                mDatabaseCheckin.getRef().removeValue();
+
+                intent = new Intent(getApplicationContext(),ShowAllLogActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
 
         if(mToggle.onOptionsItemSelected(item)){
             return true;
@@ -217,6 +235,12 @@ public class LogListActivity extends AppCompatActivity implements NavigationView
                         Log.w("getUser:onCancelled", databaseError.toException());
                     }
                 });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.delete_menu,menu);
+        return true;
     }
 }
 

@@ -31,6 +31,14 @@ tools:context="com.example.nutritionclub.AccountActivity.InfoCornerActivity">
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="60dp"
+                android:text="Information Corner"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
