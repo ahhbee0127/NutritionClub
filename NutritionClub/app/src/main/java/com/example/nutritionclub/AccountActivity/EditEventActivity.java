@@ -32,7 +32,7 @@ package com.example.nutritionclub.AccountActivity;
 
         import java.util.Calendar;
 
-public class addEventActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class EditEventActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
@@ -54,6 +54,8 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
     private TimePicker timePicker1;
     private TimePicker timePicker2;
     private Button timeDoneButton2;
+    public static final String TAG = "TAG";
+
 
 
     @Override
@@ -67,12 +69,7 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
         eNameF = (EditText) findViewById(R.id.heightF);
         eDescriptionf = (EditText) findViewById(R.id.eDescriptionF);
         saveButton = (Button) findViewById(R.id.saveButton);
-//        eCalendarView = (CalendarView) findViewById(R.id.eCalendarView);
-//        dateDoneButton = (Button) findViewById(R.id.dateDoneButton);
-//        timeDoneButton1 = (Button) findViewById(R.id.timeDoneButton1);
-//        timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
-//        timeDoneButton2 = (Button) findViewById(R.id.timeDoneButton2);
-//        timePicker2 = (TimePicker) findViewById(R.id.timePicker2);
+
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -89,7 +86,28 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
         auth = FirebaseAuth.getInstance();
 
         mDatabaseEvent = FirebaseDatabase.getInstance().getReference("Events");
+        String eventId = getIntent().getStringExtra( ShowEventActivity.EVENT_ID);
 
+        mDatabaseEvent.child(eventId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String date = dataSnapshot.child("date").getValue(String.class);
+                        eDateF.setText(date);
+                        String name = dataSnapshot.child("eventName").getValue(String.class);
+                        eNameF.setText(name);
+                        String details = dataSnapshot.child("details").getValue(String.class);
+                        eDescriptionf.setText(details);
+                        String timeTo = dataSnapshot.child("timeTo").getValue(String.class);
+                        eToF.setText(timeTo);
+                        String timeFrom = dataSnapshot.child("timeFrom").getValue(String.class);
+                        eFromF.setText(timeFrom);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                    }
+                });
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -118,24 +136,22 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
             return;
         }else {
 
-            String id = mDatabaseEvent.push().getKey();
-//        FirebaseUser user = auth.getCurrentUser();
-//        String userId = user.getUid();
+            String eventId = getIntent().getStringExtra( ShowEventActivity.EVENT_ID);
 
-            final Event event = new Event(id, date, toTime, fromTime, eventName, description);
+            final Event event = new Event(eventId, date, toTime, fromTime, eventName, description);
 
-            mDatabaseEvent.child(id).setValue(event).addOnCompleteListener(new OnCompleteListener<Void>() {
+            mDatabaseEvent.child(eventId).setValue(event).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(addEventActivity.this, "Stored..", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditEventActivity.this, "Stored..", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(addEventActivity.this, "Error..", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditEventActivity.this, "Error..", Toast.LENGTH_LONG).show();
                     }
                 }
             });
 
-            startActivity(new Intent(addEventActivity.this, ActivityBoardActivity.class));
+            startActivity(new Intent(EditEventActivity.this, ActivityBoardActivity.class));
             finish();
         }
     }
@@ -157,42 +173,42 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
         switch (id)
         {
             case R.id.nav_account:
-                startActivity(new Intent(addEventActivity.this, MainActivity.class));
+                startActivity(new Intent(EditEventActivity.this, MainActivity.class));
                 finish();
                 break;
 
             case R.id.nav_me:
-                startActivity(new Intent(addEventActivity.this, ShowPersonalActivity.class));
+                startActivity(new Intent(EditEventActivity.this, ShowPersonalActivity.class));
                 finish();
                 break;
 
             case R.id.nav_calFat:
-                startActivity(new Intent(addEventActivity.this, CalculateFatActivity.class));
+                startActivity(new Intent(EditEventActivity.this, CalculateFatActivity.class));
                 finish();
                 break;
 
             case R.id.nav_showAllUser:
-                startActivity(new Intent(addEventActivity.this, ShowAllUserActivity.class));
+                startActivity(new Intent(EditEventActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(addEventActivity.this, ShowAllBodyActivity.class));
+                startActivity(new Intent(EditEventActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 
             case R.id.nav_diet:
-                startActivity(new Intent(addEventActivity.this, DietDiaryActivity.class));
+                startActivity(new Intent(EditEventActivity.this, DietDiaryActivity.class));
                 finish();
                 break;
 
             case R.id.nav_activityBoard:
-                startActivity(new Intent(addEventActivity.this, ActivityBoardActivity.class));
+                startActivity(new Intent(EditEventActivity.this, ActivityBoardActivity.class));
                 finish();
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(addEventActivity.this, ShowAllLogActivity.class));
+                startActivity(new Intent(EditEventActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 
@@ -202,7 +218,7 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
 //                break;
 
             case R.id.nav_info:
-                startActivity(new Intent(addEventActivity.this, InfoCornerActivity.class));
+                startActivity(new Intent(EditEventActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
         }

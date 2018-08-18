@@ -44,6 +44,11 @@
         <item>Male</item>
     </array>
 
+    <array name="role">
+        <item>client</item>
+        <item>coach</item>
+    </array>
+
     <array name="meal">
         <item>Breakfast</item>
         <item>Snack</item>

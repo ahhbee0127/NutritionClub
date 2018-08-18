@@ -56,7 +56,10 @@
         <activity android:name=".AccountActivity.CoachAnalysisActivity" />
         <activity android:name=".AccountActivity.EditCommentActivity" />
         <activity android:name=".AccountActivity.EditDietActivity" />
-        <activity android:name=".AccountActivity.InfoCornerActivity"></activity>
+        <activity android:name=".AccountActivity.InfoCornerActivity" />
+        <activity android:name=".AccountActivity.EditEventActivity"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".AccountActivity.ManageRoleActivity"></activity>
     </application>
 
 </manifest>

@@ -7,17 +7,19 @@ package com.example.nutritionclub.AccountActivity;
 public class Event {
 
     String date;
-    String time;
+    String timeTo;
+    String timeFrom;
     String eventName;
     String details;
     String eventId;
 
     public Event(){}
 
-    public Event(String eventId,String date, String time, String eventName, String details) {
+    public Event(String eventId,String date, String timeTo, String timeFrom, String eventName, String details) {
         this.eventId = eventId;
         this.date = date;
-        this.time = time;
+        this.timeTo = timeTo;
+        this.timeFrom = timeFrom;
         this.eventName = eventName;
         this.details = details;
     }
@@ -30,8 +32,12 @@ public class Event {
         return date;
     }
 
-    public String getTime() {
-        return time;
+    public String getTimeTo() {
+        return timeTo;
+    }
+
+    public String getTimeFrom() {
+        return timeFrom;
     }
 
     public String getEventName() {

@@ -1,10 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
         import android.content.Intent;
-        import android.opengl.ETC1;
-        import android.os.TestLooperManager;
-        import android.preference.PreferenceManager;
-        import android.support.annotation.NonNull;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
         import android.support.v4.widget.DrawerLayout;
@@ -15,16 +11,10 @@ package com.example.nutritionclub.AccountActivity;
         import android.util.Log;
         import android.view.Menu;
         import android.view.MenuItem;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.EditText;
         import android.widget.ImageView;
         import android.widget.TextView;
-        import android.widget.Toast;
 
         import com.example.nutritionclub.R;
-        import com.google.android.gms.tasks.OnCompleteListener;
-        import com.google.android.gms.tasks.Task;
         import com.google.firebase.auth.FirebaseAuth;
         import com.google.firebase.auth.FirebaseUser;
         import com.google.firebase.database.DataSnapshot;
@@ -32,16 +22,14 @@ package com.example.nutritionclub.AccountActivity;
         import com.google.firebase.database.DatabaseReference;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
-        import com.squareup.picasso.Picasso;
-
-        import java.util.HashMap;
-        import java.util.Map;
 
 public class ShowEventActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static String EVENT_ID;
     private TextView eNameV;
     private TextView eDateV;
-    private TextView eTimeV;
+    private TextView eFromV;
+    private TextView eToV;
     private TextView eDetailsV;
 
     NavigationView navigationView;
@@ -62,7 +50,9 @@ public class ShowEventActivity extends AppCompatActivity implements NavigationVi
 
         eNameV = (TextView) findViewById(R.id.eNameV);
         eDateV = (TextView) findViewById(R.id.eDateV);
-        eTimeV = (TextView) findViewById(R.id.eTimeV);
+        eFromV = (TextView) findViewById(R.id.eFromV);
+        eToV = (TextView) findViewById(R.id.eToV);
+
         eDetailsV = (TextView) findViewById(R.id.eDetailsV);
 
 
@@ -96,8 +86,10 @@ public class ShowEventActivity extends AppCompatActivity implements NavigationVi
                         eNameV.setText(name);
                         String date = dataSnapshot.child("date").getValue(String.class);
                         eDateV.setText(date);
-                        String time = dataSnapshot.child("time").getValue(String.class);
-                        eTimeV.setText(time);
+                        String timeFrom = dataSnapshot.child("timeFrom").getValue(String.class);
+                        eFromV.setText(timeFrom);
+                        String timeTo = dataSnapshot.child("timeTo").getValue(String.class);
+                        eToV.setText(timeTo);
                         String details = dataSnapshot.child("details").getValue(String.class);
                         eDetailsV.setText(details);
                         }
@@ -114,6 +106,29 @@ public class ShowEventActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        String eventId = getIntent().getStringExtra(ActivityBoardActivity.EVENT_ID);
+        Intent intent;
+
+        switch (id) {
+
+            case R.id.edit:
+                intent = new Intent(getApplicationContext(), EditEventActivity.class);
+
+                intent.putExtra(EVENT_ID, eventId);
+                startActivity(intent);
+                break;
+
+            case R.id.delete:
+
+                mDatabaseEvent.child(eventId).getRef().removeValue();
+
+                intent = new Intent(getApplicationContext(), ActivityBoardActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
 
         if (mToggle.onOptionsItemSelected(item)) {
             return true;
@@ -211,4 +226,11 @@ public class ShowEventActivity extends AppCompatActivity implements NavigationVi
                     }
                 });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.edit_delete_menu,menu);
+        return true;
+    }
+
 }

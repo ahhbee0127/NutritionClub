@@ -1,13 +1,16 @@
 package com.example.nutritionclub.AccountActivity;
 
         import android.content.Intent;
+        import android.os.Bundle;
+        import android.support.annotation.IntegerRes;
         import android.support.annotation.NonNull;
+        import android.support.design.widget.FloatingActionButton;
         import android.support.design.widget.NavigationView;
+        import android.support.design.widget.Snackbar;
         import android.support.v4.view.GravityCompat;
         import android.support.v4.widget.DrawerLayout;
         import android.support.v7.app.ActionBarDrawerToggle;
         import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
         import android.support.v7.widget.Toolbar;
         import android.util.Log;
         import android.view.Menu;
@@ -16,7 +19,8 @@ package com.example.nutritionclub.AccountActivity;
         import android.widget.Button;
         import android.widget.CalendarView;
         import android.widget.EditText;
-        import android.widget.TimePicker;
+        import android.widget.Spinner;
+        import android.widget.TextView;
         import android.widget.Toast;
 
         import com.example.nutritionclub.R;
@@ -30,49 +34,33 @@ package com.example.nutritionclub.AccountActivity;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
 
-        import java.util.Calendar;
+        import java.util.HashMap;
+        import java.util.Map;
 
-public class addEventActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class ManageRoleActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
-    private DatabaseReference mDatabaseEvent;
     private DatabaseReference mDatabaseUser;
     private FirebaseAuth auth;
-
-    private EditText eDateF;
-    private EditText eToF;
-    private EditText eFromF;
-    private EditText eDescriptionf;
-    private EditText eNameF;
-    private Button saveButton;
-    private Button dateDoneButton;
-    private Button timeDoneButton1;
-    private CalendarView eCalendarView;
-    private TimePicker timePicker1;
-    private TimePicker timePicker2;
-    private Button timeDoneButton2;
+    private TextView nameV;
+    private EditText adminCodeF;
+    private Spinner roleSpinner;
+    private Button doneButton;
+    public static final String TAG = "TAG";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_event);
+        setContentView(R.layout.activity_manage_role);
 
-        eDateF = (EditText) findViewById(R.id.eDateF);
-        eFromF = (EditText) findViewById(R.id.eFromF);
-        eToF = (EditText) findViewById(R.id.eToF);
-        eNameF = (EditText) findViewById(R.id.heightF);
-        eDescriptionf = (EditText) findViewById(R.id.eDescriptionF);
-        saveButton = (Button) findViewById(R.id.saveButton);
-//        eCalendarView = (CalendarView) findViewById(R.id.eCalendarView);
-//        dateDoneButton = (Button) findViewById(R.id.dateDoneButton);
-//        timeDoneButton1 = (Button) findViewById(R.id.timeDoneButton1);
-//        timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
-//        timeDoneButton2 = (Button) findViewById(R.id.timeDoneButton2);
-//        timePicker2 = (TimePicker) findViewById(R.id.timePicker2);
+        nameV = (TextView) findViewById(R.id.nameV);
+        adminCodeF = (EditText) findViewById(R.id.adminCodeV);
+        roleSpinner = (Spinner) findViewById(R.id.roleSpinner);
+        doneButton = (Button) findViewById(R.id.doneButton);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -80,62 +68,74 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users");
+
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
-
-        final Calendar myCalendar = Calendar.getInstance();
-
-        mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
-
-        mDatabaseEvent = FirebaseDatabase.getInstance().getReference("Events");
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        hideItem();
+        String userId = getIntent().getStringExtra( ShowAllUserActivity.USER_ID);
 
+        mDatabaseUser.child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String name = dataSnapshot.child("name").getValue(String.class);
+                        nameV.setText(name);
+                    }
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                    }
+                });
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                saveEvent();
+            public void onClick(View view) {
+                manageRole();
             }
         });
+
+        hideItem();
     }
 
-    protected void saveEvent() {
-        String date = eDateF.getText().toString().trim();
-        String description = eDescriptionf.getText().toString().trim();
-        String toTime = eToF.getText().toString().trim();
-        String fromTime = eFromF.getText().toString().trim();
-        String eventName = eNameF.getText().toString().trim();
+    public void manageRole() {
 
-
-        if(description.equals("") || toTime.equals("") || fromTime.equals("") || eventName.equals("")){
-            Toast.makeText(this, "Please fill in all the field before save.", Toast.LENGTH_SHORT).show();
+        String adminCode = adminCodeF.getText().toString().trim();
+        if (adminCode.equals("")) {
+            Toast.makeText(this, "Please fill in Admin Passcode to continue.", Toast.LENGTH_SHORT).show();
             return;
-        }else {
+        } else if (!adminCode.equals("123456")) {
+            Toast.makeText(this, "Wrong Passcode, please try again.", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (adminCode.equals("123456")) {
 
-            String id = mDatabaseEvent.push().getKey();
-//        FirebaseUser user = auth.getCurrentUser();
-//        String userId = user.getUid();
+            String role = roleSpinner.getSelectedItem().toString().trim();
 
-            final Event event = new Event(id, date, toTime, fromTime, eventName, description);
+            String userId = getIntent().getStringExtra(ShowAllUserActivity.USER_ID);
 
-            mDatabaseEvent.child(id).setValue(event).addOnCompleteListener(new OnCompleteListener<Void>() {
+            DatabaseReference userRef = mDatabaseUser.child(userId);
+            Map<String, Object> userUpdates = new HashMap<>();
+            userUpdates.put("role", role);
+
+            userRef.updateChildren(userUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(addEventActivity.this, "Stored..", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ManageRoleActivity.this, "Role Updated!", Toast.LENGTH_LONG).show();
+//                    appController.addUser(userInfo);;
                     } else {
-                        Toast.makeText(addEventActivity.this, "Error..", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ManageRoleActivity.this, "Error..", Toast.LENGTH_LONG).show();
                     }
                 }
             });
 
-            startActivity(new Intent(addEventActivity.this, ActivityBoardActivity.class));
+            startActivity(new Intent(ManageRoleActivity.this, ShowAllUserActivity.class));
             finish();
         }
     }
@@ -157,54 +157,55 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
         switch (id)
         {
             case R.id.nav_account:
-                startActivity(new Intent(addEventActivity.this, MainActivity.class));
+                startActivity(new Intent(ManageRoleActivity.this, MainActivity.class));
                 finish();
                 break;
 
             case R.id.nav_me:
-                startActivity(new Intent(addEventActivity.this, ShowPersonalActivity.class));
+                startActivity(new Intent(ManageRoleActivity.this, ShowPersonalActivity.class));
                 finish();
                 break;
 
             case R.id.nav_calFat:
-                startActivity(new Intent(addEventActivity.this, CalculateFatActivity.class));
+                startActivity(new Intent(ManageRoleActivity.this, CalculateFatActivity.class));
                 finish();
                 break;
 
             case R.id.nav_showAllUser:
-                startActivity(new Intent(addEventActivity.this, ShowAllUserActivity.class));
+                startActivity(new Intent(ManageRoleActivity.this, ShowAllUserActivity.class));
                 finish();
                 break;
 
             case R.id.nav_bodyComposition:
-                startActivity(new Intent(addEventActivity.this, ShowAllBodyActivity.class));
+                startActivity(new Intent(ManageRoleActivity.this, ShowAllBodyActivity.class));
                 finish();
                 break;
 
             case R.id.nav_diet:
-                startActivity(new Intent(addEventActivity.this, DietDiaryActivity.class));
+                startActivity(new Intent(ManageRoleActivity.this, DietDiaryActivity.class));
                 finish();
                 break;
 
             case R.id.nav_activityBoard:
-                startActivity(new Intent(addEventActivity.this, ActivityBoardActivity.class));
+                startActivity(new Intent(ManageRoleActivity.this, ActivityBoardActivity.class));
                 finish();
                 break;
 
             case R.id.nav_customerLog:
-                startActivity(new Intent(addEventActivity.this, ShowAllLogActivity.class));
+                startActivity(new Intent(ManageRoleActivity.this, ShowAllLogActivity.class));
                 finish();
                 break;
 
 //            case R.id.nav_analysis:
-//                startActivity(new Intent(addEventActivity.this, AnalysisActivity.class));
+//                startActivity(new Intent(CalculateFatActivity.this, AnalysisActivity.class));
 //                finish();
 //                break;
 
             case R.id.nav_info:
-                startActivity(new Intent(addEventActivity.this, InfoCornerActivity.class));
+                startActivity(new Intent(ManageRoleActivity.this, InfoCornerActivity.class));
                 finish();
                 break;
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);

@@ -61,17 +61,19 @@ android:id="@+id/drawerLayout">
         android:layout_alignRight="@+id/textView36"
         android:layout_below="@+id/textView36"
         android:layout_marginTop="24dp"
-        android:text="Time :" />
+        android:text="From :" />
 
     <TextView
         android:id="@+id/textView38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView37"
-        android:layout_alignRight="@+id/textView37"
-        android:layout_below="@+id/textView37"
-        android:layout_marginTop="23dp"
-        android:text="Description :" />
+        android:layout_marginTop="29dp"
+        android:text="Description :"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_below="@+id/textView48"
+        android:layout_alignLeft="@+id/textView35"
+        android:layout_alignStart="@+id/textView35" />
 
     <TextView
         android:id="@+id/eDateV"
@@ -79,22 +81,22 @@ android:id="@+id/drawerLayout">
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView36"
         android:layout_alignBottom="@+id/textView36"
-        android:layout_alignLeft="@+id/eTimeV"
-        android:layout_alignStart="@+id/eTimeV"
+        android:layout_alignLeft="@+id/eFromV"
+        android:layout_alignStart="@+id/eFromV"
         android:text="Date"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/eTimeV"
+        android:id="@+id/eFromV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView37"
         android:layout_alignBottom="@+id/textView37"
         android:layout_alignLeft="@+id/eNameV"
         android:layout_alignStart="@+id/eNameV"
-        android:text="Time"
+        android:text="From"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -118,12 +120,35 @@ android:id="@+id/drawerLayout">
         android:id="@+id/eDetailsV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/eTimeV"
+        android:layout_alignLeft="@+id/eFromV"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignStart="@+id/eTimeV"
+        android:layout_alignStart="@+id/eFromV"
         android:layout_alignTop="@+id/textView38"
         android:text="Description"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView48"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView37"
+        android:layout_alignRight="@+id/textView37"
+        android:layout_below="@+id/eFromV"
+        android:layout_marginTop="22dp"
+        android:text="To :" />
+
+    <TextView
+        android:id="@+id/eToV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView38"
+        android:layout_alignLeft="@+id/eFromV"
+        android:layout_alignStart="@+id/eFromV"
+        android:layout_toEndOf="@+id/textView34"
+        android:text="To"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold" />

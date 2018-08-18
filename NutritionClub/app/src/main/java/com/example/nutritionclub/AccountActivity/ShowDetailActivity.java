@@ -145,6 +145,20 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        int id = item.getItemId();
+        String userId = getIntent().getStringExtra( ShowAllUserActivity.USER_ID);
+        Intent intent;
+
+        switch (id){
+
+            case R.id.manage_role:
+                intent = new Intent(getApplicationContext(),ManageRoleActivity.class);
+
+                intent.putExtra(USER_ID,userId);
+                startActivity(intent);
+                break;
+        }
+
         if(mToggle.onOptionsItemSelected(item)){
             return true;
         }
@@ -242,6 +256,12 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
                         Log.w("getUser:onCancelled", databaseError.toException());
                     }
                 });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.manage_role_menu,menu);
+        return true;
     }
 }
 
