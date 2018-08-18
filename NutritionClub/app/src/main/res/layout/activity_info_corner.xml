@@ -15,27 +15,40 @@ tools:context="com.example.nutritionclub.AccountActivity.InfoCornerActivity">
     android:layout_height="match_parent"
     tools:context="com.example.nutritionclub.AccountActivity.InfoCornerActivity">
 
+    <TextView
+        android:id="@+id/textView62"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="60dp"
+        android:text="Information Corner"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <include
         layout="@layout/navigation_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></include>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="368dp"
         android:layout_height="551dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="8dp"
+        android:layout_below="@+id/textView62">
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="60dp"
-                android:text="Information Corner"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -43,7 +56,6 @@ tools:context="com.example.nutritionclub.AccountActivity.InfoCornerActivity">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="60dp"
                 android:text="Ideal Weight and Height Ratio Chart"
                 android:textAlignment="center"
                 android:textColor="@color/btn_logut_bg"
@@ -57,7 +69,7 @@ tools:context="com.example.nutritionclub.AccountActivity.InfoCornerActivity">
                 android:src="@drawable/ratio" />
 
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </RelativeLayout>
 
     <android.support.design.widget.NavigationView
