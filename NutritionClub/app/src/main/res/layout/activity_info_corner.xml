@@ -56,6 +56,75 @@ tools:context="com.example.nutritionclub.AccountActivity.InfoCornerActivity">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="What is NUTRITION?"
+                android:textAlignment="center"
+                android:textColor="@color/btn_logut_bg"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="Nutrition is the study of nutrients in food, how the body uses nutrients, and the relationship between diet, health, and disease."
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
+                android:text="What is VISCERAL FAT?"
+                android:textAlignment="center"
+                android:textColor="@color/btn_logut_bg"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="Visceral fat is stored in a person's abdominal cavity and is also known as 'active fat' as it influences how hormones function in the body."
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
+                android:text="Fast Fact on VISCERAL FAT"
+                android:textAlignment="center"
+                android:textColor="@color/btn_logut_bg"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="! Excess visceral fat can cause serious health problems.\n! Having some body fat is perfectly healthy and normal.\n! Exercising for a minimum of 30 minutes each day will help to burn visceral fat."
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
+                android:text="Ideal Body Fat Percentage Chart (Asian)"
+                android:textAlignment="center"
+                android:textColor="@color/btn_logut_bg"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/idealbodyfat" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
                 android:text="Ideal Weight and Height Ratio Chart"
                 android:textAlignment="center"
                 android:textColor="@color/btn_logut_bg"
@@ -65,6 +134,7 @@ tools:context="com.example.nutritionclub.AccountActivity.InfoCornerActivity">
 
             <ImageView
                 android:layout_width="match_parent"
+                android:paddingTop="10dp"
                 android:layout_height="800dp"
                 android:src="@drawable/ratio" />
 

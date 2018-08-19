@@ -1,6 +1,10 @@
 package com.example.nutritionclub.AccountActivity;
 
+        import android.app.DatePickerDialog;
+        import android.app.TimePickerDialog;
         import android.content.Intent;
+        import android.graphics.Color;
+        import android.graphics.drawable.ColorDrawable;
         import android.support.annotation.NonNull;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -12,6 +16,7 @@ package com.example.nutritionclub.AccountActivity;
         import android.util.Log;
         import android.view.Menu;
         import android.view.MenuItem;
+        import android.view.MotionEvent;
         import android.view.View;
         import android.widget.Button;
         import android.widget.CalendarView;
@@ -30,7 +35,12 @@ package com.example.nutritionclub.AccountActivity;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
 
+        import java.sql.Time;
+        import java.text.DateFormat;
         import java.util.Calendar;
+
+        import android.widget.DatePicker;
+
 
 public class addEventActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -48,12 +58,16 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
     private EditText eDescriptionf;
     private EditText eNameF;
     private Button saveButton;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private TimePickerDialog.OnTimeSetListener mTimeFromSetListener;
+    private TimePickerDialog.OnTimeSetListener mTimeToSetListener;
     private Button dateDoneButton;
     private Button timeDoneButton1;
-    private CalendarView eCalendarView;
     private TimePicker timePicker1;
     private TimePicker timePicker2;
     private Button timeDoneButton2;
+    public static final String TAG = "TAG";
+
 
 
     @Override
@@ -67,12 +81,139 @@ public class addEventActivity extends AppCompatActivity implements NavigationVie
         eNameF = (EditText) findViewById(R.id.heightF);
         eDescriptionf = (EditText) findViewById(R.id.eDescriptionF);
         saveButton = (Button) findViewById(R.id.saveButton);
-//        eCalendarView = (CalendarView) findViewById(R.id.eCalendarView);
-//        dateDoneButton = (Button) findViewById(R.id.dateDoneButton);
-//        timeDoneButton1 = (Button) findViewById(R.id.timeDoneButton1);
-//        timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
-//        timeDoneButton2 = (Button) findViewById(R.id.timeDoneButton2);
-//        timePicker2 = (TimePicker) findViewById(R.id.timePicker2);
+
+        eDateF.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus) {
+                    Calendar cal = Calendar.getInstance();
+                    int year = cal.get(Calendar.YEAR);
+                    int month = cal.get(Calendar.MONTH);
+                    int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                    DatePickerDialog dialog = new DatePickerDialog(
+                            addEventActivity.this,
+                            android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                            mDateSetListener,
+                            year, month, day);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
+                }
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+
+                String date = month + "/" + day + "/" + year;
+                eDateF.setText(date);
+            }
+        };
+
+        eFromF.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus) {
+                    Calendar cal = Calendar.getInstance();
+                    int hour = cal.get(Calendar.HOUR_OF_DAY);
+                    int minute = cal.get(Calendar.MINUTE);
+
+                    TimePickerDialog dialog = new TimePickerDialog(
+                            addEventActivity.this,
+                            mTimeFromSetListener,
+                            hour,minute, android.text.format.DateFormat.is24HourFormat(addEventActivity.this));
+                    dialog.getWindow();
+                    dialog.show();
+                }
+            }
+        });
+
+        mTimeFromSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                String AM_PM;
+
+                int hour1 = i;
+                int hour2;
+                int minutes1 = i1;
+
+                if(hour1 == 0){
+                    hour2 = 12;
+                    AM_PM = "AM";
+                }
+                else if(hour1 < 12) {
+                    hour2 = hour1;
+                    AM_PM = "AM";
+                }else if(hour1 == 12){
+                    hour2 = 12;
+                    AM_PM = "PM";
+                }
+                else {
+                    hour2 = hour1 - 12;
+                    AM_PM = "PM";
+                }
+
+                //Log.d(TAG, "onTimeSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+
+                String minutes = String.format("%02d",minutes1);
+                String timeFrom = hour2 + ":" + minutes + " " + AM_PM;
+                eFromF.setText(timeFrom);
+            }
+        };
+
+        eToF.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus) {
+                    Calendar cal = Calendar.getInstance();
+                    int hour = cal.get(Calendar.HOUR_OF_DAY);
+                    int minute = cal.get(Calendar.MINUTE);
+
+                    TimePickerDialog dialog = new TimePickerDialog(
+                            addEventActivity.this,
+                            mTimeToSetListener,
+                            hour,minute, android.text.format.DateFormat.is24HourFormat(addEventActivity.this));
+                    dialog.getWindow();
+                    dialog.show();
+                }
+            }
+        });
+
+        mTimeToSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                String AM_PM;
+
+                int hour1 = i;
+                int hour2;
+                int minutes1 = i1;
+
+                if(hour1 == 0){
+                    hour2 = 12;
+                    AM_PM = "AM";
+                }
+                else if(hour1 < 12) {
+                    hour2 = hour1;
+                    AM_PM = "AM";
+                }else if(hour1 == 12){
+                    hour2 = 12;
+                    AM_PM = "PM";
+                }
+                else {
+                    hour2 = hour1 - 12;
+                    AM_PM = "PM";
+                }
+
+                //Log.d(TAG, "onTimeSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+
+                String minutes = String.format("%02d",minutes1);
+                String timeTo = hour2 + ":" + minutes + " " + AM_PM;
+                eToF.setText(timeTo);
+            }
+        };
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
