@@ -53,12 +53,15 @@ public class EditDietActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button saveButton;
     private String downloadLink;
+    boolean photoChange;
     public static final String TAG = "TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_diet_diary);
+
+        photoChange = false;
 
         mealSpinner = (Spinner) findViewById(R.id.mealSpinner);
         uploadButton = (Button) findViewById(R.id.uploadButton);
@@ -73,6 +76,8 @@ public class EditDietActivity extends AppCompatActivity {
         mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(currentUserId);
 
         String dietId = getIntent().getStringExtra(ShowDietActivity.DIET_ID);
+
+
 
         mDatabaseDiet.child(dietId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -138,23 +143,41 @@ public class EditDietActivity extends AppCompatActivity {
 
             String dietId = getIntent().getStringExtra(ShowDietActivity.DIET_ID);
 
-            DatabaseReference dietRef = mDatabaseDiet.child(dietId);
-            Map<String, Object> dietUpdates = new HashMap<>();
-            dietUpdates.put("image", downloadLink);
-            dietUpdates.put("meal", meal);
+            if (photoChange == true) {
+                DatabaseReference dietRef = mDatabaseDiet.child(dietId);
+                Map<String, Object> dietUpdates = new HashMap<>();
+                dietUpdates.put("image", downloadLink);
+                dietUpdates.put("meal", meal);
 
 
-
-            dietRef.updateChildren(dietUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(EditDietActivity.this, "Stored..", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(EditDietActivity.this, "Error..", Toast.LENGTH_LONG).show();
+                dietRef.updateChildren(dietUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(EditDietActivity.this, "Stored..", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(EditDietActivity.this, "Error..", Toast.LENGTH_LONG).show();
+                        }
                     }
-                }
-            });
+                });
+
+            }else if(photoChange == false){
+                DatabaseReference dietRef = mDatabaseDiet.child(dietId);
+                Map<String, Object> dietUpdates = new HashMap<>();
+                dietUpdates.put("meal", meal);
+
+
+                dietRef.updateChildren(dietUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(EditDietActivity.this, "Stored..", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(EditDietActivity.this, "Error..", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
 
             ShowDietActivity.activity.finish();
             DietDiaryActivity.activity.finish();
@@ -168,6 +191,8 @@ public class EditDietActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == Gallery_intent && resultCode == RESULT_OK){
+
+            photoChange = true;
 
             Uri uri = data.getData();
             filepath = mStorage.child("Meal").child(uri.getLastPathSegment());

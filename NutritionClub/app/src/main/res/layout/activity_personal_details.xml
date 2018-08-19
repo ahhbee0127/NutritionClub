@@ -99,7 +99,7 @@
         android:layout_alignStart="@+id/heightF"
         android:ems="10"
         android:hint="HP Number"
-        android:inputType="textPersonName"
+        android:inputType="phone"
         android:textAlignment="center" />
 
     <EditText
