@@ -111,7 +111,7 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
                                 }else if (fatPercent > 25){
                                     evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 14%-20%.");
                                 }else{
-                                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 14%-20%.");
+                                    evaluation1.setText("You are currently in normal state. Try adjust to ideal body fat percent which is 14%-20%.");
                                 }
                             }else if(gender.equals("Female")){
                                 if(fatPercent >=17 && fatPercent <= 24){
@@ -119,7 +119,7 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
                                 }else if (fatPercent > 30){
                                     evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 17%-24%.");
                                 }else{
-                                    evaluation1.setText("You are currently in NORMAL state. Your ideal body fat percent is 17%-24%.");
+                                    evaluation1.setText("You are currently in NORMAL state. Try adjust to ideal body fat percent which is 17%-24%.");
                                 }
                             }
                         }else if(age >= 30){
@@ -129,7 +129,7 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
                                 }else if (fatPercent > 25){
                                     evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 17%-23%.");
                                 }else{
-                                    evaluation1.setText("You are currently in NORMAL state. Your ideal body fat percent is 17%-23%.");
+                                    evaluation1.setText("You are currently in NORMAL state. Try adjust to ideal body fat percent which is 17%-23%.");
                                 }
 
                             }else if(gender.equals("Female")){
@@ -138,7 +138,7 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
                                 }else if (fatPercent > 30){
                                     evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 20%-27%.");
                                 }else{
-                                    evaluation1.setText("You are currently in NORMAL state. Your ideal body fat percent is 20%-27%.");
+                                    evaluation1.setText("You are currently in NORMAL state. Try adjust to ideal body fat percent which is 20%-27%.");
                                 }
                             }
                         }
@@ -157,48 +157,6 @@ public class AnalysisActivity extends AppCompatActivity implements NavigationVie
                         Log.w("getUser:onCancelled", databaseError.toException());
                     }
                 });
-
-//
-//        if(age < 30){
-//            if(gender == "Male"){
-//                if(fatPercent >=14 && fatPercent <= 20){
-//                    evaluation1.setText("You are currently in ideal body fat. Which is 14%-20% of fat percentage.");
-//                }else if (fatPercent > 25){
-//                    evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 14%-20%.");
-//                }else{
-//                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 14%-20%.");
-//                }
-//            }else if(gender == "Female"){
-//                if(fatPercent >=17 && fatPercent <= 24){
-//                    evaluation1.setText("You are currently in ideal body fat. Which is 17%-24% of fat percentage.");
-//                }else if (fatPercent > 30){
-//                    evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 17%-24%.");
-//                }else{
-//                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 17%-24%.");
-//                }
-//            }
-//        }else if(age >= 30){
-//            if(gender == "Male"){
-//                if(fatPercent >=17 && fatPercent <= 23){
-//                    evaluation1.setText("You are currently in ideal body fat. Which is 17%-23% of fat percentage.");
-//                }else if (fatPercent > 25){
-//                    evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 17%-23%.");
-//                }else{
-//                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 17%-23%.");
-//                }
-//
-//            }else if(gender == "Female"){
-//                if(fatPercent >=20 && fatPercent <= 27){
-//                    evaluation1.setText("You are currently in ideal body fat. Which is 20%-27% of fat percentage.");
-//                }else if (fatPercent > 30){
-//                    evaluation1.setText("You are currently in OBESITY state. Your ideal body fat percent is 20%-27%.");
-//                }else{
-//                    evaluation1.setText("You are currently in normal state. Your ideal body fat percent is 20%-27%.");
-//                }
-//            }
-//        }
-
-
 
         hideItem();
     }

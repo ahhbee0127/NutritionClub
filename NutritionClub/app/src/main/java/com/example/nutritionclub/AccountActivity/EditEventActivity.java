@@ -74,6 +74,24 @@ public class EditEventActivity extends AppCompatActivity implements NavigationVi
         eDescriptionf = (EditText) findViewById(R.id.eDescriptionF);
         saveButton = (Button) findViewById(R.id.saveButton);
 
+        eDateF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        EditEventActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year, month, day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
         eDateF.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -105,6 +123,21 @@ public class EditEventActivity extends AppCompatActivity implements NavigationVi
             }
         };
 
+        eFromF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
+                int minute = cal.get(Calendar.MINUTE);
+
+                TimePickerDialog dialog = new TimePickerDialog(
+                        EditEventActivity.this,
+                        mTimeFromSetListener,
+                        hour,minute, android.text.format.DateFormat.is24HourFormat(EditEventActivity.this));
+                dialog.getWindow();
+                dialog.show();
+            }
+        });
         eFromF.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -155,6 +188,22 @@ public class EditEventActivity extends AppCompatActivity implements NavigationVi
                 eFromF.setText(timeFrom);
             }
         };
+
+        eToF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
+                int minute = cal.get(Calendar.MINUTE);
+
+                TimePickerDialog dialog = new TimePickerDialog(
+                        EditEventActivity.this,
+                        mTimeToSetListener,
+                        hour,minute, android.text.format.DateFormat.is24HourFormat(EditEventActivity.this));
+                dialog.getWindow();
+                dialog.show();
+            }
+        });
 
         eToF.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -288,6 +337,7 @@ public class EditEventActivity extends AppCompatActivity implements NavigationVi
                 }
             });
 
+            ActivityBoardActivity.activity.finish();
             startActivity(new Intent(EditEventActivity.this, ActivityBoardActivity.class));
             finish();
         }

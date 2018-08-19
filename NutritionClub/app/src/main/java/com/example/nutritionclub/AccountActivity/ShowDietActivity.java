@@ -1,5 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
+        import android.app.Activity;
         import android.content.Intent;
         import android.preference.PreferenceManager;
         import android.support.design.widget.NavigationView;
@@ -42,6 +43,8 @@ public class ShowDietActivity extends AppCompatActivity implements NavigationVie
     private Toolbar mToolbar;
     private ImageView imageView;
 
+    public static Activity activity;
+
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabaseDiet;
     private FirebaseAuth auth;
@@ -52,6 +55,7 @@ public class ShowDietActivity extends AppCompatActivity implements NavigationVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_diet);
 
+        activity = this;
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
 
         auth = FirebaseAuth.getInstance();
@@ -158,6 +162,7 @@ public class ShowDietActivity extends AppCompatActivity implements NavigationVie
 
                 mDatabaseDiet.child(dietId).getRef().removeValue();
 
+                DietDiaryActivity.activity.finish();
                 intent = new Intent(getApplicationContext(), DietDiaryActivity.class);
                 startActivity(intent);
                 finish();

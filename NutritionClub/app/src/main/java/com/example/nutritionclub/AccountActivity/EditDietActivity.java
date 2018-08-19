@@ -72,7 +72,6 @@ public class EditDietActivity extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance().getReference();
         mDatabaseDiet = FirebaseDatabase.getInstance().getReference("Diet Diary").child(currentUserId);
 
-
         String dietId = getIntent().getStringExtra(ShowDietActivity.DIET_ID);
 
         mDatabaseDiet.child(dietId).addListenerForSingleValueEvent(
@@ -118,6 +117,7 @@ public class EditDietActivity extends AppCompatActivity {
             }
         });
 
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,7 +135,6 @@ public class EditDietActivity extends AppCompatActivity {
             Toast.makeText(this, "Please upload at least one photo before save.", Toast.LENGTH_SHORT).show();
             return;
         }else{
-
 
             String dietId = getIntent().getStringExtra(ShowDietActivity.DIET_ID);
 
@@ -157,6 +156,8 @@ public class EditDietActivity extends AppCompatActivity {
                 }
             });
 
+            ShowDietActivity.activity.finish();
+            DietDiaryActivity.activity.finish();
             startActivity(new Intent(EditDietActivity.this, DietDiaryActivity.class));
             finish();
         }
@@ -167,6 +168,7 @@ public class EditDietActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == Gallery_intent && resultCode == RESULT_OK){
+
             Uri uri = data.getData();
             filepath = mStorage.child("Meal").child(uri.getLastPathSegment());
             //imageView.setImageURI(uri);

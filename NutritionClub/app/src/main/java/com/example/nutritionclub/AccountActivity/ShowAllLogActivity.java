@@ -1,5 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
+        import android.app.Activity;
         import android.content.Intent;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -39,6 +40,7 @@ public class ShowAllLogActivity extends AppCompatActivity implements NavigationV
     private Toolbar mToolbar;
     private FirebaseAuth auth;
     private Button addCheckinButton;
+    public static Activity activity;
 
     ListView listViewCheckinDate;
     List<CheckinDate> checkinDateList;
@@ -50,6 +52,8 @@ public class ShowAllLogActivity extends AppCompatActivity implements NavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all_log);
+
+        activity = this;
 
         addCheckinButton = (Button) findViewById(R.id.addCheckinButton);
 

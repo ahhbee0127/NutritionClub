@@ -1,5 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
@@ -43,6 +44,7 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
+    public static Activity activity;
     private FirebaseAuth auth;
 
     ListView listViewUser;
@@ -55,6 +57,8 @@ public class ShowAllUserActivity extends AppCompatActivity implements Navigation
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all_user);
+
+        activity = this;
 
         user = new User();
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference("Users");

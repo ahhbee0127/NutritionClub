@@ -1,5 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
@@ -41,6 +42,9 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
     private DatabaseReference mDatabaseUser;
     private FirebaseAuth auth;
     private Button addEventButton;
+    public static Activity activity;
+
+
 
     ListView listViewEvent;
     List<Event> eventList;
@@ -51,6 +55,8 @@ public class ActivityBoardActivity extends AppCompatActivity implements Navigati
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
+
+        activity = this;
 
         event = new Event();
 

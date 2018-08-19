@@ -1,5 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
+        import android.app.Activity;
         import android.content.Intent;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -44,6 +45,7 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
 
+    public static Activity activity;
     private DatabaseReference mDatabase;
     private FirebaseAuth auth;
     public static final String TAG = "TAG";
@@ -56,6 +58,7 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
 
+        activity = this;
         nameV = (TextView) findViewById(R.id.dateV);
         contactV = (TextView) findViewById(R.id.fatkgV);
         ageV = (TextView) findViewById(R.id.weightV);
@@ -120,7 +123,6 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
                 Intent intent = new Intent(getApplicationContext(),CoachShowAllDietActivity.class);
                 intent.putExtra(USER_ID,userId);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -134,7 +136,6 @@ public class ShowDetailActivity extends AppCompatActivity implements NavigationV
                 //intent.putExtra(AGE,age);
                 intent.putExtra(GENDER,gender);
                 startActivity(intent);
-                finish();
             }
         });
 

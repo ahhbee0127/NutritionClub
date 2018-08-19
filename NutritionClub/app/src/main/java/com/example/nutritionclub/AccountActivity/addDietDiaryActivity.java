@@ -105,6 +105,8 @@ public class addDietDiaryActivity extends AppCompatActivity {
 
             final Diet diet = new Diet(id, downloadLink, meal, todayDate, null);
 
+            Toast.makeText(this, "Uploading...", Toast.LENGTH_LONG).show();
+
             mDatabaseDiet.child(userId).child(id).setValue(diet).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -116,6 +118,7 @@ public class addDietDiaryActivity extends AppCompatActivity {
                 }
             });
 
+            DietDiaryActivity.activity.finish();
             startActivity(new Intent(addDietDiaryActivity.this, DietDiaryActivity.class));
             finish();
         }
@@ -137,6 +140,7 @@ public class addDietDiaryActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == Gallery_intent && resultCode == RESULT_OK){
+
             Uri uri = data.getData();
             filepath = mStorage.child("Meal").child(uri.getLastPathSegment());
             //imageView.setImageURI(uri);

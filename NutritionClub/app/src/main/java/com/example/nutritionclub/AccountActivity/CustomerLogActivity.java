@@ -1,5 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.nutritionclub.R;
@@ -52,6 +54,7 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
     private EditText timeF;
     private Button saveButton;
     private ListView clientLogListView;
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener;
     private Button doneButton;
     private TextView dateV;
 
@@ -72,6 +75,73 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
         clientLogListView = (ListView) findViewById(R.id.clientLogListView);
+
+        mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                String AM_PM;
+
+                int hour1 = i;
+                int hour2;
+                int minutes1 = i1;
+
+                if(hour1 == 0){
+                    hour2 = 12;
+                    AM_PM = "AM";
+                }
+                else if(hour1 < 12) {
+                    hour2 = hour1;
+                    AM_PM = "AM";
+                }else if(hour1 == 12){
+                    hour2 = 12;
+                    AM_PM = "PM";
+                }
+                else {
+                    hour2 = hour1 - 12;
+                    AM_PM = "PM";
+                }
+
+                //Log.d(TAG, "onTimeSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+
+                String minutes = String.format("%02d",minutes1);
+                String time = hour2 + ":" + minutes + " " + AM_PM;
+                timeF.setText(time);
+            }
+        };
+
+        timeF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
+                int minute = cal.get(Calendar.MINUTE);
+
+                TimePickerDialog dialog = new TimePickerDialog(
+                        CustomerLogActivity.this,
+                        mTimeSetListener,
+                        hour, minute, android.text.format.DateFormat.is24HourFormat(CustomerLogActivity.this));
+                dialog.getWindow();
+                dialog.show();
+            }
+        });
+
+        timeF.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus) {
+                    Calendar cal = Calendar.getInstance();
+                    int hour = cal.get(Calendar.HOUR_OF_DAY);
+                    int minute = cal.get(Calendar.MINUTE);
+
+                    TimePickerDialog dialog = new TimePickerDialog(
+                            CustomerLogActivity.this,
+                            mTimeSetListener,
+                            hour,minute, android.text.format.DateFormat.is24HourFormat(CustomerLogActivity.this));
+                    dialog.getWindow();
+                    dialog.show();
+                }
+            }
+        });
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -111,6 +181,7 @@ public class CustomerLogActivity extends AppCompatActivity implements Navigation
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ShowAllLogActivity.activity.finish();
                 startActivity(new Intent(CustomerLogActivity.this,ShowAllLogActivity.class));
                 finish();
             }

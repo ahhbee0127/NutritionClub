@@ -1,5 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
+        import android.app.Activity;
         import android.content.Intent;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -45,6 +46,8 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
     private FirebaseAuth auth;
     private Button addRecordButton;
 
+    public static Activity activity;
+
     ListView listViewBody;
     List<BodyComposition> bodyCompositionList;
     //ArrayAdapter<User> userAdapter;
@@ -55,6 +58,8 @@ public class ShowAllBodyActivity extends AppCompatActivity implements Navigation
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all_body);
+
+        activity = this;
 
         addRecordButton = (Button) findViewById(R.id.addRecordButton);
 

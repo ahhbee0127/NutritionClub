@@ -135,6 +135,8 @@ public class ManageRoleActivity extends AppCompatActivity implements NavigationV
                 }
             });
 
+            ShowDetailActivity.activity.finish();
+            ShowAllUserActivity.activity.finish();
             startActivity(new Intent(ManageRoleActivity.this, ShowAllUserActivity.class));
             finish();
         }

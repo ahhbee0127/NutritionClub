@@ -212,6 +212,8 @@ public class EditBodyActivity extends AppCompatActivity implements NavigationVie
             });
         }
 
+        ShowBodyDetailActivity.activity.finish();
+        ShowAllBodyActivity.activity.finish();
         startActivity(new Intent(EditBodyActivity.this, ShowAllBodyActivity.class));
         finish();
     }

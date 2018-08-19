@@ -132,6 +132,7 @@ public class LogListActivity extends AppCompatActivity implements NavigationView
                 mDatabaseLog.getRef().removeValue();
                 mDatabaseCheckin.getRef().removeValue();
 
+                ShowAllLogActivity.activity.finish();
                 intent = new Intent(getApplicationContext(),ShowAllLogActivity.class);
                 startActivity(intent);
                 finish();

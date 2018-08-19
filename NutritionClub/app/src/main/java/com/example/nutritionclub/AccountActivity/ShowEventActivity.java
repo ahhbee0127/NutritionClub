@@ -1,5 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
+        import android.app.Activity;
         import android.content.Intent;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -41,12 +42,16 @@ public class ShowEventActivity extends AppCompatActivity implements NavigationVi
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabaseEvent;
     private FirebaseAuth auth;
+
+    public static Activity activity;
     public static final String TAG = "TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_event);
+
+        activity = this;
 
         eNameV = (TextView) findViewById(R.id.eNameV);
         eDateV = (TextView) findViewById(R.id.eDateV);
@@ -124,6 +129,7 @@ public class ShowEventActivity extends AppCompatActivity implements NavigationVi
 
                 mDatabaseEvent.child(eventId).getRef().removeValue();
 
+                ActivityBoardActivity.activity.finish();
                 intent = new Intent(getApplicationContext(), ActivityBoardActivity.class);
                 startActivity(intent);
                 finish();
@@ -228,8 +234,29 @@ public class ShowEventActivity extends AppCompatActivity implements NavigationVi
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.edit_delete_menu,menu);
+    public boolean onCreateOptionsMenu(final Menu menu) {
+
+        FirebaseUser authUser = auth.getCurrentUser();
+        String userId = authUser.getUid();
+
+        mDatabase.child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String role = dataSnapshot.child("role").getValue(String.class);
+                        navigationView = (NavigationView) findViewById(R.id.nav_view);
+                        Menu nav_Menu = navigationView.getMenu();
+
+                        if (role.equals("coach")) {
+                            getMenuInflater().inflate(R.menu.edit_delete_menu, menu);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("getUser:onCancelled", databaseError.toException());
+                    }
+                });
         return true;
     }
 

@@ -158,6 +158,7 @@
 
 package com.example.nutritionclub.AccountActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -198,6 +199,7 @@ public class DietDiaryActivity extends AppCompatActivity implements NavigationVi
     private Toolbar mToolbar;
     private FirebaseAuth auth;
     private Button addDiaryButton;
+    public static Activity activity;
 
     ListView listViewDiet;
     List<Diet> dietList;
@@ -210,6 +212,7 @@ public class DietDiaryActivity extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet_diary);
 
+        activity = this;
         addDiaryButton = (Button) findViewById(R.id.addDiaryButton);
 
         diet = new Diet();

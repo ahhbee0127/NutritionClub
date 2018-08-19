@@ -194,6 +194,7 @@ public class BodyCompositionActivity extends AppCompatActivity implements Naviga
             });
         }
 
+        ShowAllBodyActivity.activity.finish();
         startActivity(new Intent(BodyCompositionActivity.this, ShowAllBodyActivity.class));
         finish();
     }

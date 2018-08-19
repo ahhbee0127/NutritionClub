@@ -1,5 +1,6 @@
 package com.example.nutritionclub.AccountActivity;
 
+        import android.app.Activity;
         import android.content.Intent;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -41,6 +42,8 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
     private TextView commentV;
     private Button commentButton;
 
+    public static Activity activity;
+
     NavigationView navigationView;
     NavigationView navigationOptionView;
     private DrawerLayout mDrawerLayout;
@@ -57,6 +60,8 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_body_detail);
+
+        activity = this;
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         String userId = getIntent().getStringExtra( ShowAllBodyActivity.USER_ID);
@@ -202,6 +207,7 @@ public class ShowBodyDetailActivity extends AppCompatActivity implements Navigat
 
                 getmDatabaseBody.child(bodyId).getRef().removeValue();
 
+                ShowAllBodyActivity.activity.finish();
                 intent = new Intent(getApplicationContext(),ShowAllBodyActivity.class);
                 startActivity(intent);
                 finish();
