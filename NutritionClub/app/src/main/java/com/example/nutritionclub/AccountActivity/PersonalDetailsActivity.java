@@ -87,13 +87,13 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         String branch = ncBranchF.getSelectedItem().toString().trim();
 
 
-        int age = Integer.parseInt(ageS);
-        double height = Double.parseDouble(heightS);
-
         if(name.equals("") || ageS.equals("") || heightS.equals("") || inviter.equals("") || contact.equals("") || gender.equals("") || branch.equals("")){
             Toast.makeText(this, "Please fill in all the field before proceed.", Toast.LENGTH_SHORT).show();
             return;
         }else {
+
+            int age = Integer.parseInt(ageS);
+            double height = Double.parseDouble(heightS);
 
             FirebaseUser authUser = auth.getCurrentUser();
             String userId = authUser.getUid();

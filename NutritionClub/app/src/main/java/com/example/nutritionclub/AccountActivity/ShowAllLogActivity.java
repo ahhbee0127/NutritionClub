@@ -163,6 +163,7 @@ public class ShowAllLogActivity extends AppCompatActivity implements NavigationV
                 break;
 
             case R.id.nav_calFat:
+
                 startActivity(new Intent(ShowAllLogActivity.this, CalculateFatActivity.class));
                 finish();
                 break;
