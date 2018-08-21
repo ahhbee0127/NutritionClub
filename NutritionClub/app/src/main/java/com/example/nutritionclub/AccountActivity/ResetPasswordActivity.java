@@ -31,14 +31,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ResetPasswordActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class ResetPasswordActivity extends AppCompatActivity{
 
     private EditText inputEmail;
     private Button btnReset, btnBack;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     NavigationView navigationView;
-    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
     private DatabaseReference mDatabaseUser;
@@ -52,19 +51,6 @@ public class ResetPasswordActivity extends AppCompatActivity implements Navigati
         btnReset = (Button) findViewById(R.id.btn_reset_password);
         btnBack = (Button) findViewById(R.id.btn_back);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
-
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
-
-        mToolbar = (Toolbar) findViewById(R.id.nav_action);
-        setSupportActionBar(mToolbar);
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         auth = FirebaseAuth.getInstance();
         mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users");
@@ -103,109 +89,5 @@ public class ResetPasswordActivity extends AppCompatActivity implements Navigati
                         });
             }
         });
-        hideItem();
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if(mToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item){
-        int id = item.getItemId();
-        switch (id)
-        {
-            case R.id.nav_account:
-                startActivity(new Intent(ResetPasswordActivity.this, MainActivity.class));
-                finish();
-                break;
-
-            case R.id.nav_me:
-                startActivity(new Intent(ResetPasswordActivity.this, ShowPersonalActivity.class));
-                finish();
-                break;
-
-            case R.id.nav_calFat:
-                startActivity(new Intent(ResetPasswordActivity.this, CalculateFatActivity.class));
-                finish();
-                break;
-
-            case R.id.nav_showAllUser:
-                startActivity(new Intent(ResetPasswordActivity.this, ShowAllUserActivity.class));
-                finish();
-                break;
-
-            case R.id.nav_bodyComposition:
-                startActivity(new Intent(ResetPasswordActivity.this, ShowAllBodyActivity.class));
-                finish();
-                break;
-
-            case R.id.nav_diet:
-                startActivity(new Intent(ResetPasswordActivity.this, DietDiaryActivity.class));
-                finish();
-                break;
-
-            case R.id.nav_activityBoard:
-                startActivity(new Intent(ResetPasswordActivity.this, ActivityBoardActivity.class));
-                finish();
-                break;
-
-            case R.id.nav_customerLog:
-                startActivity(new Intent(ResetPasswordActivity.this, ShowAllLogActivity.class));
-                finish();
-                break;
-
-//            case R.id.nav_analysis:
-//                startActivity(new Intent(ResetPasswordActivity.this, AnalysisActivity.class));
-//                finish();
-//                break;
-
-            case R.id.nav_info:
-                startActivity(new Intent(ResetPasswordActivity.this, InfoCornerActivity.class));
-                finish();
-                break;
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    private void hideItem()
-    {
-
-        FirebaseUser authUser = auth.getCurrentUser();
-        String userId = authUser.getUid();
-
-        mDatabaseUser.child(userId).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String role = dataSnapshot.child("role").getValue(String.class);
-                        navigationView = (NavigationView) findViewById(R.id.nav_view);
-                        Menu nav_Menu = navigationView.getMenu();
-
-                        if(role.equals("coach")){
-                            nav_Menu.findItem(R.id.nav_calFat).setVisible(false);
-                            nav_Menu.findItem(R.id.nav_diet).setVisible(false);
-                            nav_Menu.findItem(R.id.nav_bodyComposition).setVisible(false);
-                        }else if(role.equals("client")){
-                            nav_Menu.findItem(R.id.nav_showAllUser).setVisible(false);
-                            nav_Menu.findItem(R.id.nav_customerLog).setVisible(false);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w("getUser:onCancelled", databaseError.toException());
-                    }
-                });
-    }
-
 }
